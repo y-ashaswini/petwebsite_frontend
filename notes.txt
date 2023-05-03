@@ -1,0 +1,33 @@
+store information in your own file and see how it works
+THEN add it to db and get it from there
+
+add routing
+make the rest of the pages
+sit and watch the supabase video https://www.youtube.com/watch?v=_U0c4G5TCWQ
+
+
+post
+    id -- auto increment
+    url (slug) -- string
+    author_id - unique - foreign key - references user thorugh id -- unsigned int
+    title -- string
+    excerpt (quick brief summary) -- text
+    content -- long text
+    status -- integer
+    type -- integer
+    comment count -- big integer
+
+    created at -- date time
+    updated at -- date time
+    published at -- date time
+
+
+
+user
+    all -> edit for each -> based on id
+    create user
+
+
+
+yashaswinishivathaya@gmail.com
+helloworld123

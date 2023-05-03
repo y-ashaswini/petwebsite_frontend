@@ -3,14 +3,17 @@ import { useState } from "react";
 export default function Post() {
   const commentClassArr = ["inline-block", "hidden"];
   const [showComment, setShowComment] = useState(0);
-  
+  const [comment, setComment] = useState("");
+
   function handleComment() {
     // console.log("Commmenting");
+
     setShowComment((curr) => !curr + 0);
   }
 
-  function handleCommentSubmit() {
-    console.log("Commmenting");
+  function handleCommentSubmit(e) {
+    e.preventDefault();
+    console.log("comment: ", comment);
   }
   return (
     <div className="bg-white text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5">
@@ -27,11 +30,11 @@ export default function Post() {
         <span className="rounded-sm p-1 bg-slate-200 m-1">#adorable</span>
       </span>
       {/* Heading */}
-      <span className="md:text-2xl text-xl text-slate-700 font-bold py-2">
+      <span className="md:text-2xl sm:text-xl text-lg text-slate-700 font-bold py-2">
         Bulldogs are the cutest, change my mind.
       </span>
       {/* Content */}
-      <span>
+      <span className="sm:text-md text-sm">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
         fringilla neque ac pharetra porta. Nunc nec efficitur quam. Suspendisse
         sed posuere dolor, et pulvinar lorem.
@@ -86,11 +89,14 @@ export default function Post() {
           <input
             type="text"
             placeholder="Type your comment here"
-            className="outline-none flex-1 bg-transparent"
+            className="outline-none flex-1 bg-transparent w-12 sm:w-auto"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
           <button
             type="submit"
-            className="text-slate-600 font-bold hover:bg-slate-100 "
+            className="text-slate-600 font-bold hover:bg-slate-100 p-1"
+            onClick={(e) => handleCommentSubmit(e)}
           >
             Comment
           </button>

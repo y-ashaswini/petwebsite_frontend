@@ -6,7 +6,7 @@ export default function LoginButton() {
     !isAuthenticated && (
       <span
         onClick={() => loginWithRedirect()}
-        className="cursor-pointer flex items-center bg-slate-100 rounded-lg px-3 py-1"
+        className="cursor-pointer flex items-center bg-slate-100 rounded-lg px-2 py-1"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

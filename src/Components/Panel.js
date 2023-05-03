@@ -7,16 +7,14 @@ export default function Panel() {
   return (
     <div className="flex flex-col md:flex-wrap gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10">
       <div className="bg-white p-8 flex flex-wrap items-center">
-        <span className="text-slate-700 font-bold">r/bulldogsforlife</span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold">
-          COMMUNITY
-        </span>
+        <span className="text-slate-700 font-bold mr-1">r/bulldogsforlife</span>
+        <span className="rounded-sm p-1 bg-slate-200 font-bold">COMMUNITY</span>
         <span className="text-sm block py-4 italic">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
           fringilla neque ac pharetra porta. Nunc nec efficitur quam.
           Suspendisse sed posuere dolor, et pulvinar lorem.
         </span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold block w-fit">
+        <span className="rounded-sm p-1 bg-slate-200 mr-2 font-bold block w-fit">
           STATS
         </span>
 
@@ -34,7 +32,7 @@ export default function Panel() {
         </ul>
         <Link to="./createpost">
           <div
-            className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-lg mt-8 cursor-pointer mx-auto"
+            className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-md mt-8 cursor-pointer border-2 border-slate-600"
             onClick={handleCreatePost}
           >
             CREATE POST
@@ -42,7 +40,7 @@ export default function Panel() {
         </Link>
       </div>
       <div className=" bg-slate-300 rounded-md p-8">
-        <span className="rounded-sm p-1 bg-white m-1 font-bold">
+        <span className="rounded-sm py-1 px-2 bg-white mr-1 font-bold flex items-center w-fit cursor-pointer hover:text-slate-700">
           SIMILAR TO THESE
           <svg
             xmlns="http://www.w3.org/2000/svg"
