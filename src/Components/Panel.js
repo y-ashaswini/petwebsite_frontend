@@ -32,7 +32,7 @@ export default function Panel() {
         </ul>
         <Link to="./createpost">
           <div
-            className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-md mt-8 cursor-pointer border-2 border-slate-600"
+            className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-sm mt-8 cursor-pointer border-2 border-slate-600"
             onClick={handleCreatePost}
           >
             CREATE POST

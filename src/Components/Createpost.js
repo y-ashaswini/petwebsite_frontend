@@ -115,7 +115,7 @@ export default function Createpost() {
           />
           <span className="flex justify-between items-center">
             <button
-              className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"
+              className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"
               onClick={(e) => handlePost(e)}
             >
               POST

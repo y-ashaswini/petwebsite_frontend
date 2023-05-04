@@ -94,7 +94,7 @@ export default function Mailus() {
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
-            className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-slate-600 outline-none w-fit"
+            className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
             onClick={(e) => handleQuery(e)}
           >
             POST
