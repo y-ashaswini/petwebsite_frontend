@@ -1,68 +1,51 @@
 import { Link } from "react-router-dom";
+const date = require("date-and-time");
 
-export default function Panel() {
-  function handleCreatePost() {
-    console.log("create post clicked");
-  }
+export default function Panel({ data }) {
   return (
-    <div className="flex flex-col md:flex-wrap gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10">
-      <div className="bg-white p-8 flex flex-wrap items-center">
-        <span className="text-slate-700 font-bold mr-1">r/bulldogsforlife</span>
-        <span className="rounded-sm p-1 bg-slate-200 font-bold">COMMUNITY</span>
-        <span className="text-sm block py-4 italic">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          fringilla neque ac pharetra porta. Nunc nec efficitur quam.
-          Suspendisse sed posuere dolor, et pulvinar lorem.
-        </span>
-        <span className="rounded-sm p-1 bg-slate-200 mr-2 font-bold block w-fit">
-          STATS
-        </span>
-
-        <ul>
-          <li>
-            <span className="text-slate-700 font-bold inline">
-              Number of Members:{" "}
+    <div className="flex flex-col gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-slate-600 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin">
+      {data &&
+        data.map((each) => (
+          <div className="bg-white p-8 flex flex-wrap items-center">
+            <span className="text-slate-700 font-bold mr-1">{each.name}</span>
+            <span className="rounded-sm p-1 bg-slate-200 font-bold">
+              COMMUNITY
             </span>
-            <span className="text-sm py-4 font-bold">32K</span>
-          </li>
-          <li>
-            <span className="text-slate-700 font-bold">Created on: </span>
-            <span className="text-sm py-4 font-bold">12th August 2013</span>
-          </li>
-        </ul>
-        <Link to="./createpost">
-          <div
-            className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-sm mt-8 cursor-pointer border-2 border-slate-600"
-            onClick={handleCreatePost}
-          >
-            CREATE POST
+            <span className="text-sm block py-4 italic">
+              {each.description}
+            </span>
+            <span className="rounded-sm p-1 bg-slate-200 mr-2 font-bold block w-fit">
+              STATS
+            </span>
+
+            <ul>
+              <li key={Math.random()}>
+                <span className="text-slate-700 font-bold inline">
+                  Number of Members:{" "}
+                </span>
+                <span className="text-sm py-4 font-bold">32K</span>
+              </li>
+              <li key={Math.random()}>
+                <span className="text-slate-700 font-bold">Created on: </span>
+                <span className="text-sm py-4 font-bold">
+                  {each.created_at}
+                  {/* {date.format(each.created_at, "DD/MM/YYYY HH:mm:ss")} */}
+                </span>
+              </li>
+            </ul>
+            <Link to="./createpost">
+              <div className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-sm mt-8 cursor-pointer">
+                CREATE POST
+              </div>
+            </Link>
           </div>
-        </Link>
-      </div>
-      <div className=" bg-slate-300 rounded-md p-8">
-        <span className="rounded-sm py-1 px-2 bg-white mr-1 font-bold flex items-center w-fit cursor-pointer hover:text-slate-700">
-          SIMILAR TO THESE
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="3"
-            stroke="currentColor"
-            class="inline w-4 h-4 mx-1"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-            />
-          </svg>
-        </span>
-        <span className="text-sm block py-4 italic">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          fringilla neque ac pharetra porta. Nunc nec efficitur quam.
-          Suspendisse sed posuere dolor, et pulvinar lorem.
-        </span>
-      </div>
+        ))}
+
+      {/* data paramaters: 
+          1) name
+          2) description
+          city_in_id
+      */}
     </div>
   );
 }

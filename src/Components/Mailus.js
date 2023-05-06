@@ -44,15 +44,14 @@ export default function Mailus() {
         theme="light"
         className="font-bold text-slate-600 rounded-lg"
       />
-
-      <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600 text-sm">
+      <span className="flex gap-x-4 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
-          class="w-7 h-7 cursor-pointer hover:bg-slate-100 p-1 mb-2 rounded-md"
+          class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
           onClick={() => navigate(-1)}
         >
           <path
@@ -61,6 +60,30 @@ export default function Mailus() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
+        <div className="md:text-3xl text-lg font-bold text-slate-600">
+          Mail us
+        </div>
+      </span>
+      <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 mt-4 font-bold rounded-t-md">
+        <div className="text-slate-600 mb-4 md:text-xl">
+          Help us improve and make a difference by sharing your valuable
+          feedback and suggestions!
+        </div>
+        <div>
+          At Pettera, we're dedicated to helping animals in need and creating a
+          strong community of like-minded individuals who share our passion for
+          animal welfare. We can't achieve our goals without your support. You
+          don't have to donate money, but you can still help us by spreading the
+          word about Pettera and our work. Share our posts on social media, tell
+          your friends and family about us - every little bit helps. If you're
+          passionate about animal welfare, we welcome you to join our team. We
+          value your suggestions and feedback on how we can improve our
+          community. Together, we can make a difference in the lives of animals.
+          Join us in our mission to make the world a better place for animals.
+        </div>
+      </span>
+
+      <div className="max-h-[100vh] rounded-b-md bg-white flex flex-col p-6 text-slate-600 text-sm">
 
         <form className="flex flex-col space-y-4">
           <span className="flex space-x-4">
@@ -97,7 +120,7 @@ export default function Mailus() {
             className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
             onClick={(e) => handleQuery(e)}
           >
-            POST
+            SEND
           </button>
         </form>
       </div>

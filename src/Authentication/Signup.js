@@ -70,9 +70,26 @@ export default function Signup() {
         theme="light"
         className="font-bold text-slate-600 rounded-lg"
       />
-      <div className="md:text-3xl text-lg font-bold text-slate-600">
-        Sign Up
-      </div>
+      <span className="flex gap-x-4 items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
+          onClick={() => navigate(-1)}
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+          />
+        </svg>
+        <div className="md:text-3xl text-lg font-bold text-slate-600">
+          Sign up
+        </div>
+      </span>
       <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
         <form className="flex flex-col space-y-8">
           <input

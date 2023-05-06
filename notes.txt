@@ -31,3 +31,13 @@ user
 
 yashaswinishivathaya@gmail.com
 helloworld123
+
+1) https://down2earthsmedia.wixsite.com/pettera -- content from here
+2) add an about company page
+3) remove search by city option (b'lore - default)
+4) add [visit community] button in each community in side panel -> leads to <Community/>
+5) <Community/> takes in params related to comm (name, posts, users[?]) and displays there
+6) only home -- by default, posts from general 
+7) connect auth to layout
+8) multiple images option
+9) comment under comments (how?)
