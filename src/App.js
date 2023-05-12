@@ -8,13 +8,17 @@ import { createClient } from "@supabase/supabase-js";
 import Panel from "./Components/Panel";
 import Createpost from "./Components/Createpost";
 import Contactus from "./Components/Mailus";
+import Community from "./Components/Community";
 import Dump from "./Components/Dump";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Aboutus from "./Components/Aboutus";
 import Resources from "./Components/Resources";
 import Contribute from "./Components/Contribute";
+import CommunityExpanded from "./Components/CommunityExpanded";
+
+export const userDataContext = createContext();
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
@@ -36,9 +40,9 @@ export default function App() {
 
   const [u_role, set_u_role] = useState("");
   const [u_email, set_u_email] = useState("");
-  const [u_last_signin, set_u_last_signin] = useState("");
-  const [communityData, setCommunityData] = useState("");
-  const [allPosts, setallPosts] = useState([]);
+  const [u_name, set_u_name] = useState("");
+  const [u_ph, set_u_ph] = useState("");
+  const [u_id, set_u_id] = useState("");
 
   useEffect(() => {
     const getUserinfo = async () => {
@@ -48,44 +52,34 @@ export default function App() {
       if (user != null) {
         set_u_role(user.role);
         set_u_email(user.email);
-        set_u_last_signin(user.last_sign_in_at);
+
+        let { data, error } = await supabase.from("user").select("*");
+        if (error) console.log("error: ", error);
+        else {
+          set_u_name(data[0].username)
+          set_u_ph(data[0].phone)
+          set_u_id(data[0].id);
+        }
       }
     };
 
-    const getCommunities = async () => {
-      let { data, error } = await supabase.from("community").select("*");
-      error ? toast.info(error, toast_param) : setCommunityData(data);
-    };
-
-    // const tempf = async () => {
-    //   let { tempdata, error } = await supabase.from("post").select("*");
-    //   console.log("tempdata: ", tempdata);
-    // };
-
-    // const getAllPosts = async () => {
-    //   communityData.forEach(async (eachcommunity) => {
-    //     let { postsdata, err } = await supabase
-    //       .from("post")
-    //       .select("*")
-    //       .eq("created_in_community_id", eachcommunity.id);
-    //     console.log(eachcommunity.name, postsdata);
-    //     if (err) {
-    //       toast.info(err, toast_param);
-    //     } else {
-    //       let temp = { name: eachcommunity.name, posts: postsdata };
-    //       setallPosts((curr) => [...curr, temp]);
-    //     }
-    //   });
-    // };
-
     getUserinfo();
-    getCommunities();
-    // getAllPosts();
-    // tempf();
   }, []);
 
   return (
-    <>
+    <userDataContext.Provider
+      value={{
+        u_role,
+        set_u_role,
+        u_email,
+        set_u_email,
+        u_name,
+        set_u_name,
+        u_ph,
+        set_u_ph,
+        u_id
+      }}
+    >
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -99,32 +93,36 @@ export default function App() {
         theme="light"
         className="font-bold text-slate-600 rounded-lg"
       />
-      <div className="h-[100vh] bg-slate-100 overflow-y-scroll">
-        <Navbar
-          u_role={u_role}
-          u_email={u_email}
-          u_last_signin={u_last_signin}
-        />
-        <div className="grid grid-cols-8">
+      <div className="h-[100vh] bg-slate-100  max-h-[100vh] overflow-y-scroll">
+        <Navbar />
+        <div className="grid grid-cols-8 min-h-screen">
           <div className="col-start-1 col-span-3 lg:col-span-2 hidden md:block ">
-            <Panel data={communityData} />
+            <Panel />
           </div>
           <div className="lg:col-start-3 md:col-start-4 col-start-2 col-span-6 xl:px-48 lg:px-24 xl:py-12 sm:p-8">
             <Routes location={location} key={location.pathname}>
               <Route path="/signin" exact element={<Signin />} />
               <Route path="/signup" exact element={<Signup />} />
               <Route path="/" exact element={<Home />} />
-              <Route path="/createpost" exact element={<Createpost />} />
               <Route path="/contact" exact element={<Contactus />} />
               <Route path="/about" exact element={<Aboutus />} />
               <Route path="/resources" exact element={<Resources />} />
-              <Route path="/resources/contribute" exact element={<Contribute />} />
+              <Route
+                path="/resources/contribute"
+                exact
+                element={<Contribute />}
+              />
+              <Route
+                path="/community/*"
+                exact
+                element={<CommunityExpanded />}
+              />
               <Route path="/*" exact element={<Dump />} />
             </Routes>
           </div>
         </div>
         <Footer />
       </div>
-    </>
+    </userDataContext.Provider>
   );
 }

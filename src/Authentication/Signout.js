@@ -1,13 +1,17 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { userDataContext } from "../App";
+import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import { useContext } from "react";
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
   process.env.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
 export default function Signout() {
+  let navigate = useNavigate();
+  const { u_email, set_u_role, set_u_email } = useContext(userDataContext);
   async function handleSignout() {
     const toast_param = {
       position: "top-right",
@@ -26,30 +30,19 @@ export default function Signout() {
       toast.info("Signed out successfuly", toast_param);
     }
 
-    console.log("signing out");
+    set_u_email("");
+    set_u_role("");
+    navigate("/");
   }
 
-  return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        className="font-bold text-slate-600 rounded-lg"
-      />
-      <div
-        className="bg-slate-300 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-slate-500"
-        onClick={handleSignout}
-      >
-        SIGN OUT
-      </div>
-    </>
+  return u_email && u_email.trim() === "" ? (
+    <></>
+  ) : (
+    <div
+      className="bg-slate-300 hover:bg-slate-500 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer outline-none w-fit"
+      onClick={handleSignout}
+    >
+      SIGN OUT
+    </div>
   );
 }

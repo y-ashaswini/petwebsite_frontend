@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { userDataContext } from "../App";
+import NotSignedin from "../Authentication/NotSignedin";
 
 export default function Mailus() {
+  const { u_email } = useContext(userDataContext);
   let navigate = useNavigate();
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("johndoe@gmail.com"); // Gather the email from stored account
+  const email = u_email; // Gather the email from stored account
   const [query, setQuery] = useState("");
 
   function handleQuery(e) {
@@ -29,7 +32,7 @@ export default function Mailus() {
     );
   }
 
-  return (
+  return u_email && u_email.trim() !== "" ? (
     <>
       <ToastContainer
         position="top-right"
@@ -61,7 +64,7 @@ export default function Mailus() {
           />
         </svg>
         <div className="md:text-3xl text-lg font-bold text-slate-600">
-          Mail us
+          Help us!
         </div>
       </span>
       <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 mt-4 font-bold rounded-t-md">
@@ -84,7 +87,6 @@ export default function Mailus() {
       </span>
 
       <div className="max-h-[100vh] rounded-b-md bg-white flex flex-col p-6 text-slate-600 text-sm">
-
         <form className="flex flex-col space-y-4">
           <span className="flex space-x-4">
             <input
@@ -104,10 +106,8 @@ export default function Mailus() {
           </span>
           <input
             type="text"
-            placeholder="Email"
             className="bg-slate-100 outline-none rounded-md px-2 py-1"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
           />
           <textarea
             type="text"
@@ -125,5 +125,7 @@ export default function Mailus() {
         </form>
       </div>
     </>
+  ) : (
+    <NotSignedin />
   );
 }

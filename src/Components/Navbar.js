@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Signout from "../Authentication/Signout";
+import { userDataContext } from "../App";
 
-const date = require("date-and-time");
-
-export default function Navbar({ u_role, u_email, u_last_signin }) {
+export default function Navbar() {
+  // Inherit user data from Parent App
+  const { u_role, u_email, u_name, u_ph } = useContext(userDataContext);
   const [searchCommunity, setSearchCommunity] = useState("");
 
   function handleSearchCommunity(e) {
@@ -111,7 +112,7 @@ export default function Navbar({ u_role, u_email, u_last_signin }) {
               d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
             />
           </svg>
-          <span className="flex-1 hidden lg:inline">Mail us</span>
+          <span className="flex-1 hidden lg:inline">Help us</span>
         </Link>
 
         {/* Home icon */}
@@ -138,7 +139,7 @@ export default function Navbar({ u_role, u_email, u_last_signin }) {
           PROFILE
         </span>
         <hr className="rotate-90 text-slate-500 w-5" />
-        {u_email.trim() === "" ? (
+        {!u_email || u_email.trim() === "" ? (
           <>
             <Link
               to="/signin"
@@ -171,6 +172,44 @@ export default function Navbar({ u_role, u_email, u_last_signin }) {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                class="w-7 h-7"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
+                />
+              </svg>
+
+              <span className="flex-1 hidden lg:inline">
+                {u_name && u_name}
+              </span>
+            </span>
+            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                />
+              </svg>
+
+              <span className="flex-1 hidden lg:inline">{u_ph && u_ph}</span>
+            </span>
+            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
                 stroke-width="1"
                 stroke="white"
                 class="w-6 h-6"
@@ -182,29 +221,10 @@ export default function Navbar({ u_role, u_email, u_last_signin }) {
                 />
               </svg>
               <span className="flex-1 hidden lg:inline">
-                {u_role.toUpperCase()}
+                {u_role && u_role.toUpperCase()}
               </span>
             </span>
-            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="1"
-                stroke="none"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
 
-              <span className="flex-1 hidden lg:inline">
-                {date.format(u_last_signin, "DD/MM/YYYY HH:mm:ss")}
-              </span>
-            </span>
             <Signout />
           </>
         )}

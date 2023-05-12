@@ -1,51 +1,56 @@
-import { Link } from "react-router-dom";
-const date = require("date-and-time");
+import { userDataContext } from "../App";
+import { useEffect, useState, useContext } from "react";
+import Community from "./Community";
 
-export default function Panel({ data }) {
-  return (
-    <div className="flex flex-col gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-slate-600 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin">
-      {data &&
-        data.map((each) => (
-          <div className="bg-white p-8 flex flex-wrap items-center">
-            <span className="text-slate-700 font-bold mr-1">{each.name}</span>
-            <span className="rounded-sm p-1 bg-slate-200 font-bold">
-              COMMUNITY
-            </span>
-            <span className="text-sm block py-4 italic">
-              {each.description}
-            </span>
-            <span className="rounded-sm p-1 bg-slate-200 mr-2 font-bold block w-fit">
-              STATS
-            </span>
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 
-            <ul>
-              <li key={Math.random()}>
-                <span className="text-slate-700 font-bold inline">
-                  Number of Members:{" "}
-                </span>
-                <span className="text-sm py-4 font-bold">32K</span>
-              </li>
-              <li key={Math.random()}>
-                <span className="text-slate-700 font-bold">Created on: </span>
-                <span className="text-sm py-4 font-bold">
-                  {each.created_at}
-                  {/* {date.format(each.created_at, "DD/MM/YYYY HH:mm:ss")} */}
-                </span>
-              </li>
-            </ul>
-            <Link to="./createpost">
-              <div className="bg-slate-600 text-white font-bold text-center py-1 px-2 md:px-6 rounded-sm mt-8 cursor-pointer">
-                CREATE POST
-              </div>
-            </Link>
-          </div>
+export default function Panel() {
+  const { u_email } = useContext(userDataContext);
+  const [commData, setCommData] = useState("");
+
+  useEffect(() => {
+    fetch(supabase_url + "/graphql/v1", {
+      method: "POST",
+
+      headers: {
+        apikey: supabase_anon_key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+              query GetCommunities {
+               communityCollection {
+                edges {
+                  node {
+                    id
+                    name
+                    description
+                    city_in_id
+                  }
+                }
+               }
+              }
+            `,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => setCommData(result.data.communityCollection.edges));
+  }, []);
+
+  return (u_email && u_email.trim() !== "") ? (
+    <div className="flex flex-col gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-slate-600 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin text-center">
+      {commData &&
+        commData.map((each) => (
+          <Community
+            key={each.node.id}
+            name={each.node.name}
+            id={each.node.id}
+            description={each.node.description}
+          />
         ))}
-
-      {/* data paramaters: 
-          1) name
-          2) description
-          city_in_id
-      */}
     </div>
+  ) : (
+    <div className="bg-slate-300 h-full w-full"></div>
   );
 }

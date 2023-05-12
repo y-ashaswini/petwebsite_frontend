@@ -218,7 +218,7 @@ export default function Resources() {
             <Link to="./transportation">
               <svg
                 viewBox="0 0 16 16"
-                fill="none"
+                fill="#FFFFFF"
                 xmlns="http://www.w3.org/2000/svg"
                 className="p-8 bg-slate-600 m-1"
               >

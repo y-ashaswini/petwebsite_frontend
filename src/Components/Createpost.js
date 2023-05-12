@@ -1,14 +1,43 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { userDataContext } from "../App";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createClient } from "@supabase/supabase-js";
 
-export default function Createpost() {
-  let navigate = useNavigate();
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
+const supabase = createClient(supabase_url, supabase_anon_key);
+
+export default function Createpost({ comm_name, comm_id }) {
+  const { u_id } = useContext(userDataContext);
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState([]);
   const [showimages, setShowimages] = useState("hidden");
+
+  // Values needed:
+  // created by user id -- u_id
+  // title
+  // content
+  // images / videos
+  // city id: 1 (B'lore [default])
+  // community id -- comm_id
+
+  async function sendData() {
+    const { data, error } = await supabase.from("post").insert([
+      {
+        created_by_user_id: u_id,
+        title: heading,
+        content: content,
+        created_under_city_id: 1,
+        img_vid: attachment,
+        created_in_community_id: comm_id,
+      },
+    ]);
+
+    if (error) console.log("posting error: ", error);
+    else console.log("posting data: ", data);
+  }
 
   // Function for handling post
   function handlePost(e) {
@@ -33,6 +62,7 @@ export default function Createpost() {
       setContent("");
       setAttachment("");
       setShowimages("hidden");
+      sendData(); // function for making API call
       console.log("posted!");
     }
   }
@@ -68,37 +98,21 @@ export default function Createpost() {
         className="font-bold text-slate-600 rounded-lg"
       />
       <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
-        <span className="flex justify-between">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            class="w-7 h-7 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
-            onClick={() => navigate(-1)}
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-            />
-          </svg>
-          <span className="flex items-center">
-            <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
-              POSTING
-            </span>
-            <span className="text-slate-700 font-bold">@</span>
-            <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
-              r/bulldogsforlife
-            </span>
+        <span className="flex items-center">
+          <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
+            POSTING
+          </span>
+          <span className="text-slate-700 font-bold">@</span>
+          <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
+            {comm_name}
           </span>
         </span>
+
         <form className="block">
           <input
             type="text"
             placeholder="Heading"
-            className="bg-slate-100 outline-none rounded-lg w-full p-4 my-2"
+            className="bg-slate-100 outline-none rounded-lg w-full px-4 py-2 my-2"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
           />

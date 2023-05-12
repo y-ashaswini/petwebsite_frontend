@@ -24,8 +24,8 @@ export default function Aboutus() {
         </div>
       </span>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit text-2xl min-w-[10vw] flex items-center">
-          WHO ARE WE
+        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
+          WHO WE ARE
         </span>
         <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold rounded-e-md">
           Pettera is an early-stage start-up that is on a mission to build a
@@ -44,12 +44,12 @@ export default function Aboutus() {
           assistance, whether it's through adoption, fostering, volunteering, or
           donating.
         </span>
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-e-md w-fit text-2xl min-w-[10vw] flex items-center">
+        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-e-md w-fit lg:text-2xl md:text-xl flex items-center">
           OUR MISSION
         </span>
       </div>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit text-2xl min-w-[10vw] flex items-center">
+        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
           HOW YOU CAN HELP
         </span>
         <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold rounded-e-md">
@@ -63,7 +63,7 @@ export default function Aboutus() {
         </span>
       </div>
       <div className="my-4 md:my-8 flex flex-col">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
+        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 lg:text-2xl md:text-xl flex items-center">
           MORE ABOUT OUR COMMUNITY
         </span>
         <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold ">

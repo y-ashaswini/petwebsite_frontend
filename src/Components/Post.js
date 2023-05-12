@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 
-export default function Post() {
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
+
+const supabase = createClient(supabase_url, supabase_anon_key);
+
+export default function Post({
+  title,
+  content,
+  created_under_city_id,
+  // created_in_community_id,
+  created_by_user_id,
+}) {
   const commentClassArr = ["inline-block", "hidden"];
   const [showComment, setShowComment] = useState(0);
   const [comment, setComment] = useState("");
-
+  const [user, setUser] = useState("");
+  const [city, setCity] = useState("");
   function handleComment() {
-    // console.log("Commmenting");
-
     setShowComment((curr) => !curr + 0);
   }
 
@@ -15,30 +26,59 @@ export default function Post() {
     e.preventDefault();
     console.log("comment: ", comment);
   }
+
+  useEffect(() => {
+    async function GET_USER_DATA() {
+      let { data, error } = await supabase
+        .from("user")
+        .select("*")
+        .eq("id", created_by_user_id);
+
+      if (error) {
+        console.log("error: ", error);
+      } else {
+        setUser(data[0]);
+      }
+    }
+    async function GET_CITY_DATA() {
+      let { data, error } = await supabase
+        .from("city")
+        .select("*")
+        .eq("id", created_under_city_id);
+
+      if (error) {
+        console.log("error: ", error);
+      } else {
+        setCity(data[0]);
+      }
+    }
+
+    GET_USER_DATA();
+    GET_CITY_DATA();
+  }, []);
+
   return (
     <div className="bg-white text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5">
       {/* Community Name */}
       <span className="text-sm italic">
-        <span className="text-slate-700 font-bold">u/anova</span> @{" "}
-        <span className="text-slate-700 font-bold">r/bulldogsforlife</span>
+        <span className="text-slate-700 font-bold">{user.username}</span> @{" "}
+        <span className="text-slate-700 font-bold">
+          {city.name}
+        </span>
       </span>
       {/* Tags */}
       <span className="flex flex-wrap text-xs">
-        <span className="rounded-sm p-1 bg-slate-200 m-1">#Bulldogs</span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1">#littledogs</span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1">#brownies</span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1">#adorable</span>
+        <span className="rounded-sm p-1 bg-slate-200 m-1">{user.email}</span>
+        <span className="rounded-sm p-1 bg-slate-200 m-1">
+          {user.created_at}
+        </span>
       </span>
       {/* Heading */}
       <span className="md:text-2xl sm:text-xl text-lg text-slate-700 font-bold py-2">
-        Bulldogs are the cutest, change my mind.
+        {title}
       </span>
       {/* Content */}
-      <span className="sm:text-md text-sm">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        fringilla neque ac pharetra porta. Nunc nec efficitur quam. Suspendisse
-        sed posuere dolor, et pulvinar lorem.
-      </span>
+      <span className="sm:text-md text-sm">{content}</span>
       <span className="flex space-x-4 pt-2">
         {/* Likes */}
         <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
