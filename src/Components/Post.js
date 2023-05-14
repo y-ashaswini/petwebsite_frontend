@@ -10,7 +10,8 @@ export default function Post({
   title,
   content,
   created_under_city_id,
-  // created_in_community_id,
+  created_in_community_id,
+  img_vid,
   created_by_user_id,
 }) {
   const commentClassArr = ["inline-block", "hidden"];
@@ -18,6 +19,7 @@ export default function Post({
   const [comment, setComment] = useState("");
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
+  const [imgs, setImgs] = useState("");
   function handleComment() {
     setShowComment((curr) => !curr + 0);
   }
@@ -28,6 +30,7 @@ export default function Post({
   }
 
   useEffect(() => {
+    localStorage.clear();
     async function GET_USER_DATA() {
       let { data, error } = await supabase
         .from("user")
@@ -55,6 +58,7 @@ export default function Post({
 
     GET_USER_DATA();
     GET_CITY_DATA();
+    img_vid && img_vid.trim() !== "" && setImgs(JSON.parse(img_vid));
   }, []);
 
   return (
@@ -62,9 +66,7 @@ export default function Post({
       {/* Community Name */}
       <span className="text-sm italic">
         <span className="text-slate-700 font-bold">{user.username}</span> @{" "}
-        <span className="text-slate-700 font-bold">
-          {city.name}
-        </span>
+        <span className="text-slate-700 font-bold">{city.name}</span>
       </span>
       {/* Tags */}
       <span className="flex flex-wrap text-xs">
@@ -81,7 +83,7 @@ export default function Post({
       <span className="sm:text-md text-sm">{content}</span>
       <span className="flex space-x-4 pt-2">
         {/* Likes */}
-        <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
+        {/* <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -96,9 +98,9 @@ export default function Post({
           </svg>
 
           <span className="text-sm font-bold ">5.7K</span>
-        </span>
+        </span> */}
         {/* Comment */}
-        <span
+        {/* <span
           className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer"
           onClick={handleComment}
         >
@@ -117,9 +119,31 @@ export default function Post({
             />
           </svg>
           <span className="text-sm font-bold ">2.1K</span>
-        </span>
+        </span> */}
       </span>
-      <div
+      {/* Image / Video files */}
+
+      <span className="flex gap-2 flex-wrap">
+        {imgs &&
+          imgs.map((each) => {
+            return each.split(";")[0] === "data:text/plain" ? (
+              <a
+                href={each}
+                download
+                className="bg-slate-400 px-2 py-1 rounded-sm text-white font-bold"
+              >
+                Document
+              </a>
+            ) : (
+              <img
+                src={each}
+                className="rounded-lg h-[20vh] w-fit m-1"
+              />
+            );
+          })}
+      </span>
+      {/* Comments */}
+      {/* <div
         className={
           "flex gap-2 py-4 items-center " + commentClassArr[showComment]
         }
@@ -141,7 +165,7 @@ export default function Post({
             Comment
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 }

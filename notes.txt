@@ -32,12 +32,24 @@ user
 yashaswinishivathaya@gmail.com
 helloworld123
 
+DONE
 1) https://down2earthsmedia.wixsite.com/pettera -- content from here
 2) add an about company page
 3) remove search by city option (b'lore - default)
 4) add [visit community] button in each community in side panel -> leads to <Community/>
 5) <Community/> takes in params related to comm (name, posts, users[?]) and displays there
 6) only home -- by default, posts from general 
-7) connect auth to layout
 8) multiple images option
-9) comment under comments (how?)
+
+REMAIN
+7) connect auth to layout
+1) the 'go to top' button
+2) COMMENTING FRATURE + LIKING FEATURE AAAAAA
+3) ADDING NEW USER -> TEST FEATURE
+
+4) member count?
+5) search feature?
+6) pagination?
+7) profile page?
+
+8) change colors

@@ -6,9 +6,7 @@ import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import { createClient } from "@supabase/supabase-js";
 import Panel from "./Components/Panel";
-import Createpost from "./Components/Createpost";
 import Contactus from "./Components/Mailus";
-import Community from "./Components/Community";
 import Dump from "./Components/Dump";
 import { useState, useEffect, createContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -27,16 +25,6 @@ const supabase = createClient(
 
 export default function App() {
   const location = useLocation();
-  const toast_param = {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  };
 
   const [u_role, set_u_role] = useState("");
   const [u_email, set_u_email] = useState("");
@@ -56,8 +44,8 @@ export default function App() {
         let { data, error } = await supabase.from("user").select("*");
         if (error) console.log("error: ", error);
         else {
-          set_u_name(data[0].username)
-          set_u_ph(data[0].phone)
+          set_u_name(data[0].username);
+          set_u_ph(data[0].phone);
           set_u_id(data[0].id);
         }
       }
@@ -77,23 +65,11 @@ export default function App() {
         set_u_name,
         u_ph,
         set_u_ph,
-        u_id
+        u_id,
       }}
     >
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        className="font-bold text-slate-600 rounded-lg"
-      />
-      <div className="h-[100vh] bg-slate-100  max-h-[100vh] overflow-y-scroll">
+      <div className="h-[100vh] bg-slate-100 max-h-[100vh] overflow-y-scroll">
+
         <Navbar />
         <div className="grid grid-cols-8 min-h-screen">
           <div className="col-start-1 col-span-3 lg:col-span-2 hidden md:block ">

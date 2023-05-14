@@ -13,7 +13,6 @@ export default function Createpost({ comm_name, comm_id }) {
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState([]);
-  const [showimages, setShowimages] = useState("hidden");
 
   // Values needed:
   // created by user id -- u_id
@@ -61,7 +60,6 @@ export default function Createpost({ comm_name, comm_id }) {
       setHeading("");
       setContent("");
       setAttachment("");
-      setShowimages("hidden");
       sendData(); // function for making API call
       console.log("posted!");
     }
@@ -70,16 +68,11 @@ export default function Createpost({ comm_name, comm_id }) {
   // Function for image attaching and previewing
   function handleAttachimg(e) {
     const img = e.target.files[0];
-    console.log(img);
     const reader = new FileReader();
     reader.readAsDataURL(img);
-    const img_name = "uploadedimg" + img.name;
-    console.log("img name: ", img_name);
     reader.addEventListener("load", () => {
-      document.getElementById("previewimg").setAttribute("src", reader.result);
       setAttachment([...attachment, reader.result]);
     });
-    setShowimages("");
   }
 
   return (
@@ -97,7 +90,7 @@ export default function Createpost({ comm_name, comm_id }) {
         theme="light"
         className="font-bold text-slate-600 rounded-lg"
       />
-      <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
+      <div className="rounded-md bg-white flex flex-col p-6 m-4 text-slate-600">
         <span className="flex items-center">
           <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
             POSTING
@@ -123,10 +116,13 @@ export default function Createpost({ comm_name, comm_id }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <img
-            className={"rounded-lg max-h-[20vh] my-2 " + showimages}
-            id="previewimg"
-          />
+          <span className="flex flex-wrap gap-2">
+            {attachment &&
+              attachment.map((each) => (
+                <img className="rounded-lg max-h-[20vh] w-fit my-2" src={each} />
+              ))}
+          </span>
+
           <span className="flex justify-between items-center">
             <button
               className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"

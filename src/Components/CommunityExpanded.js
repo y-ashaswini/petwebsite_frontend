@@ -92,6 +92,7 @@ export default function CommunityExpanded() {
             key={post.id}
             title={post.title}
             content={post.content}
+            img_vid={post.img_vid}
             created_by_user_id={post.created_by_user_id}
             created_under_city_id={post.created_under_city_id}
             created_in_community_id={post.created_in_community_id}
