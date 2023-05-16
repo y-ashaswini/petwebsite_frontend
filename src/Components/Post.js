@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
+import Comment from "./components/Comment";
+import useNode from "./hooks/useNode";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 
 const supabase = createClient(supabase_url, supabase_anon_key);
+
+const comments = {
+  id: 1,
+  items: [],
+};
 
 export default function Post({
   title,
@@ -14,35 +21,59 @@ export default function Post({
   img_vid,
   created_by_user_id,
 }) {
-  const commentClassArr = ["inline-block", "hidden"];
-  const [showComment, setShowComment] = useState(0);
-  const [comment, setComment] = useState("");
+  // Comment related Functions
+
+  // const commentClassArr = ["inline-block", "hidden"];
+  // const [showComment, setShowComment] = useState(0);
+  // const [comment, setComment] = useState("");
+
+  const [commentsData, setCommentsData] = useState(comments);
+  const { insertNode, editNode, deleteNode } = useNode();
+
+  const handleInsertNode = (folderId, item) => {
+    const finalStructure = insertNode(commentsData, folderId, item);
+    setCommentsData(finalStructure);
+  };
+
+  const handleEditNode = (folderId, value) => {
+    const finalStructure = editNode(commentsData, folderId, value);
+    setCommentsData(finalStructure);
+  };
+
+  const handleDeleteNode = (folderId) => {
+    const finalStructure = deleteNode(commentsData, folderId);
+    const temp = { ...finalStructure };
+    setCommentsData(temp);
+  };
+
+  // function handleComment() {
+  //   setShowComment((curr) => !curr + 0);
+  // }
+
+  // function handleCommentSubmit(e) {
+  //   e.preventDefault();
+  //   console.log("comment: ", comment);
+  // }
+
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
   const [imgs, setImgs] = useState("");
-  function handleComment() {
-    setShowComment((curr) => !curr + 0);
-  }
-
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-    console.log("comment: ", comment);
-  }
 
   useEffect(() => {
-    localStorage.clear();
     async function GET_USER_DATA() {
       let { data, error } = await supabase
         .from("user")
-        .select("*")
+        .select(`*`)
         .eq("id", created_by_user_id);
 
       if (error) {
         console.log("error: ", error);
       } else {
+        // console.log("data from get user data: ",data[0]);
         setUser(data[0]);
       }
     }
+
     async function GET_CITY_DATA() {
       let { data, error } = await supabase
         .from("city")
@@ -135,14 +166,19 @@ export default function Post({
                 Document
               </a>
             ) : (
-              <img
-                src={each}
-                className="rounded-lg h-[20vh] w-fit m-1"
-              />
+              <img src={each} className="rounded-lg h-[20vh] w-fit m-1" />
             );
           })}
       </span>
       {/* Comments */}
+
+      {/* <Comment
+        handleInsertNode={handleInsertNode}
+        handleEditNode={handleEditNode}
+        handleDeleteNode={handleDeleteNode}
+        comment={commentsData}
+      /> */}
+
       {/* <div
         className={
           "flex gap-2 py-4 items-center " + commentClassArr[showComment]

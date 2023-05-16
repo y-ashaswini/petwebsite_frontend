@@ -8,8 +8,10 @@ const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
+
 export default function Createpost({ comm_name, comm_id }) {
-  const { u_id } = useContext(userDataContext);
+
+  const { u_id, u_name } = useContext(userDataContext);
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState([]);
@@ -22,46 +24,47 @@ export default function Createpost({ comm_name, comm_id }) {
   // city id: 1 (B'lore [default])
   // community id -- comm_id
 
+  const toast_param = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+
   async function sendData() {
-    const { data, error } = await supabase.from("post").insert([
-      {
-        created_by_user_id: u_id,
-        title: heading,
-        content: content,
-        created_under_city_id: 1,
-        img_vid: attachment,
-        created_in_community_id: comm_id,
-      },
-    ]);
+    console.log("u_id: ",u_id,", username: ",u_name)
+
+    const insertdata = {
+      created_by_user_id: u_id,
+      title: heading,
+      content: content,
+      created_under_city_id: 1,
+      img_vid: attachment,
+      created_in_community_id: comm_id,
+    };
+    console.log("inserting: ", insertdata);
+    const { data: _, error } = await supabase.from("post").insert([insertdata]);
 
     if (error) console.log("posting error: ", error);
-    else console.log("posting data: ", data);
+    else toast.info("Posted", toast_param);
   }
 
   // Function for handling post
   function handlePost(e) {
     e.preventDefault();
-    const toast_param = {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    };
     if (heading.trim() == "") {
       toast.warn("Please add a heading", toast_param);
     } else if (content.trim() == "") {
       toast.warn("Please add some content", toast_param);
     } else {
-      localStorage.clear();
       setHeading("");
       setContent("");
       setAttachment("");
-      sendData(); // function for making API call
-      console.log("posted!");
+      sendData(); // Function for making API call
     }
   }
 
@@ -119,7 +122,10 @@ export default function Createpost({ comm_name, comm_id }) {
           <span className="flex flex-wrap gap-2">
             {attachment &&
               attachment.map((each) => (
-                <img className="rounded-lg max-h-[20vh] w-fit my-2" src={each} />
+                <img
+                  className="rounded-lg max-h-[20vh] w-fit my-2"
+                  src={each}
+                />
               ))}
           </span>
 

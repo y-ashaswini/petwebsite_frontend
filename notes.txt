@@ -28,9 +28,31 @@ user
     create user
 
 
+users: {
+    yashaswinishivathaya@gmail.com
+    oneface
 
-yashaswinishivathaya@gmail.com
-helloworld123
+    evilgeniusprevails@gmail.com
+    helloworld123
+
+    yashaswini.shivathaya2021@vitstudent.ac.in
+    nobody
+}
+
+
+REMAIN
+7) connect auth to layout -- pin important posts on top
+2) COMMENTING FRATURE + LIKING FEATURE AAAAAA
+3) ADDING NEW USER -> TEST FEATURE
+8) change colors
+5) search feature?
+9) MAKE ROUTES PROTECTED - ONLY IF YOU'RE SIGNED IN! -- APPLY RULES ON THE BACKEND
+
+LOW PRIORITY
+1) the 'go to top' button 
+4) member count?
+7) profile page?
+6) pagination?
 
 DONE
 1) https://down2earthsmedia.wixsite.com/pettera -- content from here
@@ -40,16 +62,3 @@ DONE
 5) <Community/> takes in params related to comm (name, posts, users[?]) and displays there
 6) only home -- by default, posts from general 
 8) multiple images option
-
-REMAIN
-7) connect auth to layout
-1) the 'go to top' button
-2) COMMENTING FRATURE + LIKING FEATURE AAAAAA
-3) ADDING NEW USER -> TEST FEATURE
-
-4) member count?
-5) search feature?
-6) pagination?
-7) profile page?
-
-8) change colors

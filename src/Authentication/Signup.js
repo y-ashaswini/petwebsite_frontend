@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
-
-import { useState } from "react";
+import { userDataContext } from "../App";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,14 +12,16 @@ const supabase = createClient(
 );
 
 export default function Signup() {
-  console.clear();
+  const { set_u_role, set_u_email, set_u_name, set_u_ph, u_uuid, set_u_uuid } =
+    useContext(userDataContext);
   let navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpass, setConfirmpass] = useState("");
-  const [loc, setLoc] = useState("");
+  const [ph, setph] = useState("");
+  const loc = "Banglore"; // Location: unchangeable for now
 
   async function handleSignup(e) {
     e.preventDefault();
@@ -48,9 +50,35 @@ export default function Signup() {
         console.log(error);
       }
       if (data) {
-        console.log("data: ", data);
+        // console.log("data: ", data);
         toast.info("Account created successfuly", toast_param);
-        navigate("/");
+        set_u_email(email);
+        set_u_name(username);
+        set_u_ph(ph);
+        set_u_role(data.user.aud);
+        set_u_uuid(data.user.id);
+        const insertdata = {
+          username: username,
+          email: email,
+          phone: ph,
+          city_from_id: 1,
+          user_uuid: u_uuid,
+        };
+        const { data: adddata, usertableerror } = await supabase
+          .from("user")
+          .insert([insertdata]);
+        if (usertableerror) {
+          console.log("adding data error: ", usertableerror);
+          // toast.error(
+          //   "Adding user to db error: " + usertableerror,
+          //   toast_param
+          // );
+        } else {
+          console.log("adddata: ", adddata);
+          // toast.info("Added user to db, data: " + adddata, toast_param);
+
+          // navigate("/");
+        }
       }
     }
   }
@@ -125,16 +153,26 @@ export default function Signup() {
               onChange={(e) => setConfirmpass(e.target.value)}
             />
           </span>
-
-          <span className="flex flex-col space-y-2">
-            <span className="font-bold">Which city do you live in?</span>
-            <input
-              type="email"
-              placeholder="Location"
-              className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
-              value={loc}
-              onChange={(e) => setLoc(e.target.value)}
-            />
+          <span className="flex gap-x-4">
+            <span className="flex flex-col space-y-2 flex-1">
+              <span className="font-bold">Which city do you live in?</span>
+              <input
+                type="email"
+                placeholder="Location"
+                className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
+                value={loc}
+              />
+            </span>
+            <span className="flex flex-col space-y-2 flex-1">
+              <span className="font-bold">Enter your contact number</span>
+              <input
+                type="number"
+                placeholder="(+91)"
+                className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
+                value={ph}
+                onChange={(e) => setph(e.target.value)}
+              />
+            </span>
           </span>
 
           <button

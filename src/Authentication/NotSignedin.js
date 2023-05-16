@@ -9,7 +9,7 @@ export default function NotSignedin() {
       <button
         type="button"
         onClick={() => navigate("/signin")}
-        className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
+        className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit my-2"
       >
         GO TO SIGN IN PAGE
       </button>

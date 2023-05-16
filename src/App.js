@@ -9,7 +9,6 @@ import Panel from "./Components/Panel";
 import Contactus from "./Components/Mailus";
 import Dump from "./Components/Dump";
 import { useState, useEffect, createContext } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Aboutus from "./Components/Aboutus";
 import Resources from "./Components/Resources";
@@ -31,25 +30,32 @@ export default function App() {
   const [u_name, set_u_name] = useState("");
   const [u_ph, set_u_ph] = useState("");
   const [u_id, set_u_id] = useState("");
+  const [u_uuid, set_u_uuid] = useState("");
 
   useEffect(() => {
-    const getUserinfo = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user != null) {
-        set_u_role(user.role);
-        set_u_email(user.email);
-
-        let { data, error } = await supabase.from("user").select("*");
-        if (error) console.log("error: ", error);
+    async function getUserinfo() {
+      const { data: userdata } = await supabase.auth.getUser();
+      // console.log(userdata.user.id);
+      if (userdata) {
+        set_u_role(userdata.user.role);
+        set_u_email(userdata.user.email);
+        set_u_uuid(userdata.user.id);
+        set_u_ph(userdata.user.phone);
+        // console.log("user uuid: ", u_uuid);
+        let { data: userDet, userdberror } = await supabase
+          .from("user")
+          .select("id,username");
+        // .eq("user_uuid", u_uuid);
+        if (userdberror) console.log("user db error: ", userdberror);
         else {
-          set_u_name(data[0].username);
-          set_u_ph(data[0].phone);
-          set_u_id(data[0].id);
+          // console.log("user details from app: ",userDet);
+          set_u_id(userDet[0].id);
+          set_u_name(userDet[0].username);
         }
+      } else {
+        console.log("error");
       }
-    };
+    }
 
     getUserinfo();
   }, []);
@@ -66,10 +72,12 @@ export default function App() {
         u_ph,
         set_u_ph,
         u_id,
+        set_u_id,
+        u_uuid,
+        set_u_uuid,
       }}
     >
       <div className="h-[100vh] bg-slate-100 max-h-[100vh] overflow-y-scroll">
-
         <Navbar />
         <div className="grid grid-cols-8 min-h-screen">
           <div className="col-start-1 col-span-3 lg:col-span-2 hidden md:block ">
