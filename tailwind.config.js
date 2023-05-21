@@ -4,10 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "pink-light": "#DDBEBE",
-        "pink-dark": "#975555",
-        "grey-dark": "#424242",
-        "grey-light": "#F6F6F6",
+        "blue-normal": "#00E7EB",
+        "blue-dark-1": "#00ACAF",
+        "blue-dark-2": "#006D6F",
       },
     },
   },

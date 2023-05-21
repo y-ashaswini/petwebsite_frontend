@@ -49,7 +49,7 @@ export default function Signin() {
       set_u_name(userDet[0].username);
       // navigate("/");
       toast.info("Signed in", toast_param);
-      console.log("userDet from sign in: ", userDet);
+      // console.log("userDet from sign in: ", userDet);
     }
   }
 
@@ -80,7 +80,7 @@ export default function Signin() {
           set_u_ph(data.user.phone);
           set_u_role(data.user.aud);
           set_u_uuid(data.user.id);
-          console.log(u_uuid);
+          // console.log(u_uuid);
           getUserDeets();
         }
       }

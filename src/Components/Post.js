@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import Comment from "./components/Comment";
-import useNode from "./hooks/useNode";
+import Comment from "./Comment";
+import useNode from "../Hooks/useNode";
 import { createClient } from "@supabase/supabase-js";
+import moment from "moment/moment";
 
 const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 
 const supabase = createClient(supabase_url, supabase_anon_key);
-
-const comments = {
-  id: 1,
-  items: [],
-};
 
 export default function Post({
   title,
@@ -20,23 +16,18 @@ export default function Post({
   created_in_community_id,
   img_vid,
   created_by_user_id,
+  pinned,
+  comments,
+  comm_name,
+  comm_id,
 }) {
-  // Comment related Functions
+  const [showComments, setShowComments] = useState(false);
 
-  // const commentClassArr = ["inline-block", "hidden"];
-  // const [showComment, setShowComment] = useState(0);
-  // const [comment, setComment] = useState("");
-
-  const [commentsData, setCommentsData] = useState(comments);
-  const { insertNode, editNode, deleteNode } = useNode();
+  const [commentsData, setCommentsData] = useState(JSON.parse(comments));
+  const { insertNode, deleteNode } = useNode();
 
   const handleInsertNode = (folderId, item) => {
     const finalStructure = insertNode(commentsData, folderId, item);
-    setCommentsData(finalStructure);
-  };
-
-  const handleEditNode = (folderId, value) => {
-    const finalStructure = editNode(commentsData, folderId, value);
     setCommentsData(finalStructure);
   };
 
@@ -46,18 +37,10 @@ export default function Post({
     setCommentsData(temp);
   };
 
-  // function handleComment() {
-  //   setShowComment((curr) => !curr + 0);
-  // }
-
-  // function handleCommentSubmit(e) {
-  //   e.preventDefault();
-  //   console.log("comment: ", comment);
-  // }
-
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
   const [imgs, setImgs] = useState("");
+  // const [isPinned, setIsPinned] = useState(pinned);
 
   useEffect(() => {
     async function GET_USER_DATA() {
@@ -93,7 +76,12 @@ export default function Post({
   }, []);
 
   return (
-    <div className="bg-white text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5">
+    <div
+      className={
+        "bg-white text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5 relative"
+        // +(isPinned ? " outline outline-2 outline-slate-500" : "")
+      }
+    >
       {/* Community Name */}
       <span className="text-sm italic">
         <span className="text-slate-700 font-bold">{user.username}</span> @{" "}
@@ -103,7 +91,7 @@ export default function Post({
       <span className="flex flex-wrap text-xs">
         <span className="rounded-sm p-1 bg-slate-200 m-1">{user.email}</span>
         <span className="rounded-sm p-1 bg-slate-200 m-1">
-          {user.created_at}
+          {moment(user.created_at).format("MMMM Do YYYY, h:mm:ss a")}
         </span>
       </span>
       {/* Heading */}
@@ -170,38 +158,25 @@ export default function Post({
             );
           })}
       </span>
+      <div
+        className="font-bold border-2 text-xs cursor-pointer text-slate-400 border-slate-400 px-2 py-1 rounded-sm w-fit"
+        onClick={() => setShowComments((curr) => !curr)}
+      >
+        {showComments ? "HIDE" : "SHOW"} COMMENTS
+      </div>
+
       {/* Comments */}
 
-      {/* <Comment
-        handleInsertNode={handleInsertNode}
-        handleEditNode={handleEditNode}
-        handleDeleteNode={handleDeleteNode}
-        comment={commentsData}
-      /> */}
-
-      {/* <div
-        className={
-          "flex gap-2 py-4 items-center " + commentClassArr[showComment]
-        }
-      >
-        <div className="rounded-full bg-slate-700 w-6 h-6"></div>
-        <form className="flex flex-1 outline-none items-center border space-x-2 border-slate-400 rounded-lg sm:py-1 sm:px-3 sm:mr-2 text-sm">
-          <input
-            type="text"
-            placeholder="Type your comment here"
-            className="outline-none flex-1 bg-transparent w-12 sm:w-auto"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="text-slate-600 font-bold hover:bg-slate-100 p-1"
-            onClick={(e) => handleCommentSubmit(e)}
-          >
-            Comment
-          </button>
-        </form>
-      </div> */}
+      {showComments && (
+        <Comment
+          handleInsertNode={handleInsertNode}
+          handleDeleteNode={handleDeleteNode}
+          comment={commentsData}
+          comm_name={comm_name}
+          comm_id={comm_id}
+          comm_user="username_here"
+        />
+      )}
     </div>
   );
 }

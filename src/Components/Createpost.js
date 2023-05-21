@@ -36,7 +36,7 @@ export default function Createpost({ comm_name, comm_id }) {
   };
 
   async function sendData() {
-    console.log("u_id: ",u_id,", username: ",u_name)
+    // console.log("u_id: ",u_id,", username: ",u_name)
 
     const insertdata = {
       created_by_user_id: u_id,
@@ -46,10 +46,10 @@ export default function Createpost({ comm_name, comm_id }) {
       img_vid: attachment,
       created_in_community_id: comm_id,
     };
-    console.log("inserting: ", insertdata);
+    // console.log("inserting: ", insertdata);
     const { data: _, error } = await supabase.from("post").insert([insertdata]);
 
-    if (error) console.log("posting error: ", error);
+    if (error) console.toast.error("posting error: "+error, toast_param);
     else toast.info("Posted", toast_param);
   }
 
@@ -152,7 +152,6 @@ export default function Createpost({ comm_name, comm_id }) {
                 stroke="currentColor"
                 class="w-8 h-8 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
                 for="input-file"
-                // onClick={handleAttachimg}
               >
                 <path
                   stroke-linecap="round"

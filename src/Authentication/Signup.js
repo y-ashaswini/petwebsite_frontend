@@ -12,7 +12,7 @@ const supabase = createClient(
 );
 
 export default function Signup() {
-  const { set_u_role, set_u_email, set_u_name, set_u_ph, u_uuid, set_u_uuid } =
+  const { set_u_role, set_u_email, set_u_name, set_u_ph, set_u_id, set_u_uuid } =
     useContext(userDataContext);
   let navigate = useNavigate();
 
@@ -21,65 +21,68 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmpass, setConfirmpass] = useState("");
   const [ph, setph] = useState("");
-  const loc = "Banglore"; // Location: unchangeable for now
+  const loc = "Bangalore"; // Location: hard-coded
+
+  const toast_param = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+
+  async function addDatabase(param_u_uuid) {
+    const insertdata = [
+      {
+        username: username,
+        city_from_id: 1,
+        user_uuid: param_u_uuid,
+        email: email,
+      },
+    ];
+    console.log("inserting data: ", insertdata);
+    let { data: adddata, err } = await supabase
+      .from("user")
+      .insert(insertdata)
+      .select();
+    if (err) {
+      toast.error("Error: " + err, toast_param);
+      return "";
+    }
+    console.log("added data: ", adddata);
+    set_u_id(adddata[0].id);
+    set_u_name(adddata[0].username);
+    return adddata;
+  }
+
+  async function addUser() {
+    let { data: adduserdata, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+    if (error) {
+      toast.error("Error: " + error, toast_param);
+      return "";
+    }
+    set_u_email(adduserdata.user.email);
+    set_u_ph(adduserdata.user.phone);
+    set_u_role(adduserdata.user.aud);
+    set_u_uuid(adduserdata.user.id);
+    return adduserdata.user.id;
+  }
 
   async function handleSignup(e) {
     e.preventDefault();
-    const toast_param = {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    };
     if (username.trim() == "" || email.trim() == "" || password.trim() == "") {
       toast.error("Please fill up all the fields", toast_param);
     } else if (confirmpass != password) {
       toast.error("Your passwords don't match", toast_param);
     } else {
-      console.log("credentials accepted");
-
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      });
-      if (error) {
-        console.log(error);
-      }
-      if (data) {
-        // console.log("data: ", data);
-        toast.info("Account created successfuly", toast_param);
-        set_u_email(email);
-        set_u_name(username);
-        set_u_ph(ph);
-        set_u_role(data.user.aud);
-        set_u_uuid(data.user.id);
-        const insertdata = {
-          username: username,
-          email: email,
-          phone: ph,
-          city_from_id: 1,
-          user_uuid: u_uuid,
-        };
-        const { data: adddata, usertableerror } = await supabase
-          .from("user")
-          .insert([insertdata]);
-        if (usertableerror) {
-          console.log("adding data error: ", usertableerror);
-          // toast.error(
-          //   "Adding user to db error: " + usertableerror,
-          //   toast_param
-          // );
-        } else {
-          console.log("adddata: ", adddata);
-          // toast.info("Added user to db, data: " + adddata, toast_param);
-
-          // navigate("/");
-        }
-      }
+      const returned_uuid = await addUser();
+      addDatabase(returned_uuid);
     }
   }
 
@@ -165,13 +168,15 @@ export default function Signup() {
             </span>
             <span className="flex flex-col space-y-2 flex-1">
               <span className="font-bold">Enter your contact number</span>
-              <input
-                type="number"
-                placeholder="(+91)"
-                className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
-                value={ph}
-                onChange={(e) => setph(e.target.value)}
-              />
+              <span className="flex items-center">
+                <span className="bg-slate-300 p-1 rounded-l-md">+91</span>
+                <input
+                  type="number"
+                  className="flex-1 bg-slate-100 outline-none rounded-r-md px-2 py-1"
+                  value={ph}
+                  onChange={(e) => setph(e.target.value)}
+                />
+              </span>
             </span>
           </span>
 

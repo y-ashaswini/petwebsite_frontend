@@ -39,22 +39,27 @@ users: {
     nobody
 }
 
-
-REMAIN
-7) connect auth to layout -- pin important posts on top
-2) COMMENTING FRATURE + LIKING FEATURE AAAAAA
-3) ADDING NEW USER -> TEST FEATURE
-8) change colors
+AGAIN
+1) color changes
+3) admin controls - resource updation, pinning posts 
+*) where do resources submitted by the users go? send it to mail?
+*) admins can enter some banner type thing -- to message all?
+*) like feature
+*) comment feature -- each needs to be a post in itself -- stored under comments, stringified format
+4) remember me -- doesn't have to sign in again and again (unless signs out) -- enable google sign in?
+5) forgot password option -- triggers email 
+6) general posts in home page, welcome message through (i) icon [nah]
 5) search feature?
 9) MAKE ROUTES PROTECTED - ONLY IF YOU'RE SIGNED IN! -- APPLY RULES ON THE BACKEND
-
-LOW PRIORITY
 1) the 'go to top' button 
 4) member count?
 7) profile page?
 6) pagination?
 
+
 DONE
+3) ADDING NEW USER -> TEST FEATURE
+2) resources
 1) https://down2earthsmedia.wixsite.com/pettera -- content from here
 2) add an about company page
 3) remove search by city option (b'lore - default)
