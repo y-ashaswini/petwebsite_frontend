@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Comment from "./Comment";
 import useNode from "../Hooks/useNode";
 import { createClient } from "@supabase/supabase-js";
 import moment from "moment/moment";
+import { userDataContext } from "../App";
 
 const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
-
 const supabase = createClient(supabase_url, supabase_anon_key);
 
 export default function Post({
+  id,
   title,
   content,
   created_under_city_id,
@@ -20,27 +21,86 @@ export default function Post({
   comments,
   comm_name,
   comm_id,
+  likes_list,
 }) {
+  const { u_id } = useContext(userDataContext);
   const [showComments, setShowComments] = useState(false);
-
-  const [commentsData, setCommentsData] = useState(JSON.parse(comments));
-  const { insertNode, deleteNode } = useNode();
-
-  const handleInsertNode = (folderId, item) => {
-    const finalStructure = insertNode(commentsData, folderId, item);
-    setCommentsData(finalStructure);
-  };
-
-  const handleDeleteNode = (folderId) => {
-    const finalStructure = deleteNode(commentsData, folderId);
-    const temp = { ...finalStructure };
-    setCommentsData(temp);
-  };
-
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
   const [imgs, setImgs] = useState("");
+  const [liked_by_curr_user, setLiked_by_curr_user] = useState(false);
+  const [parsed_likes_list, setParsed_likes_list] = useState(
+    JSON.parse(likes_list)
+  );
   // const [isPinned, setIsPinned] = useState(pinned);
+  const [commentsData, setCommentsData] = useState(JSON.parse(comments));
+  const { insertNode, deleteNode } = useNode();
+
+  async function setLike() {
+    // console.log("before: ",parsed_likes_list);
+    setLiked_by_curr_user(true);
+    parsed_likes_list.push(u_id);
+    setParsed_likes_list(parsed_likes_list);
+    // console.log("after: ",parsed_likes_list);
+    const { data, error } = await supabase
+      .from("post")
+      .update({ likes_list: JSON.stringify(parsed_likes_list) })
+      .eq("id", id)
+      .select();
+    if (error) console.log("liking error: ", error);
+    // else console.log("no liking error: ", data);
+  }
+
+  async function setDislike() {
+    // console.log("before: ",parsed_likes_list);
+    setLiked_by_curr_user(false);
+    const temp = parsed_likes_list.filter((each) => each != u_id);
+    setParsed_likes_list(temp);
+    // console.log("after: ",parsed_likes_list);
+    const { data, error } = await supabase
+      .from("post")
+      .update({ likes_list: JSON.stringify(parsed_likes_list) })
+      .eq("id", id)
+      .select();
+    if (error) console.log("disliking error: ", error);
+    // else console.log("no disliking error: ", data);
+  }
+
+  const handleInsertNode = async (
+    folderId,
+    item,
+    username,
+    userid,
+    attachment
+  ) => {
+    const temp = insertNode(
+      commentsData,
+      folderId,
+      item,
+      username,
+      userid,
+      attachment
+    );
+    await afterAddComment(temp);
+    setCommentsData(temp);
+  };
+
+  const handleDeleteNode = async (folderId, userid) => {
+    const finalStructure = deleteNode(commentsData, folderId, userid);
+    const temp = { ...finalStructure };
+    await afterAddComment(temp);
+    setCommentsData(temp);
+  };
+
+  async function afterAddComment(temp) {
+    const { data: d, error } = await supabase
+      .from("post")
+      .update({ comments: temp })
+      .eq("id", id);
+    if (error) {
+      console.log("Couldn't add comment: ", error);
+    }
+  }
 
   useEffect(() => {
     async function GET_USER_DATA() {
@@ -54,6 +114,15 @@ export default function Post({
       } else {
         // console.log("data from get user data: ",data[0]);
         setUser(data[0]);
+        // Checking if the post is liked by the user
+        // console.log("checking likes list: ", parsed_likes_list);
+        for (let i = 0; i < parsed_likes_list.length; i++) {
+          if (parsed_likes_list[i] == data[0].id) {
+            setLiked_by_curr_user(true);
+            // console.log("this user has liked this post");
+            break;
+          }
+        }
       }
     }
 
@@ -158,12 +227,54 @@ export default function Post({
             );
           })}
       </span>
-      <div
-        className="font-bold border-2 text-xs cursor-pointer text-slate-400 border-slate-400 px-2 py-1 rounded-sm w-fit"
-        onClick={() => setShowComments((curr) => !curr)}
-      >
-        {showComments ? "HIDE" : "SHOW"} COMMENTS
-      </div>
+      <span className="flex justify-between items-end">
+        <div
+          className="font-bold border-2 text-xs cursor-pointer text-slate-400 border-slate-400 px-2 py-1 rounded-sm w-fit mt-2"
+          onClick={() => setShowComments((curr) => !curr)}
+        >
+          {!showComments
+            ? commentsData.items.length !== 0
+              ? "SHOW " + commentsData.items.length + " COMMENT(S)"
+              : "BE THE FIRST TO COMMENT!"
+            : "HIDE COMMENT(S)"}
+        </div>
+        <span className="flex gap-2">
+          {parsed_likes_list.length}
+          {liked_by_curr_user ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => setDislike()}
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => setLike()}
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+              />
+            </svg>
+          )}
+        </span>
+      </span>
 
       {/* Comments */}
 
@@ -174,7 +285,6 @@ export default function Post({
           comment={commentsData}
           comm_name={comm_name}
           comm_id={comm_id}
-          comm_user="username_here"
         />
       )}
     </div>

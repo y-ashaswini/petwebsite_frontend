@@ -1,50 +1,54 @@
 const useNode = () => {
-  const insertNode = function (tree, commentId, item) {
+  const insertNode = function (
+    tree,
+    commentId,
+    item,
+    username,
+    userid,
+    attachment
+  ) {
     if (tree.id === commentId) {
-      tree.items.push({
+      const push_comment = {
         id: new Date().getTime(),
         name: item,
+        username: username,
+        userid: userid,
+        attachment: attachment,
+        time: new Date().toISOString(),
         items: [],
-      });
-
+      };
+      tree.items.unshift(push_comment);
       return tree;
     }
 
     let latestNode = [];
     latestNode = tree.items.map((ob) => {
-      return insertNode(ob, commentId, item);
+      return insertNode(ob, commentId, item, username, userid, attachment);
     });
 
-    return { ...tree, items: latestNode };
+    return { items: latestNode, ...tree };
   };
 
-  const editNode = (tree, commentId, value) => {
-    if (tree.id === commentId) {
-      tree.name = value;
-      return tree;
-    }
-
-    tree.items.map((ob) => {
-      return editNode(ob, commentId, value);
-    });
-
-    return { ...tree };
-  };
-
-  const deleteNode = (tree, id) => {
+  const deleteNode = (tree, id, triggered_by_user) => {
     for (let i = 0; i < tree.items.length; i++) {
       const currentItem = tree.items[i];
       if (currentItem.id === id) {
-        tree.items.splice(i, 1);
-        return tree;
+        if (currentItem.userid === triggered_by_user) {
+          // console.log("deleting comment by ", currentItem.userid);
+          tree.items.splice(i, 1);
+          return tree;
+        } else {
+          // console.log("user "+triggered_by_user+" not authorised to delete comment by "+currentItem.userid);
+          break;
+        }
       } else {
-        deleteNode(currentItem, id);
+        deleteNode(currentItem, id, triggered_by_user);
       }
     }
     return tree;
   };
 
-  return { insertNode, editNode, deleteNode };
+  return { insertNode, deleteNode };
 };
 
 export default useNode;

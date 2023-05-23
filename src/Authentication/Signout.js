@@ -11,7 +11,15 @@ const supabase = createClient(
 
 export default function Signout() {
   let navigate = useNavigate();
-  const { u_email, set_u_role, set_u_email } = useContext(userDataContext);
+  const {
+    u_email,
+    set_u_role,
+    set_u_email,
+    set_u_name,
+    set_u_ph,
+    set_u_id,
+    set_u_uuid,
+  } = useContext(userDataContext);
   async function handleSignout() {
     const toast_param = {
       position: "top-right",
@@ -29,9 +37,13 @@ export default function Signout() {
     } else {
       toast.info("Signed out successfuly", toast_param);
     }
-
+    localStorage.clear();
     set_u_email("");
     set_u_role("");
+    set_u_name("");
+    set_u_ph("");
+    set_u_uuid("");
+    set_u_id("");
     navigate("/");
   }
 

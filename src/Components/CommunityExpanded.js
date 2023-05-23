@@ -20,6 +20,12 @@ export default function CommunityExpanded() {
   const [commId, setCommId] = useState("");
   const [commInfo, setCommInfo] = useState("");
 
+  // function compare(a, b) {
+  //   if (a.likes_list.length() > b.likes_list.length()) return 1;
+  //   if (a.likes_list.length() < b.likes_list.length()) return -1;
+  //   return 0;
+  // }
+
   async function GET_POSTS() {
     currComm = window.location.pathname.split("/").slice(-1)[0];
     setCurrCommName(currComm.split("_").join(" "));
@@ -40,6 +46,7 @@ export default function CommunityExpanded() {
     } else {
       setRenderingID("d");
       setCommId(data[0].id);
+      // data[0].post.sort(compare);
       setPostData(data[0].post);
       setCommDesc(data[0].description);
       setCommInfo(JSON.parse(data[0].page_info));
@@ -127,6 +134,7 @@ export default function CommunityExpanded() {
         postData.map((post) => (
           <Post
             key={post.id}
+            id={post.id}
             title={post.title}
             content={post.content}
             img_vid={post.img_vid}
@@ -136,7 +144,7 @@ export default function CommunityExpanded() {
             comments={post.comments}
             pinned={post.pinned}
             comm_name={currCommName}
-            // comments={post.comments}
+            likes_list={post.likes_list}
           />
         ))}
     </div>

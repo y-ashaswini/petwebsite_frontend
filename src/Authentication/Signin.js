@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import { userDataContext } from "../App";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,6 @@ export default function Signin() {
     set_u_name,
     set_u_ph,
     set_u_id,
-    u_uuid,
     set_u_uuid,
   } = useContext(userDataContext);
 
@@ -38,18 +37,14 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function getUserDeets() {
-    let { data: userDet, userdberror } = await supabase
+  async function getUserDeets(useruuid) {
+    let { data: userdbdata, userdberror } = await supabase
       .from("user")
       .select("id,username")
-      .eq("user_uuid", u_uuid);
+      .eq("user_uuid", useruuid);
     if (userdberror) console.log("user id error: ", userdberror);
     else {
-      set_u_id(userDet[0].id);
-      set_u_name(userDet[0].username);
-      // navigate("/");
-      toast.info("Signed in", toast_param);
-      // console.log("userDet from sign in: ", userDet);
+      return userdbdata;
     }
   }
 
@@ -61,12 +56,13 @@ export default function Signin() {
     ) {
       toast.error("Please fill up all the fields", toast_param);
     } else {
+      localStorage.clear();
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
       if (error) {
-        console.log(error);
+        toast.error(error, toast_param);
       }
       if (data) {
         // console.log("user sign in data: ", data);
@@ -80,8 +76,11 @@ export default function Signin() {
           set_u_ph(data.user.phone);
           set_u_role(data.user.aud);
           set_u_uuid(data.user.id);
-          // console.log(u_uuid);
-          getUserDeets();
+          const userdbdata = await getUserDeets(data.user.id);
+          // console.log("userdbdata: ", userdbdata);
+          set_u_id(userdbdata[0].id);
+          set_u_name(userdbdata[0].username);
+          toast.info("Sign in successful", toast_param);
         }
       }
     }

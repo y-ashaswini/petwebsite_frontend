@@ -3,15 +3,13 @@ import Action from "./Action";
 import { ReactComponent as DownArrow } from "../Assets/down-arrow.svg";
 import { ReactComponent as UpArrow } from "../Assets/up-arrow.svg";
 import { userDataContext } from "../App";
-
-// HOW TO SET COMMENT ID OF CURRENT POST = 1?
+import moment from "moment/moment";
 
 const Comment = ({
   handleInsertNode,
   handleDeleteNode,
   comment,
   comm_name,
-  comm_user,
 }) => {
   const { u_id, u_name } = useContext(userDataContext);
   const [input, setInput] = useState("");
@@ -20,11 +18,14 @@ const Comment = ({
   const [expand, setExpand] = useState(true);
 
   // Function for image attaching and previewing
-  function handleAttachimg(e) {
+  function handleAttachments(e) {
+    console.log("triggered");
     const img = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(img);
+
     reader.addEventListener("load", () => {
+      console.log("Added attachment: ", reader.result);
       setAttachment([...attachment, reader.result]);
     });
   }
@@ -36,13 +37,20 @@ const Comment = ({
 
   const onAddComment = () => {
     setExpand(true);
-    handleInsertNode(comment.id, input);
+    handleInsertNode(
+      comment.id,
+      input,
+      u_name,
+      u_id,
+      JSON.stringify(attachment)
+    );
     setShowInput(false);
+    setAttachment("");
     setInput("");
   };
 
   const handleDelete = () => {
-    handleDeleteNode(comment.id);
+    handleDeleteNode(comment.id, u_id);
   };
 
   return (
@@ -50,7 +58,7 @@ const Comment = ({
       <div
         className={
           comment.id === 1
-            ? "flex gap-2 my-2 items-center flex-col"
+            ? "flex gap-2 my-2 items-center flex-col text-left"
             : "border-l-2 my-2 pl-2 border-slate-200 flex flex-col gap-2"
         }
       >
@@ -73,23 +81,23 @@ const Comment = ({
                   />
                 </svg>
                 <span className="bg-slate-200 px-2 py-1 rounded-sm">
-                  {u_name}
+                  {u_name + " (You)"}
                 </span>
               </span>
-              <input
+              <textarea
                 type="text"
                 placeholder="Comment Here"
-                className="bg-slate-100 break-words outline-none rounded-sm px-2 py-1"
+                className="bg-slate-100 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
 
-              <label for="input-file">
+              <label for="input-file-1">
                 <input
                   type="file"
-                  id="input-file"
+                  id="input-file-1"
                   className="hidden"
-                  onChange={(e) => handleAttachimg(e)}
+                  onChange={(e) => handleAttachments(e)}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +106,7 @@ const Comment = ({
                   stroke-width="1.5"
                   stroke="currentColor"
                   class="w-6 h-6 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
-                  for="input-file"
+                  for="input-file-1"
                 >
                   <path
                     stroke-linecap="round"
@@ -137,7 +145,7 @@ const Comment = ({
                 />
               </svg>
               <span className="bg-slate-200 px-2 py-1 rounded-sm text-xs font-bold">
-                {comm_user}
+                {comment.username}
               </span>
             </span>
             <span className="flex text-sm gap-2 items-center justify-between px-2 py-1">
@@ -158,12 +166,22 @@ const Comment = ({
                   handleClick={handleNewComment}
                 />
 
-                <Action type="DELETE" handleClick={handleDelete} />
+                {comment.userid === u_id ? (
+                  <Action type="DELETE" handleClick={handleDelete} />
+                ) : (
+                  <></>
+                )}
               </span>
             </span>
+            <span className="flex text-[10px] text-slate-400 justify-between">
+              <span>
+                {moment(comment.time).format("MMMM Do YYYY, h:mm:ss a")}
+              </span>
+              <span>{comment.items.length + " comments underneath"}</span>
+            </span>
             <span className="flex flex-wrap gap-2">
-              {comment.attachment &&
-                comment.attachment.map((each) => (
+              {comment.attachment && JSON.parse(comment.attachment) &&
+                JSON.parse(comment.attachment).map((each) => (
                   <img
                     className="rounded-lg max-h-[16vh] w-fit my-2"
                     src={each}
@@ -193,23 +211,23 @@ const Comment = ({
                 />
               </svg>
               <span className="bg-slate-200 px-2 py-1 rounded-sm">
-                {u_name}
+                {u_name + " (You)"}
               </span>
             </span>
             <form className="text-sm flex gap-2 w-full items-center flex-1">
-              <input
+              <textarea
                 type="text"
                 placeholder="Comment Here"
-                className="bg-slate-100 break-words outline-none rounded-sm px-2 py-1"
+                className="bg-slate-100 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
-              <label for="input-file">
+              <label for="input-file-2">
                 <input
                   type="file"
-                  id="input-file"
+                  id="input-file-2"
                   className="hidden"
-                  onChange={(e) => handleAttachimg(e)}
+                  onChange={(e) => handleAttachments(e)}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +236,7 @@ const Comment = ({
                   stroke-width="1.5"
                   stroke="currentColor"
                   class="w-6 h-6 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
-                  for="input-file"
+                  for="input-file-2"
                 >
                   <path
                     stroke-linecap="round"
@@ -256,7 +274,6 @@ const Comment = ({
               handleDeleteNode={handleDeleteNode}
               comment={cmnt}
               comm_name={comm_name}
-              comm_user={comm_user}
             />
           );
         })}

@@ -1,19 +1,15 @@
-import { useState, useContext } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userDataContext } from "../App";
 import NotSignedin from "../Authentication/NotSignedin";
+import emailjs from "@emailjs/browser";
 
 export default function Mailus() {
-  const { u_email } = useContext(userDataContext);
+  const { u_email, u_name } = useContext(userDataContext);
+  const form = useRef();
   let navigate = useNavigate();
-
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const email = u_email; // Gather the email from stored account
-  const [query, setQuery] = useState("");
-
   function handleQuery(e) {
     const toast_param = {
       position: "top-right",
@@ -26,6 +22,21 @@ export default function Mailus() {
       theme: "light",
     };
     e.preventDefault();
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_ID,
+        process.env.REACT_APP_EMAILJS_HELP_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          toast.error(error.text, toast_param);
+        }
+      );
     toast.info(
       "We heard you! We'll get back to you within 2 business days",
       toast_param
@@ -87,41 +98,41 @@ export default function Mailus() {
       </span>
 
       <div className="max-h-[100vh] rounded-b-md bg-white flex flex-col p-6 text-slate-600 text-sm">
-        <form className="flex flex-col space-y-4">
-          <span className="flex space-x-4">
-            <input
-              type="text"
-              placeholder="First Name"
-              className="bg-slate-100 outline-none rounded-md flex-1 px-2 py-1 max-w-[48%]"
-              value={fname}
-              onChange={(e) => setFname(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="bg-slate-100 outline-none rounded-lg flex-1 px-2 py-1 max-w-[48%]"
-              value={lname}
-              onChange={(e) => setLname(e.target.value)}
-            />
-          </span>
+        <form
+          ref={form}
+          onSubmit={(e) => handleQuery(e)}
+          className="flex flex-col space-y-4"
+        >
+          <label className="-mb-2 font-bold">Name</label>
           <input
             type="text"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
-            value={email}
+            name="user_entername"
+            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
           />
-          <textarea
+          <label className="-mb-2 font-bold">Username</label>
+          <input
             type="text"
-            placeholder="Content"
-            className="bg-slate-100 outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            name="user_username"
+            value={u_name}
+            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
           />
-          <button
+          <label className="-mb-2 font-bold">Email</label>
+          <input
+            type="email"
+            name="user_email"
+            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            value={u_email}
+          />
+          <label className="-mb-2 font-bold">Message</label>
+          <textarea
+            name="user_message"
+            className="bg-slate-100 outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
+          />
+          <input
+            type="submit"
+            value="SEND"
             className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
-            onClick={(e) => handleQuery(e)}
-          >
-            SEND
-          </button>
+          />
         </form>
       </div>
     </>

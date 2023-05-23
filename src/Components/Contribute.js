@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { userDataContext } from "../App";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from "@emailjs/browser";
 
 export default function Contribute() {
+  const { u_email, u_name } = useContext(userDataContext);
   let navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
+  const form = useRef();
   const [attachment, setAttachment] = useState([]);
-  const [showimages, setShowimages] = useState("hidden");
 
   // Function for handling post
   function handlePost(e) {
@@ -24,33 +24,36 @@ export default function Contribute() {
       progress: undefined,
       theme: "light",
     };
-    if (title.trim() == "") {
-      toast.warn("Please add a title", toast_param);
-    } else if (content.trim() == "") {
-      toast.warn("Please add some content", toast_param);
-    } else {
-      localStorage.clear();
-      setTitle("");
-      setContent("");
-      setAttachment("");
-      setShowimages("hidden");
-      console.log("posted!");
-    }
+    // console.log("form current: ", form.current);
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_ID,
+        process.env.REACT_APP_EMAILJS_RESOURCES_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          toast.info("Recieved: "+result.text, toast_param);
+        },
+        (error) => {
+          toast.error(error.text, toast_param);
+        }
+      );
+    toast.info("We heard you! We'll get back to you soon", toast_param);
+    document.getElementById("formid").reset();
+    setAttachment([]);
   }
 
   // Function for image attaching and previewing
   function handleAttachimg(e) {
     const img = e.target.files[0];
-    console.log(img);
+    // console.log("img: ",img);
     const reader = new FileReader();
     reader.readAsDataURL(img);
-    const img_name = "uploadedimg" + img.name;
-    console.log("img name: ", img_name);
     reader.addEventListener("load", () => {
-      document.getElementById("previewimg").setAttribute("src", reader.result);
       setAttachment([...attachment, reader.result]);
     });
-    setShowimages("");
   }
 
   return (
@@ -89,44 +92,62 @@ export default function Contribute() {
         </div>
       </span>
 
-      <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
-        <form className="flex flex-col space-y-6">
-          {/* Title */}
+      <div className="rounded-md bg-white flex flex-col p-6 m-4 text-slate-600">
+        <form
+          id="formid"
+          onSubmit={(e) => handlePost(e)}
+          ref={form}
+          className="flex flex-col space-y-4"
+        >
+          <label className="-mb-2 font-bold">Name</label>
           <input
             type="text"
-            placeholder="Topic (what will your resources help in?)"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="user_entername"
+            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
           />
-
-          {/* Content */}
-          <textarea
+          <label className="-mb-2 font-bold">Username</label>
+          <input
             type="text"
-            placeholder="Content (include warnings, directions, points of caution, or any other important information)"
-            className="bg-slate-100 outline-none rounded-lg p-2 items-start w-full my-2 min-h-[40vh]"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            name="user_username"
+            value={u_name}
+            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
           />
-
-          {/* Attachments */}
-          <img
-            className={"rounded-lg max-h-[20vh] my-2 " + showimages}
-            id="previewimg"
+          <label className="-mb-2 font-bold">Email</label>
+          <input
+            type="email"
+            name="user_email"
+            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            value={u_email}
+          />
+          <label className="-mb-2 font-bold">
+            Topic (what will your resources help in?)
+          </label>
+          <input
+            type="text"
+            name="user_topic"
+            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+          />
+          <label className="-mb-2 font-bold">
+            Content (include warnings, directions, points of caution, or any
+            other important information)
+          </label>
+          <textarea
+            name="user_content"
+            className="bg-slate-100 outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
           />
           <span className="flex justify-between items-center">
-            <button
+            <input
+              type="submit"
+              value="SUBMIT FOR REVIEWING"
               className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"
-              onClick={(e) => handlePost(e)}
-            >
-              SUBMIT FOR REVIEWING
-            </button>
+            />
+
             {/* Attach images button */}
             <label for="input-file">
               <input
                 type="file"
-                id="input-file"
                 className="hidden"
+                id="input-file"
                 onChange={(e) => handleAttachimg(e)}
               />
               <svg
@@ -146,7 +167,20 @@ export default function Contribute() {
               </svg>
             </label>
           </span>
+          <input
+            type="text"
+            value={JSON.stringify(attachment)}
+            name="user_img"
+            className="border-2 rouneded-sm text-xs outline-none border-slate-400 text-slate-400 px-2 py-1"
+          />
         </form>
+        {/* Attachments */}
+        <span className="flex flex-wrap gap-2">
+          {attachment &&
+            attachment.map((each) => (
+              <img className="rounded-lg max-h-[20vh] w-fit my-2" src={each} />
+            ))}
+        </span>
       </div>
     </>
   );
