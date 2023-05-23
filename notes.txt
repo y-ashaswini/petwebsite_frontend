@@ -40,14 +40,14 @@ users: {
 }
 
 AGAIN
----) ENABLE LISTENING TO REAL TIME UPDATES IN SUPABASE?
-1) color changes
 3) admin controls - resource updation, pinning posts 
 *) admins can enter some banner type thing -- to message all?
-*) like feature ?????
 5) forgot password option -- triggers email 
-6) general posts in home page, welcome message through (i) icon [nah]
 5) search feature?
+6) general posts in home page, welcome message through (i) icon [nah]
+1) color changes
+
+---) ENABLE LISTENING TO REAL TIME UPDATES IN SUPABASE?
 9) MAKE ROUTES PROTECTED - ONLY IF YOU'RE SIGNED IN! -- APPLY RULES ON THE BACKEND
 1) the 'go to top' button 
 4) member count?
@@ -56,6 +56,7 @@ AGAIN
 
 
 DONE
+*) like feature ?????
 4) remember me -- doesn't have to sign in again and again (unless signs out) -- enable google sign in?
 *) where do resources submitted by the users go? send it to mail? -- SET UP MAILER !!!
 *) comment feature -- each needs to be a post in itself -- stored under comments, stringified format

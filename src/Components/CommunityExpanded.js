@@ -20,11 +20,11 @@ export default function CommunityExpanded() {
   const [commId, setCommId] = useState("");
   const [commInfo, setCommInfo] = useState("");
 
-  // function compare(a, b) {
-  //   if (a.likes_list.length() > b.likes_list.length()) return 1;
-  //   if (a.likes_list.length() < b.likes_list.length()) return -1;
-  //   return 0;
-  // }
+  function compare(a, b) {
+    if (a.likes_list.length > b.likes_list.length) return -1;
+    if (a.likes_list.length < b.likes_list.length) return 1;
+    return 0;
+  }
 
   async function GET_POSTS() {
     currComm = window.location.pathname.split("/").slice(-1)[0];
@@ -46,8 +46,8 @@ export default function CommunityExpanded() {
     } else {
       setRenderingID("d");
       setCommId(data[0].id);
-      // data[0].post.sort(compare);
-      setPostData(data[0].post);
+      const temp = data[0].post.sort(compare); // sorting by number of likes
+      setPostData(temp);
       setCommDesc(data[0].description);
       setCommInfo(JSON.parse(data[0].page_info));
     }
