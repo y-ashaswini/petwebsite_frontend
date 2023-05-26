@@ -2,8 +2,8 @@ import { userDataContext } from "../App";
 import { useEffect, useState, useContext } from "react";
 import Community from "./Community";
 
-const supabase_anon_key = process.production.REACT_APP_SUPABASE_API_ANON_KEY;
-const supabase_url = process.production.REACT_APP_SUPABASE_URL;
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 
 export default function Panel() {
   const { u_email } = useContext(userDataContext);

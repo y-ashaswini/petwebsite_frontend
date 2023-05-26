@@ -18,8 +18,8 @@ import CommunityExpanded from "./Components/CommunityExpanded";
 export const userDataContext = createContext();
 
 const supabase = createClient(
-  process.production.AboutusREACT_APP_SUPABASE_URL,
-  process.production.AboutusREACT_APP_SUPABASE_API_ANON_KEY
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
 export default function App() {

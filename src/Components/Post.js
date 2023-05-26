@@ -6,8 +6,8 @@ import moment from "moment/moment";
 import { userDataContext } from "../App";
 import pin from "../Assets/pin.svg";
 
-const supabase_anon_key = process.production.REACT_APP_SUPABASE_API_ANON_KEY;
-const supabase_url = process.production.REACT_APP_SUPABASE_URL;
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
 export default function Post({

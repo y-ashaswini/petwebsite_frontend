@@ -4,8 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase_anon_key = process.production.REACT_APP_SUPABASE_API_ANON_KEY;
-const supabase_url = process.production.REACT_APP_SUPABASE_URL;
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
 
