@@ -7,8 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const supabase = createClient(
-  process.production.REACT_APP_SUPABASE_URL,
-  process.production.REACT_APP_SUPABASE_API_ANON_KEY
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
 export default function Signin() {

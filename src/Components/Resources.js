@@ -1,17 +1,25 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { intro_para, all_resources } from "../Assets/resourcesData";
 import ResourceBlock from "./ResourceBlock";
+import NotSignedin from "../Authentication/NotSignedin";
+import { userDataContext } from "../App";
 export default function Resources() {
+  const { u_email } = useContext(userDataContext);
   return (
     <>
       <div className="md:text-3xl text-lg font-bold text-slate-600 flex justify-between">
         Resources
-        <Link
-          to="./contribute"
-          className="bg-slate-300 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-slate-500 text-lg"
-        >
-          CONTRIBUTE RESOURCES
-        </Link>
+        {u_email && u_email.trim() !== "" ? (
+          <Link
+            to="./contribute"
+            className="bg-slate-300 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-slate-500 text-lg"
+          >
+            CONTRIBUTE RESOURCES
+          </Link>
+        ) : (
+          <NotSignedin />
+        )}
       </div>
       <div className="my-4 md:my-8 flex flex-col">
         <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
