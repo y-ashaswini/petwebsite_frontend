@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-50 shadow-sm bg-white text-slate-500">
-      <div className="flex flex-wrap py-2 px-4 items-center space-x-4 sm:max-h-[8vh]">
+      <div className="flex flex-wrap py-2 px-4 items-center space-x-4 h-fit">
         {/* Logo */}
 
         <Link to="/">
@@ -25,14 +25,14 @@ export default function Navbar() {
 
         {/* Search Bar -- Community */}
         <form
-          className="flex flex-1 outline-none items-center border space-x-2 border-slate-200 rounded-lg sm:py-1 sm:px-3 sm:mr-2"
+          className="flex flex-1 outline-2 items-center border space-x-2 border-slate-200 rounded-lg sm:py-1 sm:px-3 sm:mr-2 text-sm"
           onSubmit={(e) => handleSearchCommunity(e)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6 text-slate-500"
+            class="md:w-6 md:h-6 h-4 w-4 text-slate-500"
           >
             <path
               fill-rule="evenodd"
@@ -53,7 +53,7 @@ export default function Navbar() {
         {/* Resources Dropdown */}
         <Link
           to="/resources"
-          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 flex-1 rounded-lg"
+          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 w-fit rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,13 +69,13 @@ export default function Navbar() {
               d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776"
             />
           </svg>
-          <span className="flex-1 hidden lg:inline">Resources</span>
+          <span className="hidden lg:inline">Resources</span>
         </Link>
 
         {/* About us */}
         <Link
           to="/about"
-          className="flex-1 flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="w-fit flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,13 +92,13 @@ export default function Navbar() {
             />
           </svg>
 
-          <span className="flex-1 hidden lg:inline">About us</span>
+          <span className="hidden lg:inline">About us</span>
         </Link>
 
         {/* Mail us */}
         <Link
           to="/contact"
-          className="flex-1 flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="w-fit flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -114,13 +114,13 @@ export default function Navbar() {
               d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
             />
           </svg>
-          <span className="flex-1 hidden lg:inline">Feedback!</span>
+          <span className="hidden lg:inline">Feedback!</span>
         </Link>
 
         {/* Home icon */}
         <Link
           to="/"
-          className="flex flex-1 xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="flex w-fit xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ export default function Navbar() {
             <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
             <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
           </svg>
-          <span className="flex-1 hidden lg:inline">Home</span>
+          <span className="hidden lg:inline">Home</span>
         </Link>
       </div>
 
