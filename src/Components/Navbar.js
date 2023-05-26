@@ -16,11 +16,11 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-50 shadow-sm bg-white text-slate-500">
-      <div className="flex py-2 px-4 items-center space-x-4 sm:max-h-[8vh]">
+      <div className="flex flex-wrap py-2 px-4 items-center space-x-4 sm:max-h-[8vh]">
         {/* Logo */}
 
         <Link to="/">
-          <img src={logo} className="w-24 rounded-md my-1" />
+          <img src={logo} className="w-2/5 sm:w-24 mx-auto rounded-md my-1" />
         </Link>
 
         {/* Search Bar -- Community */}
@@ -53,7 +53,7 @@ export default function Navbar() {
         {/* Resources Dropdown */}
         <Link
           to="/resources"
-          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 flex-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ export default function Navbar() {
         {/* About us */}
         <Link
           to="/about"
-          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="flex-1 flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function Navbar() {
         {/* Mail us */}
         <Link
           to="/contact"
-          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="flex-1 flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function Navbar() {
         {/* Home icon */}
         <Link
           to="/"
-          className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+          className="flex flex-1 xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ export default function Navbar() {
       </div>
 
       <hr className="text-slate-600 mx-4 my-1 " />
-      <div className="flex py-1 justify-evenly items-center text-sm space-x-4">
+      <div className="flex py-1 justify-evenly items-center text-sm sm:space-x-4">
         <span className="text-slate-300 rounded-md text-lg font-bold">
           PROFILE
         </span>
@@ -151,7 +151,7 @@ export default function Navbar() {
             </Link>
           </>
         ) : (
-          <>
+          <div className="flex flex-wrap md:text-sm text-xs overflow-hidden items-center">
             <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +159,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                class="sm:w-6 sm:h-6 w-4 h-4"
               >
                 <path
                   stroke-linecap="round"
@@ -176,7 +176,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="white"
-                class="w-7 h-7"
+                class="sm:w-6 sm:h-6 w-4 h-4"
               >
                 <path
                   stroke-linecap="round"
@@ -185,9 +185,7 @@ export default function Navbar() {
                 />
               </svg>
 
-              <span className="flex-1 lg:inline">
-                {u_name && u_name}
-              </span>
+              <span className="flex-1 lg:inline">{u_name && u_name}</span>
             </span>
             <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
               <svg
@@ -196,7 +194,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
-                class="w-6 h-6"
+                class="sm:w-6 sm:h-6 w-4 h-4"
               >
                 <path
                   stroke-linecap="round"
@@ -214,7 +212,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke-width="1"
                 stroke="white"
-                class="w-6 h-6"
+                class="sm:w-6 sm:h-6 w-4 h-4"
               >
                 <path
                   stroke-linecap="round"
@@ -228,7 +226,7 @@ export default function Navbar() {
             </span>
 
             <Signout />
-          </>
+          </div>
         )}
       </div>
     </div>
