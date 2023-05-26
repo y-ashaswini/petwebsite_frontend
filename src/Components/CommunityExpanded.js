@@ -16,6 +16,7 @@ export default function CommunityExpanded() {
   const showOptions = ["hidden", ""];
   const [currCommName, setCurrCommName] = useState("");
   const [postData, setPostData] = useState("");
+  const [pinnedPostData, setPinnedPostData] = useState("");
   const [commDesc, setCommDesc] = useState("");
   const [commId, setCommId] = useState("");
   const [commInfo, setCommInfo] = useState("");
@@ -46,7 +47,11 @@ export default function CommunityExpanded() {
     } else {
       setRenderingID("d");
       setCommId(data[0].id);
-      const temp = data[0].post.sort(compare); // sorting by number of likes
+      const temp_ = data[0].post.filter((curr)=>curr.pinned === true);
+      const temp__ = temp_.sort(compare);
+      setPinnedPostData(temp__);
+      const temp___ = data[0].post.filter((curr)=>curr.pinned === false);
+      const temp = temp___.sort(compare); // sorting by number of likes
       setPostData(temp);
       setCommDesc(data[0].description);
       setCommInfo(JSON.parse(data[0].page_info));
@@ -102,7 +107,7 @@ export default function CommunityExpanded() {
       <span className="fixed z-50 right-8 bottom-4 text-white">
         <span
           className={
-            "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-100 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin shadow-lg " +
+            "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin shadow-lg " +
             showOptions[toggleRules]
           }
         >
@@ -130,7 +135,28 @@ export default function CommunityExpanded() {
         </span>
       </span>
 
-      {postData &&
+      {pinnedPostData ? (
+        pinnedPostData.map((post) => (
+          <Post
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            content={post.content}
+            img_vid={post.img_vid}
+            created_by_user_id={post.created_by_user_id}
+            created_under_city_id={post.created_under_city_id}
+            created_in_community_id={post.created_in_community_id}
+            comments={post.comments}
+            pinned={post.pinned}
+            comm_name={currCommName}
+            likes_list={post.likes_list}
+          />  
+        ))
+      ) : (
+        <span className="text-slate-600 italic m-4">Loading...</span>
+      )}
+
+      {postData ? (
         postData.map((post) => (
           <Post
             key={post.id}
@@ -146,7 +172,10 @@ export default function CommunityExpanded() {
             comm_name={currCommName}
             likes_list={post.likes_list}
           />
-        ))}
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

@@ -33,32 +33,37 @@ export default function App() {
   const [u_uuid, set_u_uuid] = useState("");
 
   useEffect(() => {
+    async function getUserdbdata(userdata) {
+      set_u_role(userdata.user.role);
+      set_u_email(userdata.user.email);
+      set_u_uuid(userdata.user.id);
+      set_u_ph(userdata.user.phone);
+      let { data: userDet, userdberror } = await supabase
+      .from("user")
+      .select("id,username")
+    .eq("user_uuid", u_uuid);
+    if (userdberror) console.log("user db error: ", userdberror);
+    else {
+      console.log("userDet: ",userDet);
+      return userDet[0];
+    };
+    }
+
     async function getUserinfo() {
       const { data: userdata } = await supabase.auth.getUser();
-      // console.log(userdata.user.id);
       if (userdata) {
-        set_u_role(userdata.user.role);
-        set_u_email(userdata.user.email);
-        set_u_uuid(userdata.user.id);
-        set_u_ph(userdata.user.phone);
-        // console.log("user uuid: ", u_uuid);
-        let { data: userDet, userdberror } = await supabase
-          .from("user")
-          .select("id,username");
-        // .eq("user_uuid", u_uuid);
-        if (userdberror) console.log("user db error: ", userdberror);
-        else {
-          // console.log("user details from app: ",userDet);
-          set_u_id(userDet[0].id);
-          set_u_name(userDet[0].username);
-        }
+          const userdbdata = await getUserdbdata(userdata);
+          console.log("userdbdata: ",userdbdata);
+          set_u_id(userdbdata.id);
+          set_u_name(userdbdata.username);
+        // }
       } else {
-        console.log("error");
+        console.log("auth user error");
       }
     }
 
     getUserinfo();
-  }, []);
+  }, [set_u_name]);
 
   return (
     <userDataContext.Provider
@@ -77,13 +82,13 @@ export default function App() {
         set_u_uuid,
       }}
     >
-      <div className="h-[100vh] bg-slate-100 max-h-[100vh] overflow-y-scroll">
+      <div className="h-[100vh] bg-slate-100 max-h-[100vh] overflow-y-scroll md:p-0 px-2">
         <Navbar />
-        <div className="grid grid-cols-8 min-h-screen">
-          <div className="col-start-1 col-span-3 lg:col-span-2 hidden md:block ">
+        <div className="grid grid-cols-8 min-h-screen gap-2 md:gap-0">
+          <div className="md:col-span-3 lg:col-span-2 sm:col-span-3 col-span-8 ">
             <Panel />
           </div>
-          <div className="lg:col-start-3 md:col-start-4 col-start-2 col-span-6 xl:px-48 lg:px-24 xl:py-12 sm:p-8">
+          <div className="sm:col-start-4 lg:col-start-3 sm:col-span-6 col-span-8 xl:px-48 lg:px-24 xl:py-12 sm:p-8">
             <Routes location={location} key={location.pathname}>
               <Route path="/signin" exact element={<Signin />} />
               <Route path="/signup" exact element={<Signup />} />

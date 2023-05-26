@@ -80,7 +80,8 @@ export default function Signin() {
           // console.log("userdbdata: ", userdbdata);
           set_u_id(userdbdata[0].id);
           set_u_name(userdbdata[0].username);
-          toast.info("Sign in successful", toast_param);
+          // toast.info("Sign in successful", toast_param);
+          navigate("/");
         }
       }
     }
