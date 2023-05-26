@@ -24,10 +24,10 @@ export default function Mailus() {
     e.preventDefault();
     emailjs
       .sendForm(
-        process.env.REACT_APP_EMAILJS_ID,
-        process.env.REACT_APP_EMAILJS_HELP_TEMPLATE_ID,
+        process.production.REACT_APP_EMAILJS_ID,
+        process.production.REACT_APP_EMAILJS_HELP_TEMPLATE_ID,
         form.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        process.production.REACT_APP_EMAILJS_PUBLIC_KEY
       )
       .then(
         (result) => {

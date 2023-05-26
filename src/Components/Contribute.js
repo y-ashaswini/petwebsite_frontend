@@ -27,10 +27,10 @@ export default function Contribute() {
     // console.log("form current: ", form.current);
     emailjs
       .sendForm(
-        process.env.REACT_APP_EMAILJS_ID,
-        process.env.REACT_APP_EMAILJS_RESOURCES_TEMPLATE_ID,
+        process.production.REACT_APP_EMAILJS_ID,
+        process.production.REACT_APP_EMAILJS_RESOURCES_TEMPLATE_ID,
         form.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        process.production.REACT_APP_EMAILJS_PUBLIC_KEY
       )
       .then(
         (result) => {

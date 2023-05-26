@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { useContext } from "react";
 const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL,
-  process.env.REACT_APP_SUPABASE_API_ANON_KEY
+  process.production.REACT_APP_SUPABASE_URL,
+  process.production.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
 export default function Signout() {

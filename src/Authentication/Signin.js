@@ -7,8 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL,
-  process.env.REACT_APP_SUPABASE_API_ANON_KEY
+  process.production.REACT_APP_SUPABASE_URL,
+  process.production.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
 export default function Signin() {
@@ -80,7 +80,8 @@ export default function Signin() {
           // console.log("userdbdata: ", userdbdata);
           set_u_id(userdbdata[0].id);
           set_u_name(userdbdata[0].username);
-          toast.info("Sign in successful", toast_param);
+          // toast.info("Sign in successful", toast_param);
+          navigate("/");
         }
       }
     }

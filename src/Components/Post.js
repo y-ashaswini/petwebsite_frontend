@@ -4,9 +4,10 @@ import useNode from "../Hooks/useNode";
 import { createClient } from "@supabase/supabase-js";
 import moment from "moment/moment";
 import { userDataContext } from "../App";
+import pin from "../Assets/pin.svg";
 
-const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
-const supabase_url = process.env.REACT_APP_SUPABASE_URL;
+const supabase_anon_key = process.production.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.production.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
 export default function Post({
@@ -32,38 +33,45 @@ export default function Post({
   const [parsed_likes_list, setParsed_likes_list] = useState(
     JSON.parse(likes_list)
   );
-  // const [isPinned, setIsPinned] = useState(pinned);
+
+  const [isPinned, setIsPinned] = useState(pinned);
+  // console.log("pinned: ",pinned);
   const [commentsData, setCommentsData] = useState(JSON.parse(comments));
   const { insertNode, deleteNode } = useNode();
 
   async function setLike() {
-    // console.log("before: ",parsed_likes_list);
     setLiked_by_curr_user(true);
     parsed_likes_list.push(u_id);
     setParsed_likes_list(parsed_likes_list);
-    // console.log("after: ",parsed_likes_list);
     const { data, error } = await supabase
       .from("post")
       .update({ likes_list: JSON.stringify(parsed_likes_list) })
-      .eq("id", id)
-      .select();
+      .eq("id", id);
     if (error) console.log("liking error: ", error);
-    // else console.log("no liking error: ", data);
   }
 
   async function setDislike() {
-    // console.log("before: ",parsed_likes_list);
     setLiked_by_curr_user(false);
     const temp = parsed_likes_list.filter((each) => each != u_id);
     setParsed_likes_list(temp);
-    // console.log("after: ",parsed_likes_list);
     const { data, error } = await supabase
       .from("post")
       .update({ likes_list: JSON.stringify(parsed_likes_list) })
+      .eq("id", id);
+    if (error) console.log("disliking error: ", error);
+  }
+
+  async function handlePin() {
+    // console.log("pinned before: ", isPinned);
+    // ONLY IF USER IS ADMIN
+    const { data, error } = await supabase
+      .from("post")
+      .update({ pinned: !isPinned })
       .eq("id", id)
       .select();
-    if (error) console.log("disliking error: ", error);
-    // else console.log("no disliking error: ", data);
+    if (error) console.log("pinning error: ", error);
+    // else console.log("after pinning data: ", data);
+    setIsPinned((curr) => !curr);
   }
 
   const handleInsertNode = async (
@@ -112,14 +120,12 @@ export default function Post({
       if (error) {
         console.log("error: ", error);
       } else {
-        // console.log("data from get user data: ",data[0]);
         setUser(data[0]);
-        // Checking if the post is liked by the user
-        // console.log("checking likes list: ", parsed_likes_list);
+        // console.log("parsed: ",parsed_likes_list);
+        // console.log("u_id: ",u_id);
         for (let i = 0; i < parsed_likes_list.length; i++) {
-          if (parsed_likes_list[i] == data[0].id) {
+          if (parsed_likes_list[i] == u_id) {
             setLiked_by_curr_user(true);
-            // console.log("this user has liked this post");
             break;
           }
         }
@@ -147,10 +153,20 @@ export default function Post({
   return (
     <div
       className={
-        "bg-white text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5 relative"
-        // +(isPinned ? " outline outline-2 outline-slate-500" : "")
+        "text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5 relative " +
+        (isPinned ? "bg-slate-200" : "bg-white")
       }
     >
+      {/* Pin */}
+      <img
+        src={pin}
+        className={
+          isPinned
+            ? "w-6 h-6 absolute right-4 top-4 z-30 cursor-pointer"
+            : "w-6 h-6 absolute right-4 top-4 z-30 opacity-20 hover:opacity-100 cursor-pointer"
+        }
+        onClick={handlePin}
+      />
       {/* Community Name */}
       <span className="text-sm italic">
         <span className="text-slate-700 font-bold">{user.username}</span> @{" "}

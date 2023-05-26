@@ -43,7 +43,7 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search for a community"
-            className="outline-none flex-1 bg-transparent hidden sm:inline-block"
+            className="outline-none flex-1 bg-transparent sm:inline-block"
             value={searchCommunity}
             onChange={(e) => setSearchCommunity(e.target.value)}
           />
@@ -167,7 +167,7 @@ export default function Navbar() {
                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                 />
               </svg>
-              <span className="flex-1 hidden lg:inline">{u_email}</span>
+              <span className="flex-1 lg:inline">{u_email}</span>
             </span>
             <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
               <svg
@@ -185,7 +185,7 @@ export default function Navbar() {
                 />
               </svg>
 
-              <span className="flex-1 hidden lg:inline">
+              <span className="flex-1 lg:inline">
                 {u_name && u_name}
               </span>
             </span>
@@ -205,7 +205,7 @@ export default function Navbar() {
                 />
               </svg>
 
-              <span className="flex-1 hidden lg:inline">{u_ph && u_ph}</span>
+              <span className="flex-1 lg:inline">{u_ph && u_ph}</span>
             </span>
             <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
               <svg
@@ -222,7 +222,7 @@ export default function Navbar() {
                   d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="flex-1 hidden lg:inline">
+              <span className="flex-1 lg:inline">
                 {u_role && u_role.toUpperCase()}
               </span>
             </span>
