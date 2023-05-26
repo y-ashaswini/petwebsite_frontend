@@ -18,7 +18,9 @@ export default function Resources() {
             CONTRIBUTE RESOURCES
           </Link>
         ) : (
-          <NotSignedin />
+          <span className="text-sm">
+            <NotSignedin />
+          </span>
         )}
       </div>
       <div className="my-4 md:my-8 flex flex-col">
