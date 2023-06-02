@@ -44,7 +44,6 @@ export default function App() {
     .eq("user_uuid", u_uuid);
     if (userdberror) console.log("user db error: ", userdberror);
     else {
-      console.log("userDet: ",userDet);
       return userDet[0];
     };
     }

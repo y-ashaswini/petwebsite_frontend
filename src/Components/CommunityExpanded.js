@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Post from "./Post";
 import Createpost from "./Createpost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
@@ -22,8 +24,8 @@ export default function CommunityExpanded() {
   const [commInfo, setCommInfo] = useState("");
 
   function compare(a, b) {
-    if (a.likes_list.length > b.likes_list.length) return -1;
-    if (a.likes_list.length < b.likes_list.length) return 1;
+    if (a.created_at > b.created_at) return -1;
+    if (a.created_at < b.created_at) return 1;
     return 0;
   }
 
@@ -47,11 +49,12 @@ export default function CommunityExpanded() {
     } else {
       setRenderingID("d");
       setCommId(data[0].id);
-      const temp_ = data[0].post.filter((curr)=>curr.pinned === true);
+      const temp_ = data[0].post.filter((curr) => curr.pinned === true);
       const temp__ = temp_.sort(compare);
       setPinnedPostData(temp__);
-      const temp___ = data[0].post.filter((curr)=>curr.pinned === false);
-      const temp = temp___.sort(compare); // sorting by number of likes
+      const temp___ = data[0].post.filter((curr) => curr.pinned === false);
+      // const temp = temp___.sort(compare); // sorting by number of likes
+      const temp = temp___.sort(compare); // sorting by date
       setPostData(temp);
       setCommDesc(data[0].description);
       setCommInfo(JSON.parse(data[0].page_info));
@@ -64,6 +67,19 @@ export default function CommunityExpanded() {
 
   return (
     <div className="flex flex-col space-y-12">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        className="font-bold text-slate-600 rounded-lg"
+      />
       <span className="flex justify-between items-center text-slate-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +87,7 @@ export default function CommunityExpanded() {
           viewBox="0 0 24 24"
           strokeWidth="2"
           fill="none"
-          className="w-8 h-8 cursor-pointer"
+          className="w-6 h-6 cursor-pointer"
           onClick={() => setToggleInfo((curr) => !curr + 0)}
         >
           <path
@@ -150,7 +166,7 @@ export default function CommunityExpanded() {
             pinned={post.pinned}
             comm_name={currCommName}
             likes_list={post.likes_list}
-          />  
+          />
         ))
       ) : (
         <span className="text-slate-600 italic m-4">Loading...</span>

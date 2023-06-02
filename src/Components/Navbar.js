@@ -1,17 +1,60 @@
 import { useState, useContext } from "react";
+import { createClient } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 import Signout from "../Authentication/Signout";
 import { userDataContext } from "../App";
 import logo from "../Assets/logo.jpg";
 
+const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
+const supabase_url = process.env.REACT_APP_SUPABASE_URL;
+const supabase = createClient(supabase_url, supabase_anon_key);
+
 export default function Navbar() {
   // Inherit user data from Parent App
   const { u_role, u_email, u_name, u_ph } = useContext(userDataContext);
   const [searchCommunity, setSearchCommunity] = useState("");
+  const [searchres, setSearchres] = useState("");
+  const [showProfile, setShowProfile] = useState(false);
 
-  function handleSearchCommunity(e) {
+  async function handleSearchContent(e) {
     e.preventDefault();
-    console.log(searchCommunity);
+    if (u_email) {
+      const { data, error } = await supabase
+        .from("post")
+        .select(
+          `title, content, community(name),
+        user(username)`
+        )
+        .textSearch("content", searchCommunity, {
+          type: "websearch",
+          config: "english",
+        });
+      if (error) console.log("search error: ", error);
+      else {
+        setSearchres(data);
+        // console.log("data: ", data);
+      }
+    }
+  }
+  async function handleSearchTitle(e) {
+    e.preventDefault();
+    if (u_email) {
+      const { data, error } = await supabase
+        .from("post")
+        .select(
+          `title, content, community(name),
+        user(username)`
+        )
+        .textSearch("title", searchCommunity, {
+          type: "websearch",
+          config: "english",
+        });
+      if (error) console.log("search error: ", error);
+      else {
+        setSearchres(data);
+        // console.log("data: ", data);
+      }
+    }
   }
 
   return (
@@ -24,15 +67,44 @@ export default function Navbar() {
         </Link>
 
         {/* Search Bar -- Community */}
-        <form
-          className="flex flex-1 outline-2 items-center border space-x-2 border-slate-200 rounded-lg sm:py-1 sm:px-3 sm:mr-2 text-sm"
-          onSubmit={(e) => handleSearchCommunity(e)}
-        >
+        <form className="flex flex-1 outline-2 items-center border space-x-2 border-slate-200 rounded-md px-2 py-1 text-sm relative">
+          {searchres && (
+            <div
+              className={
+                searchCommunity
+                  ? "text-xs absolute w-full max-h-40 z-30 overflow-y-scroll top-10 scrollbar-thumb-slate-600 scrollbar-thumb-rounded-2xl scrollbar-track-none scrollbar-thin pr-4"
+                  : "hidden"
+              }
+            >
+              {searchres.map((each) => (
+                <Link
+                  to={`community/${each.community.name.split(" ").join("_")}`}
+                  className="text-slate-500 flex bg-white flex-col gap-2 border-b-8 border-t-2 border-l-2 border-r-8 border-slate-400 mb-2 relative p-4"
+                >
+                  <span className="flex items-center justify-between font-bold">
+                    <span className="md:text-xl">{each.title}</span>
+                    <span className="flex gap-1 items-center">
+                      <span className="bg-slate-100 px-2 py-1">
+                        {each.user.username}
+                      </span>
+                      @
+                      <span className="bg-slate-100 px-2 py-1">
+                        {each.community.name}
+                      </span>
+                    </span>
+                  </span>
+                  <span className="italic">
+                    {each.content.slice(0, 120) + "..."}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="md:w-6 md:h-6 h-4 w-4 text-slate-500"
+            class="h-4 w-4 text-slate-500"
           >
             <path
               fill-rule="evenodd"
@@ -42,15 +114,37 @@ export default function Navbar() {
           </svg>
           <input
             type="text"
-            placeholder="Search for a community"
+            placeholder="Search Pettera"
             className="outline-none flex-1 bg-transparent sm:inline-block"
             value={searchCommunity}
             onChange={(e) => setSearchCommunity(e.target.value)}
           />
-          <button type="submit" hidden />
+          <button
+            type="submit"
+            className={
+              searchCommunity
+                ? "text-xs px-2 py-1 bg-slate-300 text-white rounded-md font-bold"
+                : "hidden"
+            }
+            onClick={(e) => handleSearchContent(e)}
+          >
+            CONTENT SEARCH
+          </button>
+          <button
+            type="submit"
+            className={
+              searchCommunity
+                ? "text-xs px-2 py-1 bg-slate-300 text-white rounded-md font-bold"
+                : "hidden"
+            }
+            onClick={(e) => handleSearchTitle(e)}
+          >
+            TITLE SEARCH
+          </button>
         </form>
 
         {/* Resources Dropdown */}
+
         <Link
           to="/resources"
           className="flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 w-fit rounded-lg"
@@ -117,30 +211,39 @@ export default function Navbar() {
           <span className="hidden lg:inline">Feedback!</span>
         </Link>
 
-        {/* Home icon */}
-        <Link
-          to="/"
-          className="flex w-fit xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg"
+        {/* Profile */}
+        <div
+          className={
+            "w-fit flex xl:min-w-[100px] items-center sm:mx-2 cursor-pointer space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg" +
+            (showProfile ? " bg-slate-100" : "")
+          }
+          onClick={() => setShowProfile((curr) => !curr)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="sm:w-6 sm:h-6 w-4 h-4"
           >
-            <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-            <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+            />
           </svg>
-          <span className="hidden lg:inline">Home</span>
-        </Link>
+          <span className="hidden lg:inline">Profile</span>
+        </div>
       </div>
 
-      <hr className="text-slate-600 mx-4 my-1 " />
-      <div className="flex py-1 justify-evenly items-center text-sm sm:space-x-4">
-        <span className="text-slate-300 rounded-md text-lg font-bold">
-          PROFILE
-        </span>
-        <hr className="rotate-90 text-slate-500 w-5" />
+      <div
+        className={
+          showProfile
+            ? "absolute right-4 top-14 p-4 z-50 bg-white border-r-8 border-b-8 border-t-2 border-l-2 border-slate-400 flex flex-col gap-2 text-xs"
+            : "hidden"
+        }
+      >
         {!u_email || u_email.trim() === "" ? (
           <>
             <Link
@@ -151,82 +254,39 @@ export default function Navbar() {
             </Link>
           </>
         ) : (
-          <div className="flex flex-wrap md:text-sm text-xs overflow-hidden items-center">
-            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="sm:w-6 sm:h-6 w-4 h-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                />
-              </svg>
-              <span className="flex-1 lg:inline">{u_email}</span>
-            </span>
-            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="white"
-                class="sm:w-6 sm:h-6 w-4 h-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
-                />
-              </svg>
-
-              <span className="flex-1 lg:inline">{u_name && u_name}</span>
-            </span>
-            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                class="sm:w-6 sm:h-6 w-4 h-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                />
-              </svg>
-
-              <span className="flex-1 lg:inline">{u_ph && u_ph}</span>
-            </span>
-            <span className="flex xl:min-w-[100px] items-center sm:mx-2 space-x-2 hover:bg-slate-100 px-2 py-1 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="1"
-                stroke="white"
-                class="sm:w-6 sm:h-6 w-4 h-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span className="flex-1 lg:inline">
-                {u_role && u_role.toUpperCase()}
+          <>
+            {u_name && (
+              <span className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-bold text-slate-300">
+                  USERNAME
+                </span>
+                {u_name}
               </span>
-            </span>
+            )}
 
+            {u_email && (
+              <span className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-bold text-slate-300">EMAIL</span>
+                {u_email}
+              </span>
+            )}
+
+            {u_ph && (
+              <span className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-bold text-slate-300">
+                  PHONE NO.
+                </span>
+                {u_ph}
+              </span>
+            )}
+
+            {u_role && (
+              <span className="text-sm font-bold text-slate-400 border-2 px-2 py-1 w-fit border-slate-400">
+                {u_role.toUpperCase()}
+              </span>
+            )}
             <Signout />
-          </div>
+          </>
         )}
       </div>
     </div>

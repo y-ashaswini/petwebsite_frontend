@@ -49,7 +49,7 @@ export default function Createpost({ comm_name, comm_id }) {
     // console.log("inserting: ", insertdata);
     const { data: _, error } = await supabase.from("post").insert([insertdata]);
 
-    if (error) console.toast.error("posting error: "+error, toast_param);
+    if (error) toast.error("posting error: "+error, toast_param);
     else toast.info("Posted", toast_param);
   }
 

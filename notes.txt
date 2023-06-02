@@ -1,3 +1,24 @@
+
+NOW {
+
+    image getting stretched on some pcs?
+    profile button right side of navbar
+    color changes
+    bottom footer add links
+    community on the left pane -- make burger menu (BRUH)
+    admin controls
+}
+
+DONE {
+    search community functionality - add
+    order posts based on time, recent not likes
+    remove home button
+    add delete post option
+}
+
+
+
+
 store information in your own file and see how it works
 THEN add it to db and get it from there
 
@@ -38,6 +59,8 @@ users: {
     yashaswini.shivathaya2021@vitstudent.ac.in
     nobody
 }
+
+
 
 AGAIN
 3) admin controls - resource updation, pinning posts 
