@@ -59,7 +59,7 @@ const Comment = ({
         className={
           comment.id === 1
             ? "flex gap-2 my-2 items-center flex-col text-left"
-            : "border-l-2 my-2 pl-2 border-yellow1 flex flex-col gap-2"
+            : "border-l-2 my-2 sm:pl-2 pl-1 border-yellow1 flex flex-col gap-2"
         }
       >
         {comment.id === 1 ? (
@@ -148,7 +148,7 @@ const Comment = ({
                 {comment.username}
               </span>
             </span>
-            <span className="flex text-sm gap-2 items-center justify-between px-2 py-1">
+            <span className="flex flex-wrap text-sm gap-2 items-center justify-between px-2 py-1">
               {comment.name}
 
               <span className="flex gap-2 items-center">
@@ -173,7 +173,7 @@ const Comment = ({
                 )}
               </span>
             </span>
-            <span className="flex text-[10px] text-yellow1 justify-between">
+            <span className="flex flex-wrap text-[10px] text-yellow1 justify-between">
               <span>
                 {moment(comment.time).format("MMMM Do YYYY, h:mm:ss a")}
               </span>
@@ -195,7 +195,7 @@ const Comment = ({
 
       <div style={{ display: expand ? "block" : "none", paddingLeft: 25 }}>
         {showInput && (
-          <div className="my-2 pl-2 border-l-2 flex flex-col gap-2 border-blue1">
+          <div className="my-2 pl-1 sm:pl-2 border-l-2 flex flex-col gap-2 border-blue1">
             <span className="flex items-center gap-2 text-xs font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

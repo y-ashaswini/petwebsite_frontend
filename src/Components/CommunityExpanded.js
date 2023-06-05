@@ -87,7 +87,7 @@ export default function CommunityExpanded() {
           viewBox="0 0 24 24"
           strokeWidth="2"
           fill="none"
-          className="w-6 h-6 cursor-pointer"
+          className="w-6 h-6 cursor-pointer mr-2 "
           onClick={() => setToggleInfo((curr) => !curr + 0)}
         >
           <path
@@ -97,12 +97,12 @@ export default function CommunityExpanded() {
           />
         </svg>
 
-        <div className="md:text-3xl text-lg font-bold ">
+        <div className="md:text-3xl w-fit text-lg font-bold ">
           {currCommName + ""}
         </div>
 
         <div
-          className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none w-fit"
+          className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none"
           onClick={() => setTogglepost((curr) => !curr + 0)}
         >
           {togglePost ? "CLOSE POST" : "CREATE POST"}

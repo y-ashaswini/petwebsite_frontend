@@ -31,6 +31,7 @@ export default function App() {
   const [u_ph, set_u_ph] = useState("");
   const [u_id, set_u_id] = useState("");
   const [u_uuid, set_u_uuid] = useState("");
+  const [showPannel, setShowPannel] = useState(false);
 
   useEffect(() => {
     async function getUserdbdata(userdata) {
@@ -39,22 +40,22 @@ export default function App() {
       set_u_uuid(userdata.user.id);
       set_u_ph(userdata.user.phone);
       let { data: userDet, userdberror } = await supabase
-      .from("user")
-      .select("id,username")
-    .eq("user_uuid", u_uuid);
-    if (userdberror) console.log("user db error: ", userdberror);
-    else {
-      return userDet[0];
-    };
+        .from("user")
+        .select("id,username")
+        .eq("user_uuid", u_uuid);
+      if (userdberror) console.log("user db error: ", userdberror);
+      else {
+        return userDet[0];
+      }
     }
 
     async function getUserinfo() {
       const { data: userdata } = await supabase.auth.getUser();
       if (userdata) {
-          const userdbdata = await getUserdbdata(userdata);
-          console.log("userdbdata: ",userdbdata);
-          set_u_id(userdbdata.id);
-          set_u_name(userdbdata.username);
+        const userdbdata = await getUserdbdata(userdata);
+        console.log("userdbdata: ", userdbdata);
+        set_u_id(userdbdata.id);
+        set_u_name(userdbdata.username);
         // }
       } else {
         console.log("auth user error");
@@ -81,11 +82,19 @@ export default function App() {
         set_u_uuid,
       }}
     >
-      <div className="h-[100vh] bg-slate-100 max-h-[100vh] overflow-y-scroll md:p-0 px-2">
+      <div className="h-[100vh] bg-white max-h-[100vh] overflow-y-scroll md:p-0 px-2">
         <Navbar />
         <div className="grid grid-cols-8 min-h-screen gap-2 md:gap-0">
-          <div className="md:col-span-3 lg:col-span-2 sm:col-span-3 col-span-8 ">
-            <Panel />
+          <div className="md:col-span-3 overflow-y-scroll scrollbar-thumb-white scrollbar-thumb-rounded-2xl scrollbar-track-white scrollbar-thin w-full sm:h-full lg:col-span-2 sm:col-span-3 col-span-8">
+            <div
+              className="bg-blue1 text-white cursor-pointer font-bold sm:hidden px-2 py-1 rounded-sm text-center m-2"
+              onClick={() => setShowPannel((curr) => !curr)}
+            >
+              SHOW COMMUNITIES
+            </div>
+            <span className={showPannel ? "" : "hidden sm:block"}>
+              <Panel />
+            </span>
           </div>
           <div className="sm:col-start-4 lg:col-start-3 sm:col-span-6 col-span-8 xl:px-48 lg:px-24 xl:py-12 sm:p-8">
             <Routes location={location} key={location.pathname}>

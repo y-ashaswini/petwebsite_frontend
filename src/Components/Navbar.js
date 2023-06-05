@@ -58,7 +58,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="sticky top-0 z-50 shadow-sm px-2 bg-white text-blue1">
+    <div className="sticky top-0 z-50 shadow-md px-2 bg-white text-blue1">
       <div className="flex flex-wrap flex-1 items-center">
         <span className="flex p-1 flex-1 w-full md:w-fit items-center space-x-4 h-fit">
           {/* Logo */}
