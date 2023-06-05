@@ -51,7 +51,7 @@ export default function Signout() {
     <></>
   ) : (
     <div
-      className="bg-slate-300 hover:bg-slate-500 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer outline-none w-fit"
+      className="bg-blue2 border-2 border-r-4 border-b-4 border-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer outline-none w-fit"
       onClick={handleSignout}
     >
       SIGN OUT

@@ -39,7 +39,7 @@ export default function Panel() {
   }, []);
 
   return (u_email && u_email.trim() !== "") ? (
-    <div className="flex flex-col gap-8 text-slate-500 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-slate-600 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin text-center">
+    <div className="flex flex-col gap-8 text-blue1 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin text-center">
       {commData &&
         commData.map((each) => (
           <Community
@@ -51,6 +51,6 @@ export default function Panel() {
         ))}
     </div>
   ) : (
-    <div className="bg-slate-300 h-full w-full"></div>
+    <div className="bg-peach1 h-full w-full"></div>
   );
 }

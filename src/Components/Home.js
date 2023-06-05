@@ -13,7 +13,7 @@ export default function Home() {
         {u_email && u_email.trim() !== "" ? (
           <>
             <Link to="/community/General_Animal_Discussions">
-              <div className="bg-slate-700 hover:bg-slate-800 p-4 font-bold rounded-sm items-center text-white flex justify-between gap-4 md:text-xl">
+              <div className="bg-blue1 opacity-90 hover:bg-blue1 hover:opacity-100 p-4 font-bold rounded-md items-center text-yellow1 flex justify-between gap-4 md:text-xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -36,11 +36,11 @@ export default function Home() {
         ) : (
           <NotSignedin />
         )}
-        <span className="bg-slate-600 my-4 text-white font-bold text-center md:p-8 p-4 md:px-6 lg:text-2xl md:text-xl flex items-center justify-between">
+        <span className="bg-blue2 my-4 text-white font-bold text-center md:p-8 p-4 md:px-6 lg:text-2xl md:text-xl flex items-center justify-between rounded-md">
           <span>WELCOME TO PETTERA!</span>
         </span>
 
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold ">
+        <span className="bg-peach1 text-yellow1 block rounded-md md:p-8 p-4 font-bold ">
           <div className="mb-4">
             As animal lovers, we all want to help animals in need, but it can be
             overwhelming and confusing to know where to start with the 25

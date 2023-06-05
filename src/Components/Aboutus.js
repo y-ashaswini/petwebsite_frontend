@@ -10,7 +10,7 @@ export default function Aboutus() {
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
-          class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
+          class="w-7 h-7 cursor-pointer text-blue1 hover:bg-peach1 p-1 mb-2 rounded-md"
           onClick={() => navigate(-1)}
         >
           <path
@@ -19,15 +19,15 @@ export default function Aboutus() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-slate-600">
+        <div className="md:text-3xl text-lg font-bold text-blue1">
           About us
         </div>
       </span>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
+        <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
           WHO WE ARE
         </span>
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold rounded-e-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md">
           Pettera is an early-stage start-up that is on a mission to build a
           community that supports animals in need. We are passionate about
           creating a platform that connects animal lovers with animals that
@@ -35,7 +35,7 @@ export default function Aboutus() {
         </span>
       </div>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold rounded-s-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-s-md">
           At Pettera, our mission is simple: we want to make a difference in the
           world and help animals in need. We believe that animals deserve love,
           care, and respect, and we are dedicated to building a community that
@@ -44,15 +44,15 @@ export default function Aboutus() {
           assistance, whether it's through adoption, fostering, volunteering, or
           donating.
         </span>
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-e-md w-fit lg:text-2xl md:text-xl flex items-center">
+        <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-e-md w-fit lg:text-2xl md:text-xl flex items-center">
           OUR MISSION
         </span>
       </div>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
+        <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
           HOW YOU CAN HELP
         </span>
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold rounded-e-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md">
           You can help make a difference for animals by spreading the word about
           our community and inviting your friends and family to join us.
           Together, we can create a movement for animal welfare that reaches far

@@ -69,7 +69,7 @@ export default function Contribute() {
         draggable
         pauseOnHover
         theme="light"
-        className="font-bold text-slate-600 rounded-lg"
+        className="font-bold text-blue1 rounded-lg"
       />
       <span className="flex gap-x-4 items-center">
         <svg
@@ -78,7 +78,7 @@ export default function Contribute() {
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
-          class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
+          class="w-7 h-7 cursor-pointer text-blue1 hover:bg-peach1 p-1 mb-2 rounded-md"
           onClick={() => navigate(-1)}
         >
           <path
@@ -87,59 +87,59 @@ export default function Contribute() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-slate-600">
+        <div className="md:text-3xl text-lg font-bold text-blue1">
           Contribute to Resources
         </div>
       </span>
 
-      <div className="rounded-md bg-white flex flex-col p-6 m-4 text-slate-600">
+      <div className="rounded-md bg-peach1 flex flex-col p-6 m-4 text-blue1">
         <form
           id="formid"
           onSubmit={(e) => handlePost(e)}
           ref={form}
           className="flex flex-col space-y-4"
         >
-          <label className="-mb-2 font-bold">Name</label>
+          <label className="-mb-2 font-bold text-yellow1">Name</label>
           <input
             type="text"
             name="user_entername"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
+            className="bg-white outline-none rounded-md px-2 py-1 my"
           />
-          <label className="-mb-2 font-bold">Username</label>
+          <label className="-mb-2 font-bold text-yellow1">Username</label>
           <input
             type="text"
             name="user_username"
             value={u_name}
-            className="bg-slate-100 outline-none rounded-md px-2 py-1 my"
+            className="bg-white outline-none rounded-md px-2 py-1 my"
           />
-          <label className="-mb-2 font-bold">Email</label>
+          <label className="-mb-2 font-bold text-yellow1">Email</label>
           <input
             type="email"
             name="user_email"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            className="bg-white outline-none rounded-md px-2 py-1"
             value={u_email}
           />
-          <label className="-mb-2 font-bold">
+          <label className="-mb-2 font-bold text-yellow1">
             Topic (what will your resources help in?)
           </label>
           <input
             type="text"
             name="user_topic"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            className="bg-white outline-none rounded-md px-2 py-1"
           />
-          <label className="-mb-2 font-bold">
+          <label className="-mb-2 font-bold text-yellow1">
             Content (include warnings, directions, points of caution, or any
             other important information)
           </label>
           <textarea
             name="user_content"
-            className="bg-slate-100 outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
+            className="bg-white outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
           />
           <span className="flex justify-between items-center">
             <input
               type="submit"
               value="SUBMIT FOR REVIEWING"
-              className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"
+              className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 hover:bg-white hover:text-blue1 outline-none"
             />
 
             {/* Attach images button */}
@@ -156,7 +156,7 @@ export default function Contribute() {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-8 h-8 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
+                class="w-8 h-8 cursor-pointer hover:bg-yellow1 p-1 rounded-md"
                 for="input-file"
               >
                 <path
@@ -171,7 +171,7 @@ export default function Contribute() {
             type="text"
             value={JSON.stringify(attachment)}
             name="user_img"
-            className="border-2 rouneded-sm text-xs outline-none border-slate-400 text-slate-400 px-2 py-1"
+            className="border-2 rouneded-md text-xs outline-none border-blue1 text-slate-400 px-2 py-1"
           />
         </form>
         {/* Attachments */}

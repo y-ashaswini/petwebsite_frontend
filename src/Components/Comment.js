@@ -59,7 +59,7 @@ const Comment = ({
         className={
           comment.id === 1
             ? "flex gap-2 my-2 items-center flex-col text-left"
-            : "border-l-2 my-2 pl-2 border-slate-200 flex flex-col gap-2"
+            : "border-l-2 my-2 pl-2 border-yellow1 flex flex-col gap-2"
         }
       >
         {comment.id === 1 ? (
@@ -72,7 +72,7 @@ const Comment = ({
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  className="w-6 h-6 bg-slate-200 rounded-full p-1"
+                  className="w-6 h-6 bg-blue1 text-white rounded-full p-1"
                 >
                   <path
                     stroke-linecap="round"
@@ -80,14 +80,14 @@ const Comment = ({
                     d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                   />
                 </svg>
-                <span className="bg-slate-200 px-2 py-1 rounded-sm">
+                <span className="bg-blue1 text-white px-2 py-1 rounded-sm">
                   {u_name + " (You)"}
                 </span>
               </span>
               <textarea
                 type="text"
                 placeholder="Comment Here"
-                className="bg-slate-100 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
+                className="bg-white text-blue1 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
@@ -105,7 +105,7 @@ const Comment = ({
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
+                  class="w-6 h-6 cursor-pointer hover:bg-yellow1 p-1 rounded-md"
                   for="input-file-1"
                 >
                   <path
@@ -136,7 +136,7 @@ const Comment = ({
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                className="w-6 h-6 bg-slate-200 rounded-full p-1"
+                className="w-6 h-6 bg-blue1 text-white opacity-80 rounded-full p-1"
               >
                 <path
                   stroke-linecap="round"
@@ -144,7 +144,7 @@ const Comment = ({
                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                 />
               </svg>
-              <span className="bg-slate-200 px-2 py-1 rounded-sm text-xs font-bold">
+              <span className="bg-yellow1 text-white px-2 py-1 rounded-sm text-xs font-bold">
                 {comment.username}
               </span>
             </span>
@@ -173,14 +173,15 @@ const Comment = ({
                 )}
               </span>
             </span>
-            <span className="flex text-[10px] text-slate-400 justify-between">
+            <span className="flex text-[10px] text-yellow1 justify-between">
               <span>
                 {moment(comment.time).format("MMMM Do YYYY, h:mm:ss a")}
               </span>
               <span>{comment.items.length + " comments underneath"}</span>
             </span>
             <span className="flex flex-wrap gap-2">
-              {comment.attachment && JSON.parse(comment.attachment) &&
+              {comment.attachment &&
+                JSON.parse(comment.attachment) &&
                 JSON.parse(comment.attachment).map((each) => (
                   <img
                     className="rounded-lg max-h-[16vh] w-fit my-2"
@@ -194,7 +195,7 @@ const Comment = ({
 
       <div style={{ display: expand ? "block" : "none", paddingLeft: 25 }}>
         {showInput && (
-          <div className="my-2 pl-2 border-l-2 flex flex-col gap-2 border-slate-600">
+          <div className="my-2 pl-2 border-l-2 flex flex-col gap-2 border-blue1">
             <span className="flex items-center gap-2 text-xs font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +203,7 @@ const Comment = ({
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                className="w-6 h-6 bg-slate-200 rounded-full p-1"
+                className="w-6 h-6 bg-blue1 text-white rounded-full p-1"
               >
                 <path
                   stroke-linecap="round"
@@ -210,7 +211,7 @@ const Comment = ({
                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                 />
               </svg>
-              <span className="bg-slate-200 px-2 py-1 rounded-sm">
+              <span className="bg-blue1 text-white px-2 py-1 rounded-sm">
                 {u_name + " (You)"}
               </span>
             </span>
@@ -218,7 +219,7 @@ const Comment = ({
               <textarea
                 type="text"
                 placeholder="Comment Here"
-                className="bg-slate-100 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
+                className="bg-white text-blue1 break-words h-7 flex-1 w-96 outline-none rounded-sm px-2 py-1"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
@@ -235,7 +236,7 @@ const Comment = ({
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
+                  class="w-6 h-6 cursor-pointer hover:bg-white p-1 rounded-md"
                   for="input-file-2"
                 >
                   <path

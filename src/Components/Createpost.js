@@ -8,9 +8,7 @@ const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
-
 export default function Createpost({ comm_name, comm_id }) {
-
   const { u_id, u_name } = useContext(userDataContext);
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
@@ -49,7 +47,7 @@ export default function Createpost({ comm_name, comm_id }) {
     // console.log("inserting: ", insertdata);
     const { data: _, error } = await supabase.from("post").insert([insertdata]);
 
-    if (error) toast.error("posting error: "+error, toast_param);
+    if (error) toast.error("posting error: " + error, toast_param);
     else toast.info("Posted", toast_param);
   }
 
@@ -91,15 +89,15 @@ export default function Createpost({ comm_name, comm_id }) {
         draggable
         pauseOnHover
         theme="light"
-        className="font-bold text-slate-600 rounded-lg"
+        className="font-bold text-blue1 rounded-lg"
       />
-      <div className="rounded-md bg-white flex flex-col p-6 m-4 text-slate-600">
+      <div className="rounded-md bg-blue2 border-2 border-r-8 border-b-8 border-blue1 flex flex-col p-6 m-4 text-blue1">
         <span className="flex items-center">
-          <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
+          <span className="rounded-sm p-1 bg-white m-1 font-bold text-blue1">
             POSTING
           </span>
-          <span className="text-slate-700 font-bold">@</span>
-          <span className="rounded-sm p-1 bg-slate-200 m-1 font-bold text-slate-500">
+          <span className="text-blue1 font-bold">@</span>
+          <span className="rounded-sm p-1 bg-white m-1 font-bold text-blue1">
             {comm_name}
           </span>
         </span>
@@ -108,14 +106,14 @@ export default function Createpost({ comm_name, comm_id }) {
           <input
             type="text"
             placeholder="Heading"
-            className="bg-slate-100 outline-none rounded-lg w-full px-4 py-2 my-2"
+            className="bg-white outline-none rounded-lg w-full px-4 py-2 my-2"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
           />
           <textarea
             type="text"
             placeholder="Content"
-            className="bg-slate-100 outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
+            className="bg-white outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
@@ -131,7 +129,7 @@ export default function Createpost({ comm_name, comm_id }) {
 
           <span className="flex justify-between items-center">
             <button
-              className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 hover:bg-white hover:text-slate-600 outline-none"
+              className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 hover:bg-white hover:text-blue1 outline-none"
               onClick={(e) => handlePost(e)}
             >
               POST
@@ -150,7 +148,7 @@ export default function Createpost({ comm_name, comm_id }) {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-8 h-8 cursor-pointer hover:bg-slate-100 p-1 rounded-md"
+                class="w-8 h-8 cursor-pointer hover:bg-peach1 p-1 rounded-md"
                 for="input-file"
               >
                 <path

@@ -8,12 +8,12 @@ export default function Resources() {
   const { u_email } = useContext(userDataContext);
   return (
     <>
-      <div className="md:text-3xl text-lg font-bold text-slate-600 flex justify-between">
+      <div className="md:text-3xl text-lg font-bold text-blue1 flex justify-between">
         Resources
         {u_email && u_email.trim() !== "" ? (
           <Link
             to="./contribute"
-            className="bg-slate-300 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-slate-500 text-lg"
+            className="bg-peach1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-yellow1 text-lg"
           >
             CONTRIBUTE RESOURCES
           </Link>
@@ -24,10 +24,10 @@ export default function Resources() {
         )}
       </div>
       <div className="my-4 md:my-8 flex flex-col">
-        <span className="bg-slate-600 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
+        <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
           RESOURCES
         </span>
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold ">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold ">
           <div className="mb-4">
             At Pettera, we believe that providing resources for stray animals is
             crucial in ensuring their well-being. We understand that taking care
@@ -50,10 +50,10 @@ export default function Resources() {
         </span>
 
         {/* Links to the resource pages */}
-        <div className="md:text-3xl text-lg font-bold text-slate-600 flex justify-between my-4">
+        <div className="md:text-3xl text-lg font-bold text-blue1 flex justify-between my-4">
           List of Essential Resources
         </div>
-        <span className="bg-slate-200 text-slate-500 block md:p-8 p-4 font-bold ">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold ">
           {intro_para}
         </span>
         <div className="grid grid-cols-2 gap-2 md:gap-4 mt-4">

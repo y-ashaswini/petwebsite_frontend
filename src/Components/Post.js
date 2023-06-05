@@ -174,8 +174,8 @@ export default function Post({
   return (
     <div
       className={
-        "text-slate-500 flex flex-col w-auto border border-slate-200 rounded-md md:p-8 p-5 relative " +
-        (isPinned ? "bg-slate-200" : "bg-white")
+        "text-blue1 flex flex-col w-auto border-2 border-r-8 bg-peach1 border-b-8 rounded-md md:p-8 p-5 relative " +
+        (isPinned ? "border-yellow1" : "border-peach1")
       }
     >
       {/* Pin */}
@@ -249,18 +249,18 @@ export default function Post({
 
       {/* Community Name */}
       <span className="text-sm italic">
-        <span className="text-slate-700 font-bold">{user.username}</span> @{" "}
-        <span className="text-slate-700 font-bold">{city.name}</span>
+        <span className="text-blue1 font-bold">{user.username}</span> @{" "}
+        <span className="text-blue1 font-bold">{city.name}</span>
       </span>
       {/* Tags */}
       <span className="flex flex-wrap text-xs">
-        <span className="rounded-sm p-1 bg-slate-200 m-1">{user.email}</span>
-        <span className="rounded-sm p-1 bg-slate-200 m-1">
+        <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">{user.email}</span>
+        <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
           {moment(user.created_at).format("MMMM Do YYYY, h:mm:ss a")}
         </span>
       </span>
       {/* Heading */}
-      <span className="md:text-2xl sm:text-xl text-lg text-slate-700 font-bold py-2">
+      <span className="md:text-2xl sm:text-xl text-lg text-blue1 font-bold py-2">
         {title}
       </span>
       {/* Content */}
@@ -314,7 +314,7 @@ export default function Post({
               <a
                 href={each}
                 download
-                className="bg-slate-400 px-2 py-1 rounded-sm text-white font-bold"
+                className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
               >
                 Document
               </a>
@@ -325,7 +325,7 @@ export default function Post({
       </span>
       <span className="flex justify-between items-end">
         <div
-          className="font-bold border-2 text-xs cursor-pointer text-slate-400 border-slate-400 px-2 py-1 rounded-sm w-fit mt-2"
+          className="font-bold border-2 text-xs cursor-pointer text-blue1 border-blue1 px-2 py-1 rounded-sm w-fit mt-2"
           onClick={() => setShowComments((curr) => !curr)}
         >
           {!showComments

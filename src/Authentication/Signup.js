@@ -99,7 +99,7 @@ export default function Signup() {
         draggable
         pauseOnHover
         theme="light"
-        className="font-bold text-slate-600 rounded-lg"
+        className="font-bold text-blue1 rounded-lg"
       />
       <span className="flex gap-x-4 items-center">
         <svg
@@ -108,7 +108,7 @@ export default function Signup() {
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
-          class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
+          class="w-7 h-7 cursor-pointer text-blue1 hover:bg-peach1 p-1 mb-2 rounded-md"
           onClick={() => navigate(-1)}
         >
           <path
@@ -117,16 +117,16 @@ export default function Signup() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-slate-600">
+        <div className="md:text-3xl text-lg font-bold text-blue1">
           Sign up
         </div>
       </span>
-      <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
+      <div className="rounded-md max-h-[100vh] bg-peach1 flex flex-col p-6 m-4 text-yellow1">
         <form className="flex flex-col space-y-8">
           <input
             type="text"
             placeholder="Choose a username"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            className="bg-white text-blue1 outline-none rounded-md px-2 py-1"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -134,7 +134,7 @@ export default function Signup() {
           <input
             type="text"
             placeholder="Email"
-            className="bg-slate-100 outline-none rounded-md px-2 py-1"
+            className="bg-white text-blue1 outline-none rounded-md px-2 py-1"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -143,7 +143,7 @@ export default function Signup() {
             <input
               type="password"
               placeholder="Set a strong password"
-              className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
+              className="flex-1 bg-white text-blue1 outline-none rounded-md px-2 py-1"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -151,7 +151,7 @@ export default function Signup() {
             <input
               type="password"
               placeholder="Confirm your password"
-              className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
+              className="flex-1 bg-white text-blue1 outline-none rounded-md px-2 py-1"
               value={confirmpass}
               onChange={(e) => setConfirmpass(e.target.value)}
             />
@@ -162,17 +162,17 @@ export default function Signup() {
               <input
                 type="email"
                 placeholder="Location"
-                className="flex-1 bg-slate-100 outline-none rounded-md px-2 py-1"
+                className="flex-1 bg-white text-blue1 outline-none rounded-md px-2 py-1"
                 value={loc}
               />
             </span>
             <span className="flex flex-col space-y-2 flex-1">
               <span className="font-bold">Enter your contact number</span>
               <span className="flex items-center">
-                <span className="bg-slate-300 p-1 rounded-l-md">+91</span>
+                <span className="bg-yellow1 text-white font-bold p-1 rounded-l-md">+91</span>
                 <input
                   type="number"
-                  className="flex-1 bg-slate-100 outline-none rounded-r-md px-2 py-1"
+                  className="flex-1 bg-white text-blue1 outline-none rounded-r-md px-2 py-1"
                   value={ph}
                   onChange={(e) => setph(e.target.value)}
                 />
@@ -181,14 +181,14 @@ export default function Signup() {
           </span>
 
           <button
-            className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
+            className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 outline-none w-fit"
             onClick={(e) => handleSignup(e)}
           >
             SIGN UP
           </button>
         </form>
       </div>
-      <span className="text-slate-600">
+      <span className="text-blue1">
         Have an account already?{" "}
         <Link
           to="/signin"

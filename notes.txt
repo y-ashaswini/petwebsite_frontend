@@ -1,21 +1,29 @@
 
 NOW {
-
-    image getting stretched on some pcs?
-    profile button right side of navbar
     color changes
-    bottom footer add links
     community on the left pane -- make burger menu (BRUH)
+}  
+
+BRUH {
+    image getting stretched on some pcs?
     admin controls
 }
 
 DONE {
-    search community functionality - add
+    profile button right side of navbar
+    bottom footer add links
+    search community functionality
     order posts based on time, recent not likes
     remove home button
     add delete post option
 }
 
+
+BLUE #07203F
+YELLOW #FA9F20
+WHITE #FFAEB
+PEACH #FDF0AC
+LIGHT BLUE #5CB8FF
 
 
 

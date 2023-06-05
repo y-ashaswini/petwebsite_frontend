@@ -100,7 +100,7 @@ export default function Signin() {
         draggable
         pauseOnHover
         theme="light"
-        className="font-bold text-slate-600 rounded-lg"
+        className="font-bold text-blue1 rounded-lg"
       />
 
       {!u_email || (u_email && u_email.trim()) === "" ? (
@@ -112,7 +112,7 @@ export default function Signin() {
               viewBox="0 0 24 24"
               stroke-width="2"
               stroke="currentColor"
-              class="w-7 h-7 cursor-pointer text-slate-600 hover:bg-slate-300 p-1 mb-2 rounded-md"
+              class="w-7 h-7 cursor-pointer text-blue1 hover:bg-peach1 p-1 mb-2 rounded-md"
               onClick={() => navigate(-1)}
             >
               <path
@@ -121,16 +121,16 @@ export default function Signin() {
                 d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
               />
             </svg>
-            <div className="md:text-3xl text-lg font-bold text-slate-600">
+            <div className="md:text-3xl text-lg font-bold text-blue1">
               Sign in
             </div>
           </span>
-          <div className="rounded-md max-h-[100vh] bg-white flex flex-col p-6 m-4 text-slate-600">
+          <div className="rounded-md max-h-[100vh] bg-peach1 flex flex-col p-6 m-4 text-yellow1">
             <form className="flex flex-col space-y-8">
               <input
                 type="text"
                 placeholder="Email"
-                className="bg-slate-100 outline-none rounded-md px-2 py-1"
+                className="bg-white text-blue1 outline-none rounded-md px-2 py-1"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -138,20 +138,20 @@ export default function Signin() {
               <input
                 type="password"
                 placeholder="Password"
-                className="bg-slate-100 outline-none rounded-md px-2 py-1"
+                className="bg-white outline-none rounded-md px-2 py-1"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
 
               <button
-                className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
+                className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 outline-none w-fit"
                 onClick={(e) => handleSignin(e)}
               >
                 SIGN IN
               </button>
             </form>
           </div>
-          <span className="text-slate-600">
+          <span className="text-blue1">
             Don't have an account?{" "}
             <Link
               to="/signup"

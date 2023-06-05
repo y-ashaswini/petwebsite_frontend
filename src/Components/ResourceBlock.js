@@ -6,11 +6,11 @@ export default function ResourceBlock({ each_resource }) {
   return (
     <div
       className={
-        "bg-slate-300 flex flex-col gap-4 rounded-sm p-2 h-fit " +
+        "bg-blue1 flex flex-col gap-4 rounded-sm p-2 h-fit " +
         (showContent || showContact ? "col-span-2" : "")
       }
     >
-      <span className="flex justify-between items-center text-slate-600">
+      <span className="flex justify-between items-center text-white">
         <span className="text-xl font-bold ">{each_resource.topic}</span>
         <span className="flex gap-2">
           {showContact ? (
@@ -86,7 +86,7 @@ export default function ResourceBlock({ each_resource }) {
         return (
           <span
             className={
-              "flex gap-2 m-2 text-slate-500 italic " +
+              "flex gap-2 m-2 text-white italic " +
               (showContent ? "" : "hidden")
             }
           >
@@ -100,7 +100,7 @@ export default function ResourceBlock({ each_resource }) {
         return (
           <span
             className={
-              "grid grid-cols-1 my-2 md:grid-cols-2 gap-2 text-xs text-slate-500 font-bold " +
+              "grid grid-cols-1 my-2 md:grid-cols-2 gap-2 text-xs text-blue1 font-bold " +
               (showContact ? "" : "hidden")
             }
           >

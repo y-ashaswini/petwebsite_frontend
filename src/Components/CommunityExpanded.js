@@ -78,9 +78,9 @@ export default function CommunityExpanded() {
         draggable
         pauseOnHover
         theme="light"
-        className="font-bold text-slate-600 rounded-lg"
+        className="font-bold text-blue1 rounded-lg"
       />
-      <span className="flex justify-between items-center text-slate-600">
+      <span className="flex justify-between items-center text-blue1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           stroke="currentColor"
@@ -102,7 +102,7 @@ export default function CommunityExpanded() {
         </div>
 
         <div
-          className="bg-slate-600 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-slate-600 outline-none w-fit"
+          className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none w-fit"
           onClick={() => setTogglepost((curr) => !curr + 0)}
         >
           {togglePost ? "CLOSE POST" : "CREATE POST"}
@@ -110,7 +110,7 @@ export default function CommunityExpanded() {
       </span>
       <span
         className={
-          "bg-slate-200 text-slate-500 block md:p-8 p-4 text-sm font-bold " +
+          "bg-peach1 text-yellow1 block md:p-8 p-4 text-sm font-bold " +
           showOptions[toggleInfo]
         }
       >
@@ -169,7 +169,7 @@ export default function CommunityExpanded() {
           />
         ))
       ) : (
-        <span className="text-slate-600 italic m-4">Loading...</span>
+        <span className="text-blue1 italic m-4">Loading...</span>
       )}
 
       {postData ? (
