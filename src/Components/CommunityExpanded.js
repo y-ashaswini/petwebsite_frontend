@@ -66,7 +66,7 @@ export default function CommunityExpanded() {
   }, [renderingID]);
 
   return (
-    <div className="flex flex-col space-y-12">
+    <>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -80,118 +80,120 @@ export default function CommunityExpanded() {
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
-      <span className="flex justify-between items-center text-blue1">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          fill="none"
-          className="w-6 h-6 cursor-pointer mr-2 "
-          onClick={() => setToggleInfo((curr) => !curr + 0)}
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-          />
-        </svg>
+      <div className="flex flex-col space-y-12">
+        <span className="flex justify-between items-center text-blue1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            fill="none"
+            className="w-6 h-6 cursor-pointer mr-2 "
+            onClick={() => setToggleInfo((curr) => !curr + 0)}
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+            />
+          </svg>
 
-        <div className="md:text-3xl w-fit text-lg font-bold ">
-          {currCommName + ""}
-        </div>
+          <div className="md:text-3xl w-fit text-lg font-bold ">
+            {currCommName + ""}
+          </div>
 
-        <div
-          className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none"
-          onClick={() => setTogglepost((curr) => !curr + 0)}
-        >
-          {togglePost ? "CLOSE POST" : "CREATE POST"}
-        </div>
-      </span>
-      <span
-        className={
-          "bg-peach1 text-yellow1 block md:p-8 p-4 text-sm font-bold " +
-          showOptions[toggleInfo]
-        }
-      >
-        {commDesc}
-      </span>
-      <span className={showOptions[togglePost]}>
-        <Createpost comm_name={currCommName} comm_id={commId} />
-      </span>
-      {/* Page Specific Resources */}
-      <span className="fixed z-50 right-8 bottom-4 text-white">
+          <div
+            className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none"
+            onClick={() => setTogglepost((curr) => !curr + 0)}
+          >
+            {togglePost ? "CLOSE POST" : "CREATE POST"}
+          </div>
+        </span>
         <span
           className={
-            "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin shadow-lg " +
-            showOptions[toggleRules]
+            "bg-peach1 text-yellow1 block md:p-8 p-4 text-sm font-bold " +
+            showOptions[toggleInfo]
           }
         >
-          {Object.keys(commInfo).map((key, index) => {
-            return (
-              <span key={index}>
-                <span className="font-bold text-sm">{key}</span>
-                {commInfo[key].map((each) => {
-                  return (
-                    <span className="flex gap-2 my-2">
-                      <span className="p-[1.5px] bg-slate-600 rounded-sm"></span>
-                      <span className="italic">{each}</span>
-                    </span>
-                  );
-                })}
-              </span>
-            );
-          })}
+          {commDesc}
         </span>
-        <span
-          className="py-1 px-4 my-1 rounded-sm bg-slate-900 w-full flex text-white text-xs font-bold text-center cursor-pointer shadow-lg"
-          onClick={() => setToggleRules((curr) => !curr + 0)}
-        >
-          {toggleRules ? "CLOSE" : "RULES"}
+        <span className={showOptions[togglePost]}>
+          <Createpost comm_name={currCommName} comm_id={commId} />
         </span>
-      </span>
+        {/* Page Specific Resources */}
+        <span className="fixed z-50 right-8 bottom-4 text-white">
+          <span
+            className={
+              "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin shadow-lg " +
+              showOptions[toggleRules]
+            }
+          >
+            {Object.keys(commInfo).map((key, index) => {
+              return (
+                <span key={index}>
+                  <span className="font-bold text-sm">{key}</span>
+                  {commInfo[key].map((each) => {
+                    return (
+                      <span className="flex gap-2 my-2">
+                        <span className="p-[1.5px] bg-slate-600 rounded-sm"></span>
+                        <span className="italic">{each}</span>
+                      </span>
+                    );
+                  })}
+                </span>
+              );
+            })}
+          </span>
+          <span
+            className="py-1 px-4 my-1 rounded-sm bg-slate-900 w-full flex text-white text-xs font-bold text-center cursor-pointer shadow-lg"
+            onClick={() => setToggleRules((curr) => !curr + 0)}
+          >
+            {toggleRules ? "CLOSE" : "RULES"}
+          </span>
+        </span>
 
-      {pinnedPostData ? (
-        pinnedPostData.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            content={post.content}
-            img_vid={post.img_vid}
-            created_by_user_id={post.created_by_user_id}
-            created_under_city_id={post.created_under_city_id}
-            created_in_community_id={post.created_in_community_id}
-            comments={post.comments}
-            pinned={post.pinned}
-            comm_name={currCommName}
-            likes_list={post.likes_list}
-          />
-        ))
-      ) : (
-        <span className="text-blue1 italic m-4">Loading...</span>
-      )}
+        {pinnedPostData ? (
+          pinnedPostData.map((post) => (
+            <Post
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              content={post.content}
+              img_vid={post.img_vid}
+              created_by_user_id={post.created_by_user_id}
+              created_under_city_id={post.created_under_city_id}
+              created_in_community_id={post.created_in_community_id}
+              comments={post.comments}
+              pinned={post.pinned}
+              comm_name={currCommName}
+              likes_list={post.likes_list}
+            />
+          ))
+        ) : (
+          <span className="text-blue1 italic m-4">Loading...</span>
+        )}
 
-      {postData ? (
-        postData.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            content={post.content}
-            img_vid={post.img_vid}
-            created_by_user_id={post.created_by_user_id}
-            created_under_city_id={post.created_under_city_id}
-            created_in_community_id={post.created_in_community_id}
-            comments={post.comments}
-            pinned={post.pinned}
-            comm_name={currCommName}
-            likes_list={post.likes_list}
-          />
-        ))
-      ) : (
-        <></>
-      )}
-    </div>
+        {postData ? (
+          postData.map((post) => (
+            <Post
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              content={post.content}
+              img_vid={post.img_vid}
+              created_by_user_id={post.created_by_user_id}
+              created_under_city_id={post.created_under_city_id}
+              created_in_community_id={post.created_in_community_id}
+              comments={post.comments}
+              pinned={post.pinned}
+              comm_name={currCommName}
+              likes_list={post.likes_list}
+            />
+          ))
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
   );
 }

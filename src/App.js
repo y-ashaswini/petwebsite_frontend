@@ -90,7 +90,7 @@ export default function App() {
               className="bg-blue1 text-white cursor-pointer font-bold sm:hidden px-2 py-1 rounded-sm text-center m-2"
               onClick={() => setShowPannel((curr) => !curr)}
             >
-              SHOW COMMUNITIES
+              {showPannel ? "HIDE" : "SHOW"} COMMUNITIES
             </div>
             <span className={showPannel ? "" : "hidden sm:block"}>
               <Panel />
