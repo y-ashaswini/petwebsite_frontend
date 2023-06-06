@@ -1,11 +1,17 @@
 
 NOW {
-    color changes
-    community on the left pane -- make burger menu (BRUH)
+    delete post
 }  
 
 BRUH {
+    show communities button stuck to top
+    hide show communities when go to new communities
+    posting error: object object
+    community on the left pane -- make burger menu (BRUH) [did something else lmao]
+    close profile page also
+    THE SCROLL OPTION -- MAKE CHANGES BRUH WHY DOES IT STOP MID SCREEN WHAT THE SHIET
     image getting stretched on some pcs?
+    peach bg
     admin controls
 }
 

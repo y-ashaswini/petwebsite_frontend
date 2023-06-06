@@ -138,7 +138,7 @@ export default function Signin() {
               <input
                 type="password"
                 placeholder="Password"
-                className="bg-white outline-none rounded-md px-2 py-1"
+                className="bg-white text-blue1 outline-none rounded-md px-2 py-1"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

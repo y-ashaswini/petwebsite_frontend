@@ -58,49 +58,48 @@ export default function Navbar() {
   }
 
   return (
-    <div className="sticky top-0 z-50 shadow-md px-2 bg-white text-blue1">
-      <div className="flex flex-wrap flex-1 items-center">
+    <div className="sticky top-0 z-50 bg-peach2 text-blue1">
+      <div className="flex flex-wrap w-full px-2 rounded-sm shadow-sm flex-1 bg-white items-center">
         <span className="flex p-1 flex-1 w-full md:w-fit items-center space-x-4 h-fit">
           {/* Logo */}
           <Link to="/" className="w-24">
             <img src={logo} className="mx-auto rounded-sm my-1" />
           </Link>
           {searchres && (
-              <div
-                className={
-                  searchCommunity
-                    ? "text-xs w-3/5 absolute max-h-40 z-50 overflow-y-scroll top-16 scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-none scrollbar-thin pr-4"
-                    : "hidden"
-                }
-              >
-                {searchres.map((each) => (
-                  <Link
-                    to={`community/${each.community.name.split(" ").join("_")}`}
-                    className="text-blue1 flex bg-white flex-col gap-2 border-b-8 border-t-2 border-l-2 border-r-8 border-blue1 mb-2 relative p-4"
-                  >
-                    <span className="flex items-center justify-between font-bold">
-                      <span className="md:text-xl">{each.title}</span>
-                      <span className="flex gap-1 items-center">
-                        <span className="bg-slate-100 px-2 py-1">
-                          {each.user.username}
-                        </span>
-                        @
-                        <span className="bg-slate-100 px-2 py-1">
-                          {each.community.name}
-                        </span>
+            <div
+              className={
+                searchCommunity
+                  ? "text-xs w-3/5 absolute max-h-40 z-50 overflow-y-scroll top-16 scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-none scrollbar-thin pr-4"
+                  : "hidden"
+              }
+            >
+              {searchres.map((each) => (
+                <Link
+                  to={`community/${each.community.name.split(" ").join("_")}`}
+                  className="text-blue1 flex bg-white flex-col gap-2 border-b-8 border-t-2 border-l-2 border-r-8 border-blue1 mb-2 relative p-4"
+                >
+                  <span className="flex items-center justify-between font-bold">
+                    <span className="md:text-xl">{each.title}</span>
+                    <span className="flex gap-1 items-center">
+                      <span className="bg-slate-100 px-2 py-1">
+                        {each.user.username}
+                      </span>
+                      @
+                      <span className="bg-slate-100 px-2 py-1">
+                        {each.community.name}
                       </span>
                     </span>
-                    <span className="italic">
-                      {each.content.slice(0, 120) + "..."}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            )}
+                  </span>
+                  <span className="italic">
+                    {each.content.slice(0, 120) + "..."}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* Search Bar -- Community */}
           <form className="flex w-full outline-2 items-center border space-x-2 border-blue1 rounded-md px-2 py-1 text-sm relative overflow-x-hidden">
-           
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -243,7 +242,7 @@ export default function Navbar() {
       <div
         className={
           showProfile
-            ? "absolute right-4 top-14 p-4 z-50 bg-white border-r-8 border-b-8 border-t-2 border-l-2 border-blue1 flex flex-col gap-2 text-xs"
+            ? "relative mx-2 p-4 z-50 bg-white border-r-8 border-b-8 border-t-2 border-l-2 border-blue1 flex md:flex-wrap sm:flex-row flex-col overflow-hidden md:justify-around text-left gap-2 text-xs rounded-md"
             : "hidden"
         }
       >
@@ -251,7 +250,7 @@ export default function Navbar() {
           <>
             <Link
               to="/signin"
-              className="bg-blue2 border-2 border-r-4 border-b-4 border-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none"
+              className="bg-blue2 border-2 border-r-4 border-b-4 border-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer outline-none"
             >
               Sign in
             </Link>
@@ -260,9 +259,7 @@ export default function Navbar() {
           <>
             {u_name && (
               <span className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-bold text-blue2">
-                  USERNAME
-                </span>
+                <span className="text-sm font-bold text-blue1">USERNAME</span>
                 {u_name}
               </span>
             )}
@@ -276,9 +273,7 @@ export default function Navbar() {
 
             {u_ph && (
               <span className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-bold text-blue1">
-                  PHONE NO.
-                </span>
+                <span className="text-sm font-bold text-blue1">PHONE NO.</span>
                 {u_ph}
               </span>
             )}
@@ -289,6 +284,25 @@ export default function Navbar() {
               </span>
             )}
             <Signout />
+            <button
+              className="absolute z-50 sm:right-4 sm:bottom-4 right-2 bottom-2"
+              onClick={() => setShowProfile(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="bg-peach1 rounded-full p-1 w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </>
         )}
       </div>

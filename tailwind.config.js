@@ -8,6 +8,7 @@ module.exports = {
         yellow1: "#FA9F20",
         white1: "#FFAEB",
         peach1: "#FDF0AC",
+        peach2: "#FFFAEB",
         blue2: "#5CB8FF",
       },
     },

@@ -219,7 +219,7 @@ export default function Post({
           stroke-width="3"
           stroke="currentColor"
           className="w-6 h-6 absolute right-10 top-4 opacity-20 hover:opacity-100 cursor-pointer"
-          onClick={handleDeletePost}
+          onClick={()=>handleDeletePost}
         >
           <path
             stroke-linecap="round"
