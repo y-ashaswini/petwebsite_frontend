@@ -6,7 +6,7 @@ import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import { createClient } from "@supabase/supabase-js";
 import Panel from "./Components/Panel";
-import Contactus from "./Components/Mailus";
+import Contactus from "./Components/Contactus";
 import Dump from "./Components/Dump";
 import { useState, useEffect, createContext } from "react";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,7 +31,7 @@ export default function App() {
   const [u_ph, set_u_ph] = useState("");
   const [u_id, set_u_id] = useState("");
   const [u_uuid, set_u_uuid] = useState("");
-  const [showPannel, setShowPannel] = useState(false);
+  const [showPanel, setShowPanel] = useState(false);
 
   useEffect(() => {
     async function getUserdbdata(userdata) {
@@ -86,29 +86,64 @@ export default function App() {
         <Navbar />
         <div className="grid grid-cols-8 min-h-screen gap-2 md:gap-0">
           <div className="md:col-span-3 lg:col-span-2 sm:col-span-3 col-span-8">
-            {/* <span className={showPannel ? "" : "hidden sm:block"}> */}
-            <Panel showPannel={showPannel} setShowPannel={setShowPannel} />
+            {/* <span className={showPanel ? "" : "hidden sm:block"}> */}
+            <Panel showPanel={showPanel} setShowPanel={setShowPanel} />
             {/* </span> */}
           </div>
-          <div className={"sm:col-start-4 lg:col-start-3 sm:col-span-6 col-span-8 xl:px-48 lg:px-24 xl:py-12 sm:p-8 h-full "+(u_email ? "sm:col-span-8 md:col-span-8 lg:col-span-8" : "")}> 
+          <div
+            className={
+              "xl:px-48 lg:px-24 xl:py-12 sm:p-8 h-full " +
+              (u_email
+                ? "lg:col-start-3 col-span-8 sm:col-start-4 sm:col-span-6"
+                : "col-span-8")
+            }
+          >
             <Routes location={location} key={location.pathname}>
-              <Route path="/signin" exact element={<Signin />} />
-              <Route path="/signup" exact element={<Signup />} />
-              <Route path="/" exact element={<Home />} />
-              <Route path="/contact" exact element={<Contactus />} />
-              <Route path="/about" exact element={<Aboutus />} />
-              <Route path="/resources" exact element={<Resources />} />
+              <Route
+                path="/signin"
+                exact
+                element={<Signin setShowPanel={setShowPanel} />}
+              />
+              <Route
+                path="/signup"
+                exact
+                element={<Signup setShowPanel={setShowPanel} />}
+              />
+              <Route
+                path="/"
+                exact
+                element={<Home setShowPanel={setShowPanel} />}
+              />
+              <Route
+                path="/contact"
+                exact
+                element={<Contactus setShowPanel={setShowPanel} />}
+              />
+              <Route
+                path="/about"
+                exact
+                element={<Aboutus setShowPanel={setShowPanel} />}
+              />
+              <Route
+                path="/resources"
+                exact
+                element={<Resources setShowPanel={setShowPanel} />}
+              />
               <Route
                 path="/resources/contribute"
                 exact
-                element={<Contribute />}
+                element={<Contribute setShowPanel={setShowPanel} />}
               />
               <Route
                 path="/community/*"
                 exact
-                element={<CommunityExpanded />}
+                element={<CommunityExpanded setShowPanel={setShowPanel} />}
               />
-              <Route path="/*" exact element={<Dump />} />
+              <Route
+                path="/*"
+                exact
+                element={<Dump setShowPanel={setShowPanel} />}
+              />
             </Routes>
           </div>
         </div>

@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export default function Aboutus() {
+export default function Aboutus({ setShowPanel }) {
   let navigate = useNavigate();
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
+
   return (
     <>
       <span className="flex gap-x-4 items-center">
@@ -19,9 +24,7 @@ export default function Aboutus() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-blue1">
-          About us
-        </div>
+        <div className="md:text-3xl text-lg font-bold text-blue1">About us</div>
       </span>
       <div className="my-4 md:my-8 flex">
         <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">

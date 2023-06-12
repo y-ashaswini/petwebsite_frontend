@@ -71,8 +71,16 @@ export default function Createpost({ comm_name, comm_id }) {
     const img = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(img);
+
     reader.addEventListener("load", () => {
-      setAttachment([...attachment, reader.result]);
+      if (
+        reader.result.split(";")[0] === "data:text/plain" ||
+        reader.result.split(";")[0] === "data:image/png"
+      ) {
+        setAttachment([...attachment, reader.result]);
+      } else {
+        toast.error("Invalid attachment format", toast_param);
+      }
     });
   }
 
@@ -119,12 +127,22 @@ export default function Createpost({ comm_name, comm_id }) {
           />
           <span className="flex flex-wrap gap-2">
             {attachment &&
-              attachment.map((each) => (
-                <img
-                  className="rounded-lg max-h-[20vh] w-fit my-2"
-                  src={each}
-                />
-              ))}
+              attachment.map((each) => {
+                return each.split(";")[0] === "data:text/plain" ? (
+                  <a
+                    href={each}
+                    download
+                    className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
+                  >
+                    Document
+                  </a>
+                ) : (
+                  <img
+                    src={each}
+                    className="rounded-lg max-h-[20vh] w-fit m-1"
+                  />
+                );
+              })}
           </span>
 
           <span className="flex justify-between items-center">

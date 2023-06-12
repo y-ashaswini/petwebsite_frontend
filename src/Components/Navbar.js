@@ -73,6 +73,28 @@ export default function Navbar() {
                   : "hidden"
               }
             >
+              <button
+                className="fixed z-50"
+                onClick={function () {
+                  setSearchres("");
+                  setSearchCommunity("");
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="bg-yellow1 rounded-full p-1 w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
               {searchres.map((each) => (
                 <Link
                   to={`community/${each.community.name.split(" ").join("_")}`}
@@ -242,7 +264,7 @@ export default function Navbar() {
       <div
         className={
           showProfile
-            ? "relative mx-2 p-4 z-50 bg-white border-r-8 border-b-8 border-t-2 border-l-2 border-blue1 flex md:flex-wrap sm:flex-row flex-col overflow-hidden md:justify-around text-left gap-2 text-xs rounded-md"
+            ? "relative m-2 p-4 bg-white border-r-8 border-b-8 border-t-2 border-l-2 border-blue1 flex md:flex-wrap sm:flex-row flex-col overflow-hidden md:justify-around text-left gap-2 text-xs rounded-md"
             : "hidden"
         }
       >
@@ -285,7 +307,7 @@ export default function Navbar() {
             )}
             <Signout />
             <button
-              className="absolute z-50 sm:right-4 sm:bottom-4 right-2 bottom-2"
+              className="absolute z-50 right-2 bottom-2"
               onClick={() => setShowProfile(false)}
             >
               <svg

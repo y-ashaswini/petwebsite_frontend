@@ -1,12 +1,12 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userDataContext } from "../App";
-  import NotSignedin from "../Authentication/NotSignedin";
+import NotSignedin from "../Authentication/NotSignedin";
 import emailjs from "@emailjs/browser";
 
-export default function Mailus() {
+export default function Mailus({ setShowPanel }) {
   const { u_email, u_name } = useContext(userDataContext);
   const form = useRef();
   let navigate = useNavigate();
@@ -43,6 +43,10 @@ export default function Mailus() {
     );
   }
 
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
+
   return u_email && u_email.trim() !== "" ? (
     <>
       <ToastContainer
@@ -74,9 +78,7 @@ export default function Mailus() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-blue1">
-          Help us!
-        </div>
+        <div className="md:text-3xl text-lg font-bold text-blue1">Help us!</div>
       </span>
       <span className="bg-peach1 text-yellow1 block md:p-8 p-4 mt-4 font-bold rounded-t-md">
         <div className="text-yellow1 mb-4 md:text-xl">

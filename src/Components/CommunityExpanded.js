@@ -9,7 +9,7 @@ const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 const supabase = createClient(supabase_url, supabase_anon_key);
 
-export default function CommunityExpanded() {
+export default function CommunityExpanded({ setShowPanel }) {
   var currComm;
   const [renderingID, setRenderingID] = useState("");
   const [toggleInfo, setToggleInfo] = useState(0);
@@ -62,6 +62,7 @@ export default function CommunityExpanded() {
   }
 
   useEffect(() => {
+    setShowPanel(false);
     GET_POSTS();
   }, [renderingID]);
 
@@ -80,7 +81,7 @@ export default function CommunityExpanded() {
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
-      <div className="flex flex-col space-y-12">
+      <div className="flex flex-col space-y-6">
         <span className="flex justify-between items-center text-blue1">
           <svg
             xmlns="http://www.w3.org/2000/svg"

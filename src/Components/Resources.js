@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { intro_para, all_resources } from "../Assets/resourcesData";
 import ResourceBlock from "./ResourceBlock";
 import NotSignedin from "../Authentication/NotSignedin";
 import { userDataContext } from "../App";
-export default function Resources() {
+export default function Resources({ setShowPanel }) {
   const { u_email } = useContext(userDataContext);
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
   return (
     <>
       <div className="md:text-3xl text-lg font-bold text-blue1 flex justify-between">

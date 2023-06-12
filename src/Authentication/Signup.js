@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { userDataContext } from "../App";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,9 +11,15 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
-export default function Signup() {
-  const { set_u_role, set_u_email, set_u_name, set_u_ph, set_u_id, set_u_uuid } =
-    useContext(userDataContext);
+export default function Signup({ setShowPanel }) {
+  const {
+    set_u_role,
+    set_u_email,
+    set_u_name,
+    set_u_ph,
+    set_u_id,
+    set_u_uuid,
+  } = useContext(userDataContext);
   let navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -86,6 +92,10 @@ export default function Signup() {
     }
   }
 
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
+
   return (
     <>
       <ToastContainer
@@ -117,9 +127,7 @@ export default function Signup() {
             d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
           />
         </svg>
-        <div className="md:text-3xl text-lg font-bold text-blue1">
-          Sign up
-        </div>
+        <div className="md:text-3xl text-lg font-bold text-blue1">Sign up</div>
       </span>
       <div className="rounded-md max-h-[100vh] bg-peach1 flex flex-col p-6 m-4 text-yellow1">
         <form className="flex flex-col space-y-8">
@@ -169,7 +177,9 @@ export default function Signup() {
             <span className="flex flex-col space-y-2 flex-1">
               <span className="font-bold">Enter your contact number</span>
               <span className="flex items-center">
-                <span className="bg-yellow1 text-white font-bold p-1 rounded-l-md">+91</span>
+                <span className="bg-yellow1 text-white font-bold p-1 rounded-l-md">
+                  +91
+                </span>
                 <input
                   type="number"
                   className="flex-1 bg-white text-blue1 outline-none rounded-r-md px-2 py-1"

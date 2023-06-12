@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="w-full md:p-14 p-8 bg-blue1 text-white italic text-center align-middle items-center text-sm flex flex-col gap-4">
+    <div className="w-full md:p-10 p-8 bg-blue1 text-white italic text-center align-middle items-center text-sm flex flex-col gap-4">
       <span className="mx-auto">pettera@2023</span>
       <span className="flex gap-4 text-xs">
         <a

@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import { userDataContext } from "../App";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +11,7 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_API_ANON_KEY
 );
 
-export default function Signin() {
+export default function Signin({ setShowPanel }) {
   const {
     set_u_role,
     set_u_email,
@@ -86,6 +86,10 @@ export default function Signin() {
       }
     }
   }
+
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
 
   return (
     <>

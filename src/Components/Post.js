@@ -60,6 +60,8 @@ export default function Post({
     // else console.log("post deleted successfully");
     if (error) toast.error("error deleting: " + error, toast_param);
     else toast.info("Post deleted successfully", toast_param);
+    setShowSureDel(false);
+    setShowDel(true);
   }
 
   async function setLike() {
@@ -172,102 +174,119 @@ export default function Post({
   }, []);
 
   return (
-    <div
-      className={
-        "text-blue1 flex flex-col w-auto border-2 border-r-8 bg-peach1 border-b-8 rounded-md md:p-8 p-5 relative " +
-        (isPinned ? "border-yellow1" : "border-peach1")
-      }
-    >
-      {/* Pin */}
-      <img
-        src={pin}
-        className={
-          isPinned
-            ? "w-5 h-5 absolute right-4 top-4 z-30 cursor-pointer"
-            : "w-5 h-5 absolute right-4 top-4 z-30 opacity-20 hover:opacity-100 cursor-pointer"
-        }
-        onClick={handlePin}
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        className="font-bold text-blue1 rounded-lg"
       />
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="#000000"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
+      <div
         className={
-          showDel
-            ? "w-6 h-6 absolute right-10 top-4 opacity-20 hover:opacity-100 cursor-pointer"
-            : "hidden"
+          "text-blue1 flex flex-col w-auto border-2 border-r-8 bg-peach1 border-b-8 rounded-md md:p-8 p-5 relative " +
+          (isPinned ? "border-yellow1" : "border-peach1")
         }
-        onClick={function () {
-          setShowDel(false);
-          setShowSureDel(true);
-        }}
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+        {/* Pin */}
+        <img
+          src={pin}
+          className={
+            isPinned
+              ? "w-5 h-5 absolute right-4 top-4 z-30 cursor-pointer"
+              : "w-5 h-5 absolute right-4 top-4 z-30 opacity-20 hover:opacity-100 cursor-pointer"
+          }
+          onClick={handlePin}
         />
-      </svg>
 
-      <span className={showSureDel ? "flex gap-2" : "hidden"}>
+        {/* Delete Post */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
+          fill="#000000"
           viewBox="0 0 24 24"
-          stroke-width="3"
-          stroke="currentColor"
-          className="w-6 h-6 absolute right-10 top-4 opacity-20 hover:opacity-100 cursor-pointer"
-          onClick={()=>handleDeletePost}
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12.75l6 6 9-13.5"
-          />
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="3"
-          stroke="currentColor"
-          className="w-6 h-6 absolute right-16 top-4 opacity-20 hover:opacity-100 cursor-pointer"
+          stroke-width="1.5"
+          className={
+            showDel
+              ? "w-6 h-6 absolute right-10 top-4 opacity-20 hover:opacity-100 cursor-pointer"
+              : "hidden"
+          }
           onClick={function () {
-            setShowDel(true);
-            setShowSureDel(false);
+            setShowDel(false);
+            setShowSureDel(true);
           }}
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M6 18L18 6M6 6l12 12"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
           />
         </svg>
-      </span>
 
-      {/* Community Name */}
-      <span className="text-sm italic">
-        <span className="text-blue1 font-bold">{user.username}</span> @{" "}
-        <span className="text-blue1 font-bold">{city.name}</span>
-      </span>
-      {/* Tags */}
-      <span className="flex flex-wrap text-xs">
-        <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">{user.email}</span>
-        <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
-          {moment(user.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+        <span className={showSureDel ? "flex gap-2" : "hidden"}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="3"
+            stroke="currentColor"
+            className="w-6 h-6 absolute right-10 top-4 opacity-20 hover:opacity-100 cursor-pointer"
+            onClick={() => handleDeletePost()}
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12.75l6 6 9-13.5"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="3"
+            stroke="currentColor"
+            className="w-6 h-6 absolute right-16 top-4 opacity-20 hover:opacity-100 cursor-pointer"
+            onClick={function () {
+              setShowDel(true);
+              setShowSureDel(false);
+            }}
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </span>
-      </span>
-      {/* Heading */}
-      <span className="md:text-2xl sm:text-xl text-lg text-blue1 font-bold py-2">
-        {title}
-      </span>
-      {/* Content */}
-      <span className="sm:text-md text-sm">{content}</span>
-      <span className="flex space-x-4 pt-2">
-        {/* Likes */}
-        {/* <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
+
+        {/* Community Name */}
+        <span className="text-sm italic">
+          <span className="text-blue1 font-bold">{user.username}</span> @{" "}
+          <span className="text-blue1 font-bold">{city.name}</span>
+        </span>
+        {/* Tags */}
+        <span className="flex flex-wrap text-xs">
+          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
+            {user.email}
+          </span>
+          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
+            {moment(user.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+          </span>
+        </span>
+        {/* Heading */}
+        <span className="md:text-2xl sm:text-xl text-lg text-blue1 font-bold py-2">
+          {title}
+        </span>
+        {/* Content */}
+        <span className="sm:text-md text-sm">{content}</span>
+        <span className="flex space-x-4 pt-2">
+          {/* Likes */}
+          {/* <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -283,8 +302,8 @@ export default function Post({
 
           <span className="text-sm font-bold ">5.7K</span>
         </span> */}
-        {/* Comment */}
-        {/* <span
+          {/* Comment */}
+          {/* <span
           className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer"
           onClick={handleComment}
         >
@@ -304,85 +323,86 @@ export default function Post({
           </svg>
           <span className="text-sm font-bold ">2.1K</span>
         </span> */}
-      </span>
-      {/* Image / Video files */}
-
-      <span className="flex gap-2 flex-wrap">
-        {imgs &&
-          imgs.map((each) => {
-            return each.split(";")[0] === "data:text/plain" ? (
-              <a
-                href={each}
-                download
-                className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
-              >
-                Document
-              </a>
-            ) : (
-              <img src={each} className="rounded-lg h-[20vh] w-fit m-1" />
-            );
-          })}
-      </span>
-      <span className="flex justify-between items-end">
-        <div
-          className="font-bold border-2 text-xs cursor-pointer text-blue1 border-blue1 px-2 py-1 rounded-sm w-fit mt-2"
-          onClick={() => setShowComments((curr) => !curr)}
-        >
-          {!showComments
-            ? commentsData.items.length !== 0
-              ? "SHOW " + commentsData.items.length + " COMMENT(S)"
-              : "BE THE FIRST TO COMMENT!"
-            : "HIDE COMMENT(S)"}
-        </div>
-        <span className="flex gap-2 items-center">
-          {parsed_likes_list.length}
-          {liked_by_curr_user ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 cursor-pointer"
-              onClick={() => setDislike()}
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 cursor-pointer"
-              onClick={() => setLike()}
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
-          )}
         </span>
-      </span>
+        {/* Image / Video files */}
 
-      {/* Comments */}
+        <span className="flex gap-2 flex-wrap">
+          {imgs &&
+            imgs.map((each) => {
+              return each.split(";")[0] === "data:text/plain" ? (
+                <a
+                  href={each}
+                  download
+                  className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
+                >
+                  Document
+                </a>
+              ) : (
+                <img src={each} className="rounded-lg max-h-[20vh] w-fit m-1" />
+              );
+            })}
+        </span>
+        <span className="flex justify-between items-end">
+          <div
+            className="font-bold border-2 text-xs cursor-pointer text-blue1 border-blue1 px-2 py-1 rounded-sm w-fit mt-2"
+            onClick={() => setShowComments((curr) => !curr)}
+          >
+            {!showComments
+              ? commentsData.items.length !== 0
+                ? "SHOW " + commentsData.items.length + " COMMENT(S)"
+                : "BE THE FIRST TO COMMENT!"
+              : "HIDE COMMENT(S)"}
+          </div>
+          <span className="flex gap-2 items-center">
+            {parsed_likes_list.length}
+            {liked_by_curr_user ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 cursor-pointer"
+                onClick={() => setDislike()}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 cursor-pointer"
+                onClick={() => setLike()}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            )}
+          </span>
+        </span>
 
-      {showComments && (
-        <Comment
-          handleInsertNode={handleInsertNode}
-          handleDeleteNode={handleDeleteNode}
-          comment={commentsData}
-          comm_name={comm_name}
-          comm_id={comm_id}
-        />
-      )}
-    </div>
+        {/* Comments */}
+
+        {showComments && (
+          <Comment
+            handleInsertNode={handleInsertNode}
+            handleDeleteNode={handleDeleteNode}
+            comment={commentsData}
+            comm_name={comm_name}
+            comm_id={comm_id}
+          />
+        )}
+      </div>
+    </>
   );
 }

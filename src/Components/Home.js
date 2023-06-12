@@ -5,8 +5,11 @@ import paw from "../Assets/paw.svg";
 import NotSignedin from "../Authentication/NotSignedin";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ setShowPanel }) {
   const { u_email } = useContext(userDataContext);
+  useEffect(() => {
+    setShowPanel(false);
+  }, []);
   return (
     <div className="flex flex-col space-y-4">
       <div className="my-4 flex flex-col">

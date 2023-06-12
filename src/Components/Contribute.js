@@ -1,8 +1,8 @@
 import { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { userDataContext } from "../App";
 import "react-toastify/dist/ReactToastify.css";
+import { userDataContext } from "../App";
 import emailjs from "@emailjs/browser";
 
 export default function Contribute() {
@@ -11,19 +11,19 @@ export default function Contribute() {
   const form = useRef();
   const [attachment, setAttachment] = useState([]);
 
+  const toast_param = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
   // Function for handling post
   function handlePost(e) {
     e.preventDefault();
-    const toast_param = {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    };
     // console.log("form current: ", form.current);
     emailjs
       .sendForm(
@@ -34,7 +34,7 @@ export default function Contribute() {
       )
       .then(
         (result) => {
-          toast.info("Recieved: "+result.text, toast_param);
+          toast.info("Recieved: " + result.text, toast_param);
         },
         (error) => {
           toast.error(error.text, toast_param);
@@ -48,11 +48,19 @@ export default function Contribute() {
   // Function for image attaching and previewing
   function handleAttachimg(e) {
     const img = e.target.files[0];
-    // console.log("img: ",img);
     const reader = new FileReader();
     reader.readAsDataURL(img);
+    // each.split(";")[0] === "data:text/plain"
+
     reader.addEventListener("load", () => {
-      setAttachment([...attachment, reader.result]);
+      if (
+        reader.result.split(";")[0] === "data:text/plain" ||
+        reader.result.split(";")[0] === "data:image/png"
+      ) {
+        setAttachment([...attachment, reader.result]);
+      } else {
+        toast.error("Invalid attachment format", toast_param);
+      }
     });
   }
 
@@ -177,9 +185,19 @@ export default function Contribute() {
         {/* Attachments */}
         <span className="flex flex-wrap gap-2">
           {attachment &&
-            attachment.map((each) => (
-              <img className="rounded-lg max-h-[20vh] w-fit my-2" src={each} />
-            ))}
+            attachment.map((each) => {
+              return each.split(";")[0] === "data:text/plain" ? (
+                <a
+                  href={each}
+                  download
+                  className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
+                >
+                  Document
+                </a>
+              ) : (
+                <img src={each} className="rounded-lg max-h-[20vh] w-fit m-1" />
+              );
+            })}
         </span>
       </div>
     </>

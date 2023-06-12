@@ -5,7 +5,7 @@ import Community from "./Community";
 const supabase_anon_key = process.env.REACT_APP_SUPABASE_API_ANON_KEY;
 const supabase_url = process.env.REACT_APP_SUPABASE_URL;
 
-export default function Panel({ showPannel, setShowPannel }) {
+export default function Panel({ showPanel, setShowPanel }) {
   const { u_email } = useContext(userDataContext);
   const [commData, setCommData] = useState("");
 
@@ -36,22 +36,25 @@ export default function Panel({ showPannel, setShowPannel }) {
     })
       .then((res) => res.json())
       .then((result) => setCommData(result.data.communityCollection.edges));
-    setShowPannel(true);
+    setShowPanel(true);
   }, []);
 
   return (
     <>
       <div
-        className="bg-blue1 text-white cursor-pointer font-bold px-2 py-1 sticky sm:hidden rounded-sm text-center m-2"
-        onClick={() => setShowPannel((curr) => !curr)}
+        className={
+          "bg-blue1 text-white cursor-pointer font-bold px-2 py-1 sticky sm:hidden rounded-sm text-center m-2" +
+          (!u_email && " hidden")
+        }
+        onClick={() => setShowPanel((curr) => !curr)}
       >
-        {showPannel ? "HIDE" : "SHOW"} COMMUNITIES
+        {showPanel ? "HIDE" : "SHOW"} COMMUNITIES
       </div>
       {u_email && u_email.trim() !== "" ? (
         <div
           className={
             "flex flex-col gap-8 text-blue1 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin text-center " +
-            (showPannel ? "" : "hidden sm:flex")
+            (showPanel ? "" : "hidden sm:flex")
           }
         >
           {commData &&
@@ -61,8 +64,8 @@ export default function Panel({ showPannel, setShowPannel }) {
                 name={each.node.name}
                 id={each.node.id}
                 description={each.node.description}
-                showPannel={showPannel}
-                setShowPannel={setShowPannel}
+                showPanel={showPanel}
+                setShowPanel={setShowPanel}
               />
             ))}
         </div>

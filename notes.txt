@@ -1,9 +1,11 @@
 
 NOW {
-    delete post
+    GENERAL COMMUNITY ISSUE 
+    also make the show communities pannel collapse whenever you go from one link to another
 }  
 
 BRUH {
+    delete post
     show communities button stuck to top
     hide show communities when go to new communities
     posting error: object object
