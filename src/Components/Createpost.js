@@ -74,7 +74,7 @@ export default function Createpost({ comm_name, comm_id }) {
 
     reader.addEventListener("load", () => {
       if (
-        reader.result.split(";")[0] === "data:text/plain" ||
+        // reader.result.split(";")[0] === "data:text/plain" ||
         reader.result.split(";")[0] === "data:image/png"
       ) {
         setAttachment([...attachment, reader.result]);

@@ -54,7 +54,7 @@ export default function Contribute() {
 
     reader.addEventListener("load", () => {
       if (
-        reader.result.split(";")[0] === "data:text/plain" ||
+        // reader.result.split(";")[0] === "data:text/plain" ||
         reader.result.split(";")[0] === "data:image/png"
       ) {
         setAttachment([...attachment, reader.result]);

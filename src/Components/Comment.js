@@ -31,20 +31,21 @@ const Comment = ({
 
   // Function for image attaching and previewing
   function handleAttachments(e) {
-    console.log("triggered");
+    // console.log("triggered");
     const img = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(img);
-      reader.addEventListener("load", () => {
-        if (
-          reader.result.split(";")[0] === "data:text/plain" ||
-          reader.result.split(";")[0] === "data:image/png"
-        ) {
-          setAttachment([...attachment, reader.result]);
-        } else {
-          toast.error("Invalid attachment format", toast_param);
-        }
-      });
+    reader.addEventListener("load", () => {
+      console.log(reader.result.split(";")[0]);
+      if (
+        // reader.result.split(";")[0] === "data:text/plain" ||
+        reader.result.split(";")[0] === "data:image/png"
+      ) {
+        setAttachment([...attachment, reader.result]);
+      } else {
+        toast.error("Invalid attachment format", toast_param);
+      }
+    });
   }
 
   const handleNewComment = () => {
@@ -151,19 +152,19 @@ const Comment = ({
             <span className="flex flex-wrap gap-2">
               {attachment &&
                 attachment.map((each) => {
-                  return each.split(";")[0] === "data:text/plain" ? (
-                    <a
-                      href={each}
-                      download
-                      className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
-                    >
-                      Document
-                    </a>
-                  ) : (
+                  return each.split(";")[0] === "data:image/png" ? (
                     <img
                       src={each}
                       className="rounded-lg max-h-[20vh] w-fit m-1"
                     />
+                  ) : (
+                    <a
+                      href={each}
+                      download
+                      className="bg-blue1 min-w-12 px-2 py-1 rounded-sm text-white font-bold"
+                    >
+                      Document
+                    </a>
                   );
                 })}
             </span>
