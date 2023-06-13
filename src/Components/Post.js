@@ -35,6 +35,7 @@ export default function Post({
   comm_name,
   comm_id,
   likes_list,
+  created_at,
 }) {
   const { u_id } = useContext(userDataContext);
   const [showComments, setShowComments] = useState(false);
@@ -271,11 +272,11 @@ export default function Post({
         </span>
         {/* Tags */}
         <span className="flex flex-wrap text-xs">
-          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
+          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
             {user.email}
           </span>
-          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold m-1">
-            {moment(user.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
+            {moment(created_at).format("MMMM Do YYYY, h:mm:ss a")}
           </span>
         </span>
         {/* Heading */}

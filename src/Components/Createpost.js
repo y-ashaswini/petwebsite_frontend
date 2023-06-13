@@ -114,14 +114,14 @@ export default function Createpost({ comm_name, comm_id }) {
           <input
             type="text"
             placeholder="Heading"
-            className="bg-white outline-none rounded-lg w-full px-4 py-2 my-2"
+            className="bg-white outline-none rounded-md w-full px-4 py-2 my-2"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
           />
           <textarea
             type="text"
             placeholder="Content"
-            className="bg-white outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
+            className="bg-white outline-none rounded-md p-4 items-start w-full my-2 min-h-[20vh]"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />

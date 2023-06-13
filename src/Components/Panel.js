@@ -43,7 +43,7 @@ export default function Panel({ showPanel, setShowPanel }) {
     <>
       <div
         className={
-          "bg-blue1 text-white cursor-pointer font-bold px-2 py-1 sticky sm:hidden rounded-sm text-center m-2" +
+          "bg-blue1 text-white cursor-pointer text-xs md:text-sm font-bold px-2 py-1 sticky sm:hidden rounded-sm text-center m-2" +
           (!u_email && " hidden")
         }
         onClick={() => setShowPanel((curr) => !curr)}

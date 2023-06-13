@@ -16,9 +16,9 @@ export default function Resources({ setShowPanel }) {
         {u_email && u_email.trim() !== "" ? (
           <Link
             to="./contribute"
-            className="bg-peach1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-yellow1 text-lg"
+            className="bg-peach1 hover:text-white text-yellow1 font-bold text-center px-3 py-1 rounded-sm cursor-pointer  outline-none hover:bg-yellow1 text-lg"
           >
-            CONTRIBUTE RESOURCES
+            CONTRIBUTE
           </Link>
         ) : (
           <span className="text-sm">

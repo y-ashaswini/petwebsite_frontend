@@ -23,9 +23,14 @@ export default function CommunityExpanded({ setShowPanel }) {
   const [commId, setCommId] = useState("");
   const [commInfo, setCommInfo] = useState("");
 
+  // function compare(a, b) {
+  //   if (a.created_at > b.created_at) return -1;
+  //   if (a.created_at < b.created_at) return 1;
+  //   return 0;
+  // }
   function compare(a, b) {
-    if (a.created_at > b.created_at) return -1;
-    if (a.created_at < b.created_at) return 1;
+    if (Date.parse(a.created_at) > Date.parse(b.created_at)) return -1;
+    if (Date.parse(a.created_at) < Date.parse(b.created_at)) return 1;
     return 0;
   }
 
@@ -56,6 +61,7 @@ export default function CommunityExpanded({ setShowPanel }) {
       // const temp = temp___.sort(compare); // sorting by number of likes
       const temp = temp___.sort(compare); // sorting by date
       setPostData(temp);
+      // temp.map((f) => console.log(f.created_at));
       setCommDesc(data[0].description);
       setCommInfo(JSON.parse(data[0].page_info));
     }
@@ -81,8 +87,8 @@ export default function CommunityExpanded({ setShowPanel }) {
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
-      <div className="flex flex-col space-y-6">
-        <span className="flex justify-between items-center">
+      <div className="flex flex-col space-y-4">
+        <span className="flex flex-wrap justify-between items-center">
           <span className="flex items-center gap-2 text-blue1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -100,17 +106,44 @@ export default function CommunityExpanded({ setShowPanel }) {
               />
             </svg>
 
-            <div className="md:text-3xl w-fit text-lg font-bold ">
+            <div
+              id="create_post"
+              className="md:text-3xl w-fit text-lg font-bold "
+            >
               {currCommName + ""}
             </div>
           </span>
 
-          <div
-            className="bg-yellow1 text-peach1 font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-yellow1 outline-none"
-            onClick={() => setTogglepost((curr) => !curr + 0)}
+          <span
+            className="bg-slate-900 text-white font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-slate-900 outline-none sm:text-sm text-xs mx-4"
+            onClick={() => setToggleRules((curr) => !curr + 0)}
           >
-            {togglePost ? "CLOSE POST" : "CREATE POST"}
-          </div>
+            {toggleRules
+              ? "CLOSE COMMUNTIY RESOURCES"
+              : "SHOW COMMUNTIY RESOURCES"}
+          </span>
+        </span>
+        <span
+          className={
+            "w-full flex flex-col p-4 text-white rounded-md text-xs bg-slate-800 max-h-[30vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin " +
+            showOptions[toggleRules]
+          }
+        >
+          {Object.keys(commInfo).map((key, index) => {
+            return (
+              <span key={index}>
+                <span className="font-bold text-sm">{key}</span>
+                {commInfo[key].map((each) => {
+                  return (
+                    <span className="flex gap-2 my-2">
+                      <span className="p-[1.5px] bg-slate-600 rounded-sm"></span>
+                      <span className="italic">{each}</span>
+                    </span>
+                  );
+                })}
+              </span>
+            );
+          })}
         </span>
         <span
           className={
@@ -123,8 +156,31 @@ export default function CommunityExpanded({ setShowPanel }) {
         <span className={showOptions[togglePost]}>
           <Createpost comm_name={currCommName} comm_id={commId} />
         </span>
+
+        {/* Create Post */}
+        <a
+          href="#create_post"
+          className="fixed z-50 md:right-8 md:bottom-8 right-4 bottom-4 shadow-lg bg-yellow1 text-white rounded-full"
+          onClick={() => setTogglepost((curr) => !curr + 0)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="md:w-16 md:h-16 w-8 h-8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </a>
+
         {/* Page Specific Resources */}
-        <span className="fixed z-50 right-8 bottom-4 text-white">
+        {/* <span className="fixed z-50 right-8 bottom-4 text-white">
           <span
             className={
               "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin shadow-lg " +
@@ -153,25 +209,28 @@ export default function CommunityExpanded({ setShowPanel }) {
           >
             {toggleRules ? "CLOSE" : "RULES"}
           </span>
-        </span>
+        </span> */}
 
         {pinnedPostData ? (
-          pinnedPostData.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              img_vid={post.img_vid}
-              created_by_user_id={post.created_by_user_id}
-              created_under_city_id={post.created_under_city_id}
-              created_in_community_id={post.created_in_community_id}
-              comments={post.comments}
-              pinned={post.pinned}
-              comm_name={currCommName}
-              likes_list={post.likes_list}
-            />
-          ))
+          pinnedPostData.map((post) => {
+            return (
+              <Post
+                key={post}
+                id={post.id}
+                title={post.title}
+                content={post.content}
+                img_vid={post.img_vid}
+                created_by_user_id={post.created_by_user_id}
+                created_under_city_id={post.created_under_city_id}
+                created_in_community_id={post.created_in_community_id}
+                comments={post.comments}
+                pinned={post.pinned}
+                comm_name={currCommName}
+                likes_list={post.likes_list}
+                created_at={post.created_at}
+              />
+            );
+          })
         ) : (
           <span className="text-blue1 italic m-4">Loading...</span>
         )}
@@ -191,6 +250,7 @@ export default function CommunityExpanded({ setShowPanel }) {
               pinned={post.pinned}
               comm_name={currCommName}
               likes_list={post.likes_list}
+              created_at={post.created_at}
             />
           ))
         ) : (
