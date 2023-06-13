@@ -59,7 +59,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-50 bg-peach2 text-blue1">
-      <div className="flex flex-wrap w-full px-2 rounded-sm shadow-sm flex-1 bg-white items-center">
+      <div className="flex flex-wrap w-full px-2 rounded-sm shadow-md  flex-1 bg-peach2 items-center">
         <span className="flex p-1 flex-1 w-full md:w-fit items-center space-x-4 h-fit">
           {/* Logo */}
           <Link to="/" className="w-24">
@@ -121,7 +121,7 @@ export default function Navbar() {
           )}
 
           {/* Search Bar -- Community */}
-          <form className="flex w-full outline-2 items-center border space-x-2 border-blue1 rounded-md px-2 py-1 text-sm relative overflow-x-hidden">
+          <form className="flex w-full outline-2 items-center border space-x-2 border-slate-300 rounded-md px-2 py-1 text-sm relative overflow-x-hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
