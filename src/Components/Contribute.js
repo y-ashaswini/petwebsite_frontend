@@ -143,11 +143,11 @@ export default function Contribute() {
             name="user_content"
             className="bg-white outline-none rounded-lg p-4 items-start w-full my-2 min-h-[20vh]"
           />
-          <span className="flex justify-between items-center">
+          <span className="flex sm:flex-row flex-col justify-between items-center">
             <input
               type="submit"
               value="SUBMIT FOR REVIEWING"
-              className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 hover:bg-white hover:text-blue1 outline-none"
+              className="bg-blue1 text-white font-bold text-center px-3 py-1 rounded-sm cursor-pointer border-2 border-blue1 text-sm md:text-md hover:bg-white hover:text-blue1 outline-none"
             />
 
             {/* Attach images button */}

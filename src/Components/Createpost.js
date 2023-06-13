@@ -99,7 +99,7 @@ export default function Createpost({ comm_name, comm_id }) {
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
-      <div className="rounded-md bg-blue2 border-2 border-r-8 border-b-8 border-blue1 flex flex-col p-6 m-4 text-blue1">
+      <div className="rounded-md bg-blue2 border-2 border-r-8 border-b-8 border-blue1 flex flex-col p-6 my-4 text-blue1">
         <span className="flex items-center">
           <span className="rounded-sm p-1 bg-white m-1 font-bold text-blue1">
             POSTING

@@ -11,7 +11,7 @@ export default function Community({
   return (
     <div
       key={id}
-      className="bg-blue2 p-8 rounded-md flex flex-wrap items-center text-left"
+      className="bg-blue2 p-6 rounded-md flex flex-wrap items-center text-left"
     >
       <span className="text-blue1 font-bold mr-1">{name}</span>
       <span className="rounded-sm p-1 bg-blue1 text-white font-bold">

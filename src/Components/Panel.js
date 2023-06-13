@@ -53,7 +53,7 @@ export default function Panel({ showPanel, setShowPanel }) {
       {u_email && u_email.trim() !== "" ? (
         <div
           className={
-            "flex flex-col gap-8 text-blue1 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-slate-100 scrollbar-thin text-center " +
+            "flex flex-col gap-2 text-blue1 space-y-4 p-4 w-auto sticky top-10 h-[90vh] overflow-y-scroll scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-peach2 scrollbar-thin text-center " +
             (showPanel ? "" : "hidden sm:flex")
           }
         >

@@ -147,7 +147,7 @@ export default function Signup({ setShowPanel }) {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <span className="flex gap-x-4">
+          <span className="flex flex-col md:flex-row gap-4">
             <input
               type="password"
               placeholder="Set a strong password"
@@ -164,7 +164,7 @@ export default function Signup({ setShowPanel }) {
               onChange={(e) => setConfirmpass(e.target.value)}
             />
           </span>
-          <span className="flex gap-x-4">
+          <span className="flex flex-col md:flex-row gap-4">
             <span className="flex flex-col space-y-2 flex-1">
               <span className="font-bold">Which city do you live in?</span>
               <input
@@ -174,10 +174,10 @@ export default function Signup({ setShowPanel }) {
                 value={loc}
               />
             </span>
-            <span className="flex flex-col space-y-2 flex-1">
+            <span className="flex flex-col overflow-x-hidden space-y-2 flex-1">
               <span className="font-bold">Enter your contact number</span>
               <span className="flex items-center">
-                <span className="bg-yellow1 text-white font-bold p-1 rounded-l-md">
+                <span className="bg-yellow1 text-white font-bold py-1 px-2 rounded-l-md">
                   +91
                 </span>
                 <input
