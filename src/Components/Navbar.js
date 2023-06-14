@@ -65,36 +65,15 @@ export default function Navbar() {
           <Link to="/" className="w-24">
             <img src={logo} className="mx-auto rounded-sm my-1" />
           </Link>
+
           {searchres && (
             <div
               className={
                 searchCommunity
-                  ? "text-xs w-3/5 absolute max-h-40 z-50 overflow-y-scroll top-16 scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-none scrollbar-thin pr-4"
+                  ? "bg-white bg-opacity-60 rounded-md text-xs md:w-3/5 w-4/5 absolute max-h-40 z-50 overflow-y-scroll top-16 scrollbar-thumb-blue1 scrollbar-thumb-rounded-2xl scrollbar-track-none scrollbar-thin px-4 py-2"
                   : "hidden"
               }
             >
-              <button
-                className="fixed z-50"
-                onClick={function () {
-                  setSearchres("");
-                  setSearchCommunity("");
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="bg-yellow1 rounded-full p-1 w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
               {searchres.map((each) => (
                 <Link
                   to={`community/${each.community.name.split(" ").join("_")}`}
@@ -102,12 +81,12 @@ export default function Navbar() {
                 >
                   <span className="flex items-center justify-between font-bold">
                     <span className="md:text-xl">{each.title}</span>
-                    <span className="flex gap-1 items-center">
-                      <span className="bg-slate-100 px-2 py-1">
+                    <span className="flex flex-wrap gap-1 items-center">
+                      <span className="bg-slate-200 px-2 py-1">
                         {each.user.username}
                       </span>
                       @
-                      <span className="bg-slate-100 px-2 py-1">
+                      <span className="bg-slate-200 px-2 py-1">
                         {each.community.name}
                       </span>
                     </span>
@@ -121,7 +100,7 @@ export default function Navbar() {
           )}
 
           {/* Search Bar -- Community */}
-          <form className="flex w-full outline-2 items-center border space-x-2 border-slate-300 rounded-md px-2 py-1 text-sm relative overflow-x-hidden">
+          <form className="flex flex-wrap sm:flex-nowrap w-full outline-2 items-center border space-x-2 border-slate-300 rounded-md px-2 py-1 text-sm relative overflow-x-hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -137,15 +116,36 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Search Pettera"
-              className="outline-none flex-1 bg-transparent sm:inline-block"
+              className="outline-none flex-1 min-w-[15vw] bg-transparent sm:inline-block"
               value={searchCommunity}
               onChange={(e) => setSearchCommunity(e.target.value)}
             />
+            <div
+              onClick={function () {
+                setSearchres("");
+                setSearchCommunity("");
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="bg-yellow1 rounded-full p-1 w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
             <button
               type="submit"
               className={
                 searchCommunity
-                  ? "text-xs px-2 py-1 bg-yellow1 text-white rounded-md font-bold"
+                  ? "text-xs px-2 py-1 m-1 bg-yellow1 text-white rounded-sm font-bold"
                   : "hidden"
               }
               onClick={(e) => handleSearchContent(e)}
@@ -156,7 +156,7 @@ export default function Navbar() {
               type="submit"
               className={
                 searchCommunity
-                  ? "text-xs px-2 py-1 bg-yellow1 text-white rounded-md font-bold"
+                  ? "text-xs px-2 py-1 m-1 bg-yellow1 text-white rounded-sm font-bold"
                   : "hidden"
               }
               onClick={(e) => handleSearchTitle(e)}
@@ -178,7 +178,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="white"
-              class="w-6 h-6"
+              class="sm:w-6 sm:h-6 w-8 h-8"
             >
               <path
                 stroke-linecap="round"
@@ -200,7 +200,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="white"
-              class="w-6 h-6"
+              class="sm:w-6 sm:h-6 w-8 h-8"
             >
               <path
                 stroke-linecap="round"
@@ -223,7 +223,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               stroke-width="1"
               stroke="white"
-              class="w-6 h-6"
+              class="sm:w-6 sm:h-6 w-8 h-8"
             >
               <path
                 stroke-linecap="round"
@@ -248,7 +248,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              class="sm:w-6 sm:h-6 w-8 h-8"
             >
               <path
                 stroke-linecap="round"

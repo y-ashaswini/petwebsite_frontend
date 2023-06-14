@@ -27,10 +27,10 @@ export default function Resources({ setShowPanel }) {
         )}
       </div>
       <div className="my-4 md:my-8 flex flex-col">
-        <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
+        {/* <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 text-2xl flex items-center">
           RESOURCES
-        </span>
-        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold ">
+        </span> */}
+        <span className="bg-peach1 rounded-md text-yellow1 block md:p-8 p-4 font-bold border-2 border-b-8 border-r-8 border-yellow1">
           <div className="mb-4">
             At Pettera, we believe that providing resources for stray animals is
             crucial in ensuring their well-being. We understand that taking care
@@ -56,7 +56,7 @@ export default function Resources({ setShowPanel }) {
         <div className="md:text-3xl text-lg font-bold text-blue1 flex justify-between my-4">
           List of Essential Resources
         </div>
-        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold ">
+        <span className="bg-peach1 rounded-md text-yellow1 block md:p-8 p-4 font-bold border-2 border-b-8 border-r-8 border-yellow1">
           {intro_para}
         </span>
         <div className="grid grid-cols-2 gap-2 md:gap-4 mt-4">

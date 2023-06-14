@@ -30,7 +30,7 @@ export default function Aboutus({ setShowPanel }) {
         <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
           WHO WE ARE
         </span>
-        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md border-b-8 border-r-8 border-yellow1">
           Pettera is an early-stage start-up that is on a mission to build a
           community that supports animals in need. We are passionate about
           creating a platform that connects animal lovers with animals that
@@ -38,7 +38,7 @@ export default function Aboutus({ setShowPanel }) {
         </span>
       </div>
       <div className="my-4 md:my-8 flex">
-        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-s-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-s-md border-b-8 border-l-8 border-yellow1">
           At Pettera, our mission is simple: we want to make a difference in the
           world and help animals in need. We believe that animals deserve love,
           care, and respect, and we are dedicated to building a community that
@@ -55,7 +55,7 @@ export default function Aboutus({ setShowPanel }) {
         <span className="bg-blue1 text-white font-bold text-center md:p-8 p-4 md:px-6 rounded-s-md w-fit lg:text-2xl md:text-xl flex items-center">
           HOW YOU CAN HELP
         </span>
-        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md">
+        <span className="bg-peach1 text-yellow1 block md:p-8 p-4 font-bold rounded-e-md border-b-8 border-r-8 border-yellow1">
           You can help make a difference for animals by spreading the word about
           our community and inviting your friends and family to join us.
           Together, we can create a movement for animal welfare that reaches far

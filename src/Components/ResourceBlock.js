@@ -6,13 +6,15 @@ export default function ResourceBlock({ each_resource }) {
   return (
     <div
       className={
-        "bg-blue1 flex flex-col gap-4 rounded-sm p-2 h-fit " +
+        "bg-blue1 flex flex-col gap-4 rounded-sm p-2 h-fill justify-center " +
         (showContent || showContact ? "col-span-2" : "")
       }
     >
       <span className="flex justify-between items-center text-white">
-        <span className="text-xl font-bold ">{each_resource.topic}</span>
-        <span className="flex gap-2">
+        <span className="md:text-xl sm:text-lg text-xs font-bold">
+          {each_resource.topic}
+        </span>
+        <span className="flex sm:gap-2">
           {showContact ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +22,7 @@ export default function ResourceBlock({ each_resource }) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
+              className="sm:w-6 sm:h-6 w-8 h-8 cursor-pointer"
               onClick={() => toggleShowContacts((curr) => !curr)}
             >
               <path
@@ -36,7 +38,7 @@ export default function ResourceBlock({ each_resource }) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
+              className="sm:w-6 sm:h-6 w-8 h-8 cursor-pointer"
               onClick={() => toggleShowContacts((curr) => !curr)}
             >
               <path
@@ -53,7 +55,7 @@ export default function ResourceBlock({ each_resource }) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
+              className="sm:w-6 sm:h-6 w-8 h-8 cursor-pointer"
               onClick={() => toggleShowContents((curr) => !curr)}
             >
               <path
@@ -69,7 +71,7 @@ export default function ResourceBlock({ each_resource }) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
+              className="sm:w-6 sm:h-6 w-8 h-8 cursor-pointer"
               onClick={() => toggleShowContents((curr) => !curr)}
             >
               <path
@@ -91,7 +93,7 @@ export default function ResourceBlock({ each_resource }) {
             }
           >
             <span className="p-[2px] bg-slate-600 rounded-sm"></span>
-            <span className=" text-sm ">{each_resource_content}</span>
+            <span className="text-sm">{each_resource_content}</span>
           </span>
         );
       })}

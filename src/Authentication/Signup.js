@@ -129,7 +129,7 @@ export default function Signup({ setShowPanel }) {
         </svg>
         <div className="md:text-3xl text-lg font-bold text-blue1">Sign up</div>
       </span>
-      <div className="rounded-md max-h-[100vh] bg-peach1 flex flex-col p-6 m-4 text-yellow1">
+      <div className="rounded-md max-h-[100vh] bg-peach1 flex flex-col p-6 m-4 text-yellow1 border-2 border-b-8 border-r-8 border-yellow1">
         <form className="flex flex-col space-y-8">
           <input
             type="text"

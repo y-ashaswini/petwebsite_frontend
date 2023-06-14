@@ -160,7 +160,7 @@ export default function CommunityExpanded({ setShowPanel }) {
         {/* Create Post */}
         <a
           href="#create_post"
-          className="fixed z-50 md:right-8 md:bottom-8 right-4 bottom-4 shadow-lg bg-yellow1 text-white rounded-full"
+          className="fixed z-50 md:right-8 md:bottom-8 right-4 bottom-4 shadow-lg bg-blue1 text-white rounded-full"
           onClick={() => setTogglepost((curr) => !curr + 0)}
         >
           <svg

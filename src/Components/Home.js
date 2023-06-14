@@ -16,7 +16,7 @@ export default function Home({ setShowPanel }) {
         {u_email && u_email.trim() !== "" ? (
           <>
             <Link to="/community/General_Animal_Discussions">
-              <div className="bg-blue1 opacity-90 hover:bg-blue1 hover:opacity-100 p-4 font-bold rounded-md items-center text-yellow1 flex justify-between gap-4 md:text-xl">
+              <div className="bg-blue1 opacity-90 hover:bg-blue1 hover:opacity-100 p-4 font-bold rounded-md items-center text-white flex justify-between gap-4 md:text-xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -31,7 +31,7 @@ export default function Home({ setShowPanel }) {
                     d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
                   />
                 </svg>
-                Begin exploring communities on the pane to the left!
+                Begin by exploring communities on the pane to the left!
                 <img src={paw} className="w-8 h-8 text-white" />
               </div>
             </Link>
@@ -39,11 +39,11 @@ export default function Home({ setShowPanel }) {
         ) : (
           <NotSignedin />
         )}
-        <span className="bg-blue2 my-4 text-white font-bold text-center md:p-8 p-4 md:px-6 lg:text-2xl md:text-xl flex items-center justify-between rounded-md">
+        <span className="bg-blue2 my-4 text-white font-bold text-center md:p-8 p-4 md:px-6 lg:text-2xl md:text-xl flex items-center justify-between rounded-md border-2 border-b-4 border-r-4 border-blue1">
           <span>WELCOME TO PETTERA!</span>
         </span>
 
-        <span className="bg-peach1 text-yellow1 block rounded-md md:p-8 p-4 font-bold ">
+        <span className="bg-peach1 text-yellow1 block rounded-md md:p-8 p-4 font-bold border-2 border-b-8 border-r-8 border-yellow1 ">
           <div className="mb-4">
             As animal lovers, we all want to help animals in need, but it can be
             overwhelming and confusing to know where to start with the 25

@@ -80,7 +80,7 @@ export default function Mailus({ setShowPanel }) {
         </svg>
         <div className="md:text-3xl text-lg font-bold text-blue1">Help us!</div>
       </span>
-      <span className="bg-peach1 text-yellow1 block md:p-8 p-4 mt-4 font-bold rounded-t-md">
+      <span className="bg-peach1 text-yellow1 block md:p-8 p-4 mt-4 font-bold rounded-t-md border-2 border-b-0 border-r-8 border-yellow1">
         <div className="text-yellow1 mb-4 md:text-xl">
           Help us improve and make a difference by sharing your valuable
           feedback and suggestions!
@@ -99,7 +99,7 @@ export default function Mailus({ setShowPanel }) {
         </div>
       </span>
 
-      <div className="max-h-[100vh] rounded-b-md bg-peach1 flex flex-col p-6 text-yellow1 text-sm">
+      <div className="max-h-[100vh] rounded-b-md bg-peach1 flex flex-col p-6 text-yellow1 text-sm border-t-0 border-2 border-b-8 border-r-8 border-yellow1">
         <form
           ref={form}
           onSubmit={(e) => handleQuery(e)}

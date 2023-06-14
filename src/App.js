@@ -85,10 +85,14 @@ export default function App() {
       <div className="h-[100vh] bg-peach2 max-h-[100vh] overflow-y-scroll md:p-0 px-2">
         <Navbar />
         <div className="grid grid-cols-8 min-h-screen gap-2 md:gap-0">
-          <div className="md:col-span-3 lg:col-span-2 sm:col-span-3 col-span-8">
-            {/* <span className={showPanel ? "" : "hidden sm:block"}> */}
+          <div
+            className={
+              u_email
+                ? "md:col-span-3 lg:col-span-2 sm:col-span-3 col-span-8"
+                : "hidden"
+            }
+          >
             <Panel showPanel={showPanel} setShowPanel={setShowPanel} />
-            {/* </span> */}
           </div>
           <div
             className={

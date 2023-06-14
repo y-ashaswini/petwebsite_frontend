@@ -1,3 +1,27 @@
+done
+6) switch rules and create posts positions
+9) add post thing as circular button bottom right corner
+10) title, info - change the way it looks on phone
+17) CHANGE TIME IN EACH POST!
+14) community tag in left pane - make it small text
+15) rename rules button to community resources
+11) community boxes on left - make padding smaller, reduce the extra white space
+
+yet to be done
+
+1) google sign in
+2) phone number, otp
+*) hotmail?
+3) size limit, file compression algo (?), allow phone pics
+4) button size - resources - increase it lmao (phone)
+5) phone thing - things don't look as nice
+7) tags based something
+8) please make the search ui better lmfao
+12) feedback taking process - EXCEL?
+13) admin feature lol
+16) make a new pet discussions community
+
+------------------------------------------------------------------------------------------------------------
 
 NOW {
     GENERAL COMMUNITY ISSUE 
