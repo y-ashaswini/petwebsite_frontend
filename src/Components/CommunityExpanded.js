@@ -169,7 +169,7 @@ export default function CommunityExpanded({ setShowPanel }) {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="md:w-16 md:h-16 w-8 h-8"
+            class="md:w-16 md:h-16 w-12 h-12 rounded-full shadow-md"
           >
             <path
               stroke-linecap="round"

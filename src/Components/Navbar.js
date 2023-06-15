@@ -132,7 +132,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                className="bg-yellow1 rounded-full p-1 w-6 h-6"
+                className="bg-yellow1 cursor-pointer rounded-full p-1 w-6 h-6"
               >
                 <path
                   stroke-linecap="round"
