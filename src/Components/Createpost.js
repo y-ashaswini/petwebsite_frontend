@@ -73,13 +73,14 @@ export default function Createpost({ comm_name, comm_id }) {
     reader.readAsDataURL(img);
 
     reader.addEventListener("load", () => {
+      const f = reader.result.split(";")[0];
       if (
         // reader.result.split(";")[0] === "data:text/plain" ||
-        reader.result.split(";")[0] ===
-        ("data:image/png" ||
-          "data:image/jpeg" ||
-          "data:image/gif" ||
-          "data:image/heic")
+
+        f === "data:image/png" ||
+        f === "data:image/jpeg" ||
+        f === "data:image/gif" ||
+        f === "data:image/heic"
       ) {
         setAttachment([...attachment, reader.result]);
       } else {
