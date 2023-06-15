@@ -50,13 +50,8 @@ export default function Contribute() {
     const img = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(img);
-    // each.split(";")[0] === "data:text/plain"
-
     reader.addEventListener("load", () => {
-      if (
-        // reader.result.split(";")[0] === "data:text/plain" ||
-        reader.result.split(";")[0] === "data:image/png"
-      ) {
+      if (reader.result.split("/")[0] === "data:image") {
         setAttachment([...attachment, reader.result]);
       } else {
         toast.error("Invalid attachment format", toast_param);
@@ -186,16 +181,16 @@ export default function Contribute() {
         <span className="flex flex-wrap gap-2">
           {attachment &&
             attachment.map((each) => {
-              return each.split(";")[0] === "data:text/plain" ? (
+              return each.split("/")[0] === "data:image" ? (
+                <img src={each} className="rounded-lg max-h-[20vh] w-fit m-1" />
+              ) : (
                 <a
                   href={each}
                   download
-                  className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
+                  className="bg-blue1 min-w-12 px-2 py-1 rounded-sm text-white font-bold"
                 >
                   Document
                 </a>
-              ) : (
-                <img src={each} className="rounded-lg max-h-[20vh] w-fit m-1" />
               );
             })}
         </span>
