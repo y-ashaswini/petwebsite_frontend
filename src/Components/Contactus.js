@@ -109,20 +109,20 @@ export default function Mailus({ setShowPanel }) {
           <input
             type="text"
             name="user_entername"
-            className="bg-white text-blue1 outline-none rounded-md px-2 py-1 my"
+            className="border-b-[1px] outline-none bg-transparent border-zinc-500 text-zinc-200"
           />
           <label className="-mb-2 font-bold">Username</label>
           <input
             type="text"
             name="user_username"
             value={u_name}
-            className="bg-white text-blue1 outline-none rounded-md px-2 py-1 my"
+            className="border-b-[1px] outline-none bg-transparent border-zinc-500 text-zinc-200"
           />
           <label className="-mb-2 font-bold">Email</label>
           <input
             type="email"
             name="user_email"
-            className="bg-white text-blue1 outline-none rounded-md px-2 py-1"
+            className="border-b-[1px] outline-none bg-transparent border-zinc-500 text-zinc-200"
             value={u_email}
           />
           <label className="-mb-2 font-bold">Message</label>

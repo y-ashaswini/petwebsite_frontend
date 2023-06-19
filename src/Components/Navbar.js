@@ -121,6 +121,7 @@ export default function Navbar() {
               onChange={(e) => setSearchCommunity(e.target.value)}
             />
             <div
+              className={searchCommunity ? "" : "hidden"}
               onClick={function () {
                 setSearchres("");
                 setSearchCommunity("");
@@ -145,7 +146,7 @@ export default function Navbar() {
               type="submit"
               className={
                 searchCommunity
-                  ? "text-xs px-2 py-1 m-1 bg-yellow1 text-white rounded-sm font-bold"
+                  ? "text-xs px-2 py-1 m-1 w-fit bg-yellow1 text-white rounded-sm font-bold"
                   : "hidden"
               }
               onClick={(e) => handleSearchContent(e)}
@@ -156,7 +157,7 @@ export default function Navbar() {
               type="submit"
               className={
                 searchCommunity
-                  ? "text-xs px-2 py-1 m-1 bg-yellow1 text-white rounded-sm font-bold"
+                  ? "text-xs px-2 py-1 m-1 w-fit bg-yellow1 text-white rounded-sm font-bold"
                   : "hidden"
               }
               onClick={(e) => handleSearchTitle(e)}
@@ -209,7 +210,7 @@ export default function Navbar() {
               />
             </svg>
 
-            <span className="hidden lg:inline">About us</span>
+            <span className="hidden lg:inline">About</span>
           </Link>
 
           {/* Mail us */}
@@ -302,7 +303,7 @@ export default function Navbar() {
 
             {u_role && (
               <span className="text-sm font-bold border-r-4 border-b-4 border-blue1 text-blue1 border-2 px-2 py-1 w-fit ">
-                {u_role.toUpperCase()}
+                {u_role ? "ADMIN" : "NON-ADMIN USER"}
               </span>
             )}
             <Signout />

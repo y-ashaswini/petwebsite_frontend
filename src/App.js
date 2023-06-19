@@ -35,13 +35,13 @@ export default function App() {
 
   useEffect(() => {
     async function getUserdbdata(userdata) {
-      set_u_role(userdata.user.role);
       set_u_email(userdata.user.email);
       set_u_uuid(userdata.user.id);
       set_u_ph(userdata.user.phone);
+
       let { data: userDet, userdberror } = await supabase
         .from("user")
-        .select("id,username")
+        .select("id,username,is_admin")
         .eq("user_uuid", userdata.user.id);
       if (userdberror) console.log("user db error: ", userdberror);
       else {
@@ -56,6 +56,7 @@ export default function App() {
         // console.log("userdbdata: ", userdbdata);
         set_u_id(userdbdata.id);
         set_u_name(userdbdata.username);
+        set_u_role(userdbdata.is_admin);
         // }
       } else {
         console.log("auth user error");

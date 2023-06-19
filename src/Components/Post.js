@@ -37,7 +37,7 @@ export default function Post({
   likes_list,
   created_at,
 }) {
-  const { u_id } = useContext(userDataContext);
+  const { u_id, u_role } = useContext(userDataContext);
   const [showComments, setShowComments] = useState(false);
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
@@ -89,13 +89,15 @@ export default function Post({
 
   async function handlePin() {
     // ONLY IF USER IS ADMIN
-    const { data, error } = await supabase
-      .from("post")
-      .update({ pinned: !isPinned })
-      .eq("id", id)
-      .select();
-    if (error) console.log("pinning error: ", error);
-    setIsPinned((curr) => !curr);
+    if (u_role) {
+      const { data, error } = await supabase
+        .from("post")
+        .update({ pinned: !isPinned })
+        .eq("id", id)
+        .select();
+      if (error) console.log("pinning error: ", error);
+      setIsPinned((curr) => !curr);
+    }
   }
 
   const handleInsertNode = async (
@@ -196,15 +198,17 @@ export default function Post({
         }
       >
         {/* Pin */}
-        <img
-          src={pin}
-          className={
-            isPinned
-              ? "w-5 h-5 absolute right-4 top-4 z-30 cursor-pointer"
-              : "w-5 h-5 absolute right-4 top-4 z-30 opacity-20 hover:opacity-100 cursor-pointer"
-          }
-          onClick={handlePin}
-        />
+        {u_role && (
+          <img
+            src={pin}
+            className={
+              isPinned
+                ? "w-5 h-5 absolute right-4 top-4 z-30 cursor-pointer"
+                : "w-5 h-5 absolute right-4 top-4 z-30 opacity-20 hover:opacity-100 cursor-pointer"
+            }
+            onClick={handlePin}
+          />
+        )}
 
         {/* Delete Post */}
         <svg
@@ -272,9 +276,9 @@ export default function Post({
         </span>
         {/* Tags */}
         <span className="flex flex-wrap text-xs">
-          <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
+          {/* <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
             {user.email}
-          </span>
+          </span> */}
           <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
             {moment(created_at).format("MMMM Do YYYY, h:mm:ss a")}
           </span>

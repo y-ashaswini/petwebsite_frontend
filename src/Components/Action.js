@@ -12,3 +12,4 @@ const Action = ({ handleClick, type }) => {
 };
 
 export default Action;
+ 

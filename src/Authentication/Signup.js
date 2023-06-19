@@ -61,6 +61,7 @@ export default function Signup({ setShowPanel }) {
     console.log("added data: ", adddata);
     set_u_id(adddata[0].id);
     set_u_name(adddata[0].username);
+    set_u_role(adddata[0].is_admin);
     return adddata;
   }
 
@@ -75,7 +76,6 @@ export default function Signup({ setShowPanel }) {
     }
     set_u_email(adduserdata.user.email);
     set_u_ph(adduserdata.user.phone);
-    set_u_role(adduserdata.user.aud);
     set_u_uuid(adduserdata.user.id);
     return adduserdata.user.id;
   }

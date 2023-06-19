@@ -72,14 +72,14 @@ export default function Signin({ setShowPanel }) {
             toast_param
           );
         } else {
+          // console.log("user data: ", data.user);
           set_u_email(email);
           set_u_ph(data.user.phone);
-          set_u_role(data.user.aud);
           set_u_uuid(data.user.id);
           const userdbdata = await getUserDeets(data.user.id);
-          // console.log("userdbdata: ", userdbdata);
           set_u_id(userdbdata[0].id);
           set_u_name(userdbdata[0].username);
+          set_u_role(userdbdata[0].is_admin);
           // toast.info("Sign in successful", toast_param);
           navigate("/");
         }

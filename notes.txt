@@ -1,3 +1,22 @@
+new {
+    done: 
+    admin feature, pinning
+    remove email
+    show communities - change color - blue (or hamburger?)
+    remove cross on search bar when no type
+
+    remaining: 
+
+    delete image post   
+    click image expand
+
+    add logo
+    manifest?
+    logo?
+
+    
+}
+
 done
 6) switch rules and create posts positions
 9) add post thing as circular button bottom right corner
