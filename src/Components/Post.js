@@ -42,6 +42,8 @@ export default function Post({
   const [user, setUser] = useState("");
   const [city, setCity] = useState("");
   const [imgs, setImgs] = useState("");
+  const [expandimg, setExpandimg] = useState(false);
+  const [openimgsrc, setOpenimgsrc] = useState("");
   const [liked_by_curr_user, setLiked_by_curr_user] = useState(false);
   const [parsed_likes_list, setParsed_likes_list] = useState(
     JSON.parse(likes_list)
@@ -191,6 +193,31 @@ export default function Post({
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
+      <span
+        className={
+          expandimg
+            ? "absolute left-1/2 top-1/2 bg-white rounded-lg border-2 border-blue1 shadow-lg z-50 -translate-x-1/2 -translate-y-1/2 p-2"
+            : "hidden"
+        }
+      >
+        <div onClick={() => setExpandimg(false)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6 mb-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <img src={openimgsrc} className="h-full w-full rounded-lg" />
+      </span>
       <div
         className={
           "text-blue1 flex flex-col w-auto border-2 border-r-8 bg-peach1 border-b-8 rounded-md md:p-8 p-5 relative " +
@@ -276,9 +303,6 @@ export default function Post({
         </span>
         {/* Tags */}
         <span className="flex flex-wrap text-xs">
-          {/* <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
-            {user.email}
-          </span> */}
           <span className="rounded-sm p-1 bg-yellow1 text-peach1 font-bold mr-1 my-1">
             {moment(created_at).format("MMMM Do YYYY, h:mm:ss a")}
           </span>
@@ -289,53 +313,15 @@ export default function Post({
         </span>
         {/* Content */}
         <span className="sm:text-md text-sm">{content}</span>
-        <span className="flex space-x-4 pt-2">
-          {/* Likes */}
-          {/* <span className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-            />
-          </svg>
-
-          <span className="text-sm font-bold ">5.7K</span>
-        </span> */}
-          {/* Comment */}
-          {/* <span
-          className="flex space-x-1 items-center hover:text-slate-700 hover:cursor-pointer"
-          onClick={handleComment}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-            stroke-width="1"
-            stroke="white"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
-            />
-          </svg>
-          <span className="text-sm font-bold ">2.1K</span>
-        </span> */}
-        </span>
+        <span className="flex space-x-4 pt-2"></span>
         {/* Image / Video files */}
 
         <span className="flex gap-2 flex-wrap">
           {imgs &&
-            imgs.map((each) => {
+            imgs.map((each, index) => {
               return each.split(";")[0] === "data:text/plain" ? (
                 <a
+                  key={index}
                   href={each}
                   download
                   className="bg-blue1 px-2 py-1 rounded-sm text-white font-bold"
@@ -343,7 +329,40 @@ export default function Post({
                   Document
                 </a>
               ) : (
-                <img src={each} className="rounded-lg max-h-[20vh] w-fit m-1" />
+                <span className="relative">
+                  <img
+                    key={index}
+                    src={each}
+                    className="rounded-lg max-h-[20vh] w-fit m-1 cursor-pointer"
+                    onClick={function () {
+                      setExpandimg(true);
+                      setOpenimgsrc(each);
+                    }}
+                  />
+                  <div
+                    className="absolute top-2 right-2"
+                    onClick={function () {
+                      const l = [...imgs];
+                      l.splice(index, 1);
+                      setImgs(l);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </div>
+                </span>
               );
             })}
         </span>

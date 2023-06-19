@@ -115,12 +115,26 @@ export default function CommunityExpanded({ setShowPanel }) {
           </span>
 
           <span
-            className="bg-slate-900 text-white font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 border-slate-900 outline-none sm:text-sm text-xs mx-4"
+            className={
+              "  font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 outline-none sm:text-sm text-xs mx-4 border-slate-900 " +
+              (toggleRules ? "bg-slate-900 text-white" : " text-slate-900")
+            }
             onClick={() => setToggleRules((curr) => !curr + 0)}
           >
-            {toggleRules
-              ? "CLOSE COMMUNTIY RESOURCES"
-              : "SHOW COMMUNTIY RESOURCES"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
+              />
+            </svg>
           </span>
         </span>
         <span
@@ -178,38 +192,6 @@ export default function CommunityExpanded({ setShowPanel }) {
             />
           </svg>
         </a>
-
-        {/* Page Specific Resources */}
-        {/* <span className="fixed z-50 right-8 bottom-4 text-white">
-          <span
-            className={
-              "max-w-[40vw] flex flex-col p-4 rounded-sm text-xs bg-slate-800 max-h-[50vh] overflow-y-scroll scrollbar-thumb-slate-800 scrollbar-thumb-rounded-2xl scrollbar-track-slate-800 scrollbar-thin shadow-lg " +
-              showOptions[toggleRules]
-            }
-          >
-            {Object.keys(commInfo).map((key, index) => {
-              return (
-                <span key={index}>
-                  <span className="font-bold text-sm">{key}</span>
-                  {commInfo[key].map((each) => {
-                    return (
-                      <span className="flex gap-2 my-2">
-                        <span className="p-[1.5px] bg-slate-600 rounded-sm"></span>
-                        <span className="italic">{each}</span>
-                      </span>
-                    );
-                  })}
-                </span>
-              );
-            })}
-          </span>
-          <span
-            className="py-1 px-4 my-1 rounded-sm bg-slate-900 w-full flex text-white text-xs font-bold text-center cursor-pointer shadow-lg"
-            onClick={() => setToggleRules((curr) => !curr + 0)}
-          >
-            {toggleRules ? "CLOSE" : "RULES"}
-          </span>
-        </span> */}
 
         {pinnedPostData ? (
           pinnedPostData.map((post) => {

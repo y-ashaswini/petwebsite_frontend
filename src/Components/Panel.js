@@ -43,7 +43,7 @@ export default function Panel({ showPanel, setShowPanel }) {
     <>
       <div
         className={
-          "bg-blue2 text-white cursor-pointer text-xs md:text-sm font-bold px-2 py-8 sticky sm:hidden rounded-sm text-center m-2" +
+          "bg-blue2 border-2 z-50 border-r-4 border-b-4 rounded-md border-blue1 text-white cursor-pointer text-xs md:text-sm font-bold px-2 py-8 sticky sm:hidden text-center m-2" +
           (!u_email && " hidden")
         }
         onClick={() => setShowPanel((curr) => !curr)}
@@ -70,7 +70,7 @@ export default function Panel({ showPanel, setShowPanel }) {
             ))}
         </div>
       ) : (
-        <div className="bg-peach1 overflow-y-scroll w-full"></div>
+        <div className="bg-peach1 overflow-y-scroll w-full z-50"></div>
       )}
     </>
   );

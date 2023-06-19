@@ -13,6 +13,8 @@ export default function Createpost({ comm_name, comm_id }) {
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState([]);
+  const [expandimg, setExpandimg] = useState(false);
+  const [openimgsrc, setOpenimgsrc] = useState("");
 
   // Values needed:
   // created by user id -- u_id
@@ -99,6 +101,31 @@ export default function Createpost({ comm_name, comm_id }) {
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
+      <span
+        className={
+          expandimg
+            ? "absolute left-1/2 top-1/2 bg-white rounded-lg border-2 border-blue1 shadow-lg z-50 -translate-x-1/2 -translate-y-1/2 p-2"
+            : "hidden"
+        }
+      >
+        <div onClick={() => setExpandimg(false)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6 mb-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <img src={openimgsrc} className="h-full w-full rounded-lg" />
+      </span>
       <div className="rounded-md bg-blue2 border-2 border-r-8 border-b-8 border-blue1 flex flex-col p-6 my-4 text-blue1">
         <span className="flex items-center">
           <span className="rounded-sm p-1 bg-white m-1 font-bold text-blue1">
@@ -127,15 +154,46 @@ export default function Createpost({ comm_name, comm_id }) {
           />
           <span className="flex flex-wrap gap-2">
             {attachment &&
-              attachment.map((each) => {
+              attachment.map((each, index) => {
                 return each.split("/")[0] === "data:image" ? (
-                  <img
-                    src={each}
-                    className="rounded-lg max-h-[20vh] w-fit m-1"
-                  />
+                  <span className="relative">
+                    <img
+                      key={index}
+                      src={each}
+                      className="rounded-lg max-h-[20vh] w-fit m-1 cursor-pointer"
+                      onClick={function () {
+                        setExpandimg(true);
+                        setOpenimgsrc(each);
+                      }}
+                    />
+                    <div
+                      className="absolute top-2 right-2"
+                      onClick={function () {
+                        const l = [...attachment];
+                        l.splice(index, 1);
+                        setAttachment(l);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </div>
+                  </span>
                 ) : (
                   <a
                     href={each}
+                    key={index}
                     download
                     className="bg-blue1 min-w-12 px-2 py-1 rounded-sm text-white font-bold"
                   >
