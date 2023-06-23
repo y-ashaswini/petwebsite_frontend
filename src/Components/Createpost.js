@@ -124,7 +124,7 @@ export default function Createpost({ comm_name, comm_id }) {
             />
           </svg>
         </div>
-        <img src={openimgsrc} className="h-full w-full rounded-lg" />
+        <img src={openimgsrc} className="max-h-96 w-fit rounded-lg" />
       </span>
       <div className="rounded-md bg-blue2 border-2 border-r-8 border-b-8 border-blue1 flex flex-col p-6 my-4 text-blue1">
         <span className="flex items-center">

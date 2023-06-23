@@ -329,40 +329,15 @@ export default function Post({
                   Document
                 </a>
               ) : (
-                <span className="relative">
-                  <img
-                    key={index}
-                    src={each}
-                    className="rounded-lg max-h-[20vh] w-fit m-1 cursor-pointer"
-                    onClick={function () {
-                      setExpandimg(true);
-                      setOpenimgsrc(each);
-                    }}
-                  />
-                  <div
-                    className="absolute top-2 right-2"
-                    onClick={function () {
-                      const l = [...imgs];
-                      l.splice(index, 1);
-                      setImgs(l);
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </div>
-                </span>
+                <img
+                  key={index}
+                  src={each}
+                  className="rounded-lg max-h-[20vh] w-fit m-1 cursor-pointer"
+                  onClick={function () {
+                    setExpandimg(true);
+                    setOpenimgsrc(each);
+                  }}
+                />
               );
             })}
         </span>

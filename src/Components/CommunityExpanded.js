@@ -96,7 +96,7 @@ export default function CommunityExpanded({ setShowPanel }) {
               viewBox="0 0 24 24"
               strokeWidth="2"
               fill="none"
-              className="w-6 h-6 cursor-pointer mr-2 "
+              className="w-6 h-6 cursor-pointer sm:mr-2 "
               onClick={() => setToggleInfo((curr) => !curr + 0)}
             >
               <path
@@ -108,7 +108,7 @@ export default function CommunityExpanded({ setShowPanel }) {
 
             <div
               id="create_post"
-              className="md:text-3xl w-fit text-lg font-bold "
+              className="md:text-3xl w-fit sm:text-lg font-bold "
             >
               {currCommName + ""}
             </div>
@@ -116,7 +116,7 @@ export default function CommunityExpanded({ setShowPanel }) {
 
           <span
             className={
-              "  font-bold text-center px-3 py-1 rounded-md cursor-pointer border-2 outline-none sm:text-sm text-xs mx-4 border-slate-900 " +
+              "  font-bold text-center sm:px-3 sm:py-1 p-1 rounded-md cursor-pointer border-2 outline-none sm:text-sm text-xs sm:mx-4 border-slate-900 " +
               (toggleRules ? "bg-slate-900 text-white" : " text-slate-900")
             }
             onClick={() => setToggleRules((curr) => !curr + 0)}

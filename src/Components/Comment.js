@@ -28,6 +28,8 @@ const Comment = ({
   const [attachment, setAttachment] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const [expand, setExpand] = useState(true);
+  const [expandimg, setExpandimg] = useState(false);
+  const [openimgsrc, setOpenimgsrc] = useState("");
 
   // Function for image attaching and previewing
   function handleAttachments(e) {
@@ -82,6 +84,31 @@ const Comment = ({
         theme="light"
         className="font-bold text-blue1 rounded-lg"
       />
+      <span
+        className={
+          expandimg
+            ? "fixed left-1/2 top-1/2 bg-white rounded-lg border-2 border-blue1 shadow-lg z-50 -translate-x-1/2 -translate-y-1/2 p-2"
+            : "hidden"
+        }
+      >
+        <div onClick={() => setExpandimg(false)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6 mb-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <img src={openimgsrc} className="max-h-96 w-fit rounded-lg" />
+      </span>
       <div
         className={
           comment.id === 1
@@ -145,14 +172,44 @@ const Comment = ({
                 <Action type="COMMENT" handleClick={onAddComment} />
               </span>
             </form>
-            <span className="flex flex-wrap gap-2">
+            <span className="flex flex-wrap gap-2 items-start">
               {attachment &&
-                attachment.map((each) => {
-                  return each.split("/")[0].split === "data:image" ? (
-                    <img
-                      src={each}
-                      className="rounded-lg max-h-[20vh] w-fit m-1"
-                    />
+                attachment.map((each, index) => {
+                  return each.split("/")[0] === "data:image" ? (
+                    <span className="relative">
+                      <img
+                        key={index}
+                        src={each}
+                        className="rounded-lg max-h-[20vh] w-fit m-1 cursor-pointer"
+                        onClick={function () {
+                          setExpandimg(true);
+                          setOpenimgsrc(each);
+                        }}
+                      />
+                      <div
+                        className="absolute top-2 right-2"
+                        onClick={function () {
+                          const l = [...attachment];
+                          l.splice(index, 1);
+                          setAttachment(l);
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="bg-yellow1 cursor-pointer rounded-full p-1 h-6 w-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </div>
+                    </span>
                   ) : (
                     <a
                       href={each}
