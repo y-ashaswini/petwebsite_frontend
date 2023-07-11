@@ -67,7 +67,7 @@ export default function CommunityExpanded({ setShowPanel }) {
     }
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     setShowPanel(false);
     GET_POSTS();
   }, [renderingID]);

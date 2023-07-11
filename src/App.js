@@ -119,6 +119,7 @@ export default function App() {
                 exact
                 element={<Home setShowPanel={setShowPanel} />}
               />
+
               <Route
                 path="/contact"
                 exact

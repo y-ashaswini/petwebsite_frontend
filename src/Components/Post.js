@@ -48,7 +48,7 @@ export default function Post({
   const [parsed_likes_list, setParsed_likes_list] = useState(
     JSON.parse(likes_list)
   );
-
+ 
   const [showDel, setShowDel] = useState(u_id === created_by_user_id);
   const [showSureDel, setShowSureDel] = useState(false);
 
