@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Pettera - a Social Media Platform for Pet Owners (and Others in the Business)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Fullstack website
+- React.js + TailwindCSS Frontend
+- Supabase Backend
+- self-hosted on Vercel
+- responsive, can be used on phone too
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+- create account/ login to an existing account
+- communities - visible only once you are authenticated
+- each community has its own community posts
+- can create a post/ edit a post
+- can add and delete multiple pictures from a post 
+- can like posts by others 
+- posts ordered according to likes, the one with highest likes comes to top (based on popularity)
+- certain users with the "admin" role (controlled at the backend) can delete inappropriate posts
+- "admin" users can also pin certain posts - they appear at the top, above every other post 
+- can search posts by their title and content
+- can contact admins through mail 
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- was created for a startup, now no longer in official use by them
+- details stated on the website may no longer be accurate/ point to
+ the right people
+- viewers are requested not to misuse the contact details on the website
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Pictures for Reference!
+![1](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/20744683-be49-4205-9df7-7534aa104d9d)
+![2](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/6fbf38a5-cd96-476a-a45b-a38322cec11f)
+![3](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/8d54223c-de61-4410-ad64-86cf14b2385f)
+![4](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/0b882480-f177-40bf-be4e-f78927e8327f)
+![5](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/66f9f74e-9b44-426d-801f-99febeacd689)
+![6](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/5ea30c05-9cf0-4c51-9caf-be9d2ff03755)
+![7](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/170d526c-ea45-4e36-9372-3dfdedd2e953)
+![8](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/1c3a6d88-63c2-4aa3-b9dc-1e1b44a9dacf)
+![9](https://github.com/y-ashaswini/petwebsite_frontend/assets/83407675/9d04bb1e-e027-43eb-b599-21fbd2b0c9d9)
